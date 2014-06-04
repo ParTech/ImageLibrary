@@ -1,0 +1,111 @@
+﻿@model ParTech.ImageLibrary.Core.Models.Product
+@{
+    ViewBag.Title = "Product details";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<input type="button" value="Back to list" onclick="history.go(-1);" />
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+    <ul>
+        <li>
+            Name: @Model.Name
+        </li>
+        <li>
+            EDI: @Model.EDI
+        </li>
+        <li>
+            SKU: @Model.SKU
+        </li>
+        <li>
+            Year: @Model.Year
+        </li>
+        <li>
+            Material: @Model.Material
+        </li>
+        <li>
+            Size: @Model.Size
+        </li>
+        <li>
+            Brand: @Model.Brand.Name
+        </li>
+        <li>
+            Category: @Model.Category.Name
+        </li>
+        <li>
+            Collection: 
+            @if (Model.Collection == null)
+            {
+                @Html.Raw("-");
+            }
+            else
+            {
+                @Model.Collection.Name;
+            }
+        </li>
+        <li>
+            Gender: @Model.Gender.Name
+        </li>
+        <li>
+            Season: @Model.Season.Name
+        </li>
+    </ul>
+
+    <hgroup class="title">
+        <h2>Product images</h2>
+    </hgroup>
+
+    @if (!Model.Images.Any())
+    {
+        <span>
+            No images available.
+        </span>
+    }
+    else
+    {
+        foreach (var image in Model.Images)
+        {
+            <div class="image">
+                <div class="imagecontainer">
+                    <img src="@Url.Action("ShowThumbnail", "Seller", new { imageid = image.ImageID })" />
+                </div>
+                <div class="datacontainer">
+                    Resolution: @image.Resolution<br />
+                    Type: @image.ImageFormat.Replace("image/", string.Empty)
+                </div>
+            </div>
+        }
+    }
+</section>
+
+<section class="form">
+    <hgroup class="title">
+        <h2>Upload images for product</h2>
+    </hgroup>
+
+    @using (Html.BeginForm("UploadImage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", id = "upload" }))
+    {
+        @Html.Hidden("product", @Model.ProductID)        
+        
+        <div id="drop">
+		    Drop Here
+
+		    <a>Browse</a>
+		    <input type="file" name="upl" multiple />
+	    </div>
+
+	    <ul>
+		    <!-- The file uploads will be shown here -->
+	    </ul>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryupload")
+}

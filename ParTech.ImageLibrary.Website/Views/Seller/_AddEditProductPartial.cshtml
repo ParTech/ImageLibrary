@@ -1,0 +1,73 @@
+﻿@model ParTech.ImageLibrary.Core.Models.Product
+
+<hgroup class="title">
+    <h2>@ViewBag.FormHeader</h2>
+</hgroup>
+
+@using (Html.BeginForm("SaveProduct", "Seller")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>@ViewBag.Legend</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Name, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.EDI, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.EDI)
+                @Html.ValidationMessageFor(m => m.EDI)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.SKU, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.SKU)
+                @Html.ValidationMessageFor(m => m.SKU)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Year, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.Year)
+                @Html.ValidationMessageFor(m => m.Year)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Material)
+                @Html.TextBoxFor(m => m.Material)
+                @Html.ValidationMessageFor(m => m.Material)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Size)
+                @Html.TextBoxFor(m => m.Size)
+                @Html.ValidationMessageFor(m => m.Size)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.BrandID, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.BrandID, new SelectList(Model.BrandItems, "BrandID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage brands", "Brands", "Manage")
+                @Html.ValidationMessageFor(m => m.BrandID)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.CategoryID, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.CategoryID, new SelectList(Model.CategoryItems, "CategoryID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage categories", "Categories", "Manage")
+                @Html.ValidationMessageFor(m => m.CategoryID)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.CollectionID)
+                @Html.DropDownListFor(m => m.CollectionID, new SelectList(Model.CollectionItems, "CollectionID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage collections", "Collections", "Manage")
+                @Html.ValidationMessageFor(m => m.CollectionID)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.GenderID, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.GenderItems, "GenderID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage genders", "Genders", "Manage")
+                @Html.ValidationMessageFor(m => m.GenderID)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.SeasonID, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.SeasonID, new SelectList(Model.SeasonItems, "SeasonID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage seasons", "Seasons", "Manage")
+                @Html.ValidationMessageFor(m => m.SeasonID)
+            </li>
+        </ol>
+        @Html.HiddenFor(m => m.ProductID)
+        <input type="submit" value="@ViewBag.ButtonText" />
+    </fieldset>
+}

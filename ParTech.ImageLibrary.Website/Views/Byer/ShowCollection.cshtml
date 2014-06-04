@@ -1,0 +1,71 @@
+﻿@using ParTech.ImageLibrary.Core.Repositories
+@model ParTech.ImageLibrary.Core.Models.Collection
+
+@{
+    ViewBag.Title = "Collection details";
+    
+    var imageRepository = new ImageRepository();
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<input type="button" value="Back to list" onclick="history.go(-1);" />
+
+@Html.Partial("_StatusMessage")
+
+
+<section class="pagebody">
+    <ul>
+        <li>
+            Name: @Model.Name
+        </li>
+    </ul>
+
+    <hgroup class="title">
+        <h2>Products</h2>
+    </hgroup>
+
+    @if (!Model.Products.Any())
+    {
+        <span>
+            No products available.
+        </span>
+    }
+    else
+    {
+        @Html.AuthorizedActionLink("Add all images to shopping cart", "AddCollectionImagesToShoppingCart", "Byer", new { collectionid = Model.CollectionID }, new { @class = "button"})
+        
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>EDI</th>
+                <th>SKU</th>
+                <th>Year</th>
+                <th>Material</th>
+                <th>Size</th>
+                <th>No of images</th>
+            </tr>
+
+        @foreach (var product in Model.Products)
+        {
+            var noOfImages = imageRepository.CountImagesForProduct(product.ProductID).ToString();
+            
+            <tr>
+                <td>@Html.AuthorizedActionLink(@product.Name, "ShowProduct", "Byer", new { productid = product.ProductID }, null)</td>
+                <td>@product.EDI</td>
+                <td>@product.SKU</td>
+                <td>@product.Year</td>
+                <td>@product.Material</td>
+                <td>@product.Size</td>
+                <td>@Html.Raw(noOfImages)</td>
+            </tr>
+        }
+
+        </table>
+    }
+</section>
+
+@section Scripts {
+}

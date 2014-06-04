@@ -1,0 +1,78 @@
+﻿@using ParTech.ImageLibrary.Core.Repositories
+@model List<ParTech.ImageLibrary.Core.Models.OrderLine>
+@{
+    ViewBag.Title = "Download history";
+
+    var userRepository = new UserRepository();
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.Any())
+    {
+        <span>
+            No downloads available.
+        </span>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th>Downloaded on</th>
+                <th>By</th>
+                <th>Seller</th>
+                <th>Details</th>
+                <th>Price</th>
+                <th>Invoice number</th>
+            </tr>
+
+        @foreach (var download in Model)
+        {
+            var sellerProfile = userRepository.GetProfile(download.SellerID);
+            var byerUserProfile = userRepository.GetUserProfileById(download.UserID);
+            var dwnClass = "notBilled";
+            if (download.InvoiceID != null)
+            {
+                dwnClass = "billed";
+            }
+                
+            <tr class="@dwnClass">
+                <td>
+                    @download.created.ToString("g")
+                </td>
+                <td>
+                    @byerUserProfile.UserName
+                </td>
+                <td>
+                    @sellerProfile.CompanyName
+                </td>
+                <td>
+                    Product: @download.ProductName<br />
+                    Resolution: @download.Image.Resolution<br />
+                    Type: @download.Image.ImageFormat.Replace("image/", string.Empty)
+                </td>
+                <td>
+                    @download.Price.ToString("C")
+                </td>
+                <td>
+                    @if (download.Invoice != null)
+                    {
+                        @download.Invoice.InvoiceNumber
+                    }
+                    else
+                    {
+                        @: -
+                    }
+                </td>
+            </tr>
+        }
+
+        </table>
+    }
+</section>

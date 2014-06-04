@@ -1,0 +1,29 @@
+﻿<h2>Shopping cart</h2>
+<div id="shoppingcart">
+    <p>Drop images here</p>
+</div>
+<div class="cartitemscontainer">
+    <div class="text">
+        <span id="noofimages">0</span> image(s) in cart
+    </div>
+    <a href='@Url.Action("DeleteCart", "Byer")' title="Delete cart" id="deletecart" class="disabled">
+        <img src="/images/trashcan-white-on-black-32.png" alt="Delete cart" />
+    </a>
+    <div id="cartitems">
+    </div>
+    @Html.AuthorizedActionLinkOrText("Download images", "CreateDownloadForImagesInCart", "Byer", new { } , new { id = "downloadimages", @class = "disabled" })
+</div>
+<script id="cartImageTemplate" type="text/x-jquery-tmpl">
+    <div class="cartimage">
+        <div class="imagecontainer">
+            <img src="/byer/ShowSmallThumbnail?imageid=${ImageId}" />
+        </div>
+        <div class="datacontainer">
+            ${ProductName}<br />
+            ${Resolution}; ${Type}
+        </div>
+        <a href="/byer/DeleteCartItem?imageid=${ImageId}" title="Delete image from cart">
+            <img src="/images/red-cross-16.png" alt="Delete image from cart" />
+        </a>
+    </div>
+</script>

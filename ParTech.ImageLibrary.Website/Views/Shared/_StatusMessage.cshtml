@@ -1,0 +1,6 @@
+﻿@if (TempData != null && TempData["StatusMessage"]  != null && !string.IsNullOrEmpty(TempData["StatusMessage"].ToString()))
+{
+    <section class="message">
+        <p class='@TempData["StatusMessageClass"].ToString()'>@Html.Raw(TempData["StatusMessage"].ToString())</p>
+    </section>
+}

@@ -1,0 +1,52 @@
+﻿@using ParTech.ImageLibrary.Core.Repositories
+@model IEnumerable<ParTech.ImageLibrary.Core.Models.UserProfile>
+@{
+    ViewBag.Title = "Inactive users";
+
+    var userRepository = new UserRepository();
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.Any())
+    {
+        <span>
+            No inactive users available.
+        </span>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th>User name</th>
+                <th>Email address</th>
+                <th>Created</th>
+            </tr>
+
+        @foreach (var userProfile in Model)
+        {
+            var webpagesMembership = userRepository.GetMembership(userProfile.Id);
+            var createdDateString = "-";
+            if (webpagesMembership.CreateDate != null)
+            {
+                createdDateString = webpagesMembership.CreateDate.ToString();
+            }
+            <tr>
+                <td>@userProfile.UserName</td>
+                <td>@userProfile.Email</td>
+                <td>@createdDateString</td>
+            </tr>
+        }
+
+        </table>
+    }
+</section>
+
+@section Scripts {
+}

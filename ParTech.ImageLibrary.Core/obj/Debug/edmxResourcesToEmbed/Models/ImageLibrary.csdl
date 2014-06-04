@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ParTech.ImageLibrary.Core.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="ParTech.ImageLibrary.Core.Models.Brand" />
+    <EntitySet Name="Categories" EntityType="ParTech.ImageLibrary.Core.Models.Category" />
+    <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Collection" />
+    <EntitySet Name="Colors" EntityType="ParTech.ImageLibrary.Core.Models.Color" />
+    <EntitySet Name="Countries" EntityType="ParTech.ImageLibrary.Core.Models.Country" />
+    <EntitySet Name="Genders" EntityType="ParTech.ImageLibrary.Core.Models.Gender" />
+    <EntitySet Name="Images" EntityType="ParTech.ImageLibrary.Core.Models.Image" />
+    <EntitySet Name="Invoices" EntityType="ParTech.ImageLibrary.Core.Models.Invoice" />
+    <EntitySet Name="Languages" EntityType="ParTech.ImageLibrary.Core.Models.Language" />
+    <EntitySet Name="OrderLines" EntityType="ParTech.ImageLibrary.Core.Models.OrderLine" />
+    <EntitySet Name="Products" EntityType="ParTech.ImageLibrary.Core.Models.Product" />
+    <EntitySet Name="Profiles" EntityType="ParTech.ImageLibrary.Core.Models.Profile" />
+    <EntitySet Name="Salutations" EntityType="ParTech.ImageLibrary.Core.Models.Salutation" />
+    <EntitySet Name="Seasons" EntityType="ParTech.ImageLibrary.Core.Models.Season" />
+    <EntitySet Name="ShoppingCartItems" EntityType="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" />
+    <EntitySet Name="UserProfiles" EntityType="ParTech.ImageLibrary.Core.Models.UserProfile" />
+    <EntitySet Name="webpages_Membership" EntityType="ParTech.ImageLibrary.Core.Models.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="ParTech.ImageLibrary.Core.Models.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="ParTech.ImageLibrary.Core.Models.webpages_Roles" />
+    <AssociationSet Name="FK_Products_Brand" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Brand">
+      <End Role="Brand" EntitySet="Brands" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Category" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Collections" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Collections">
+      <End Role="Collections" EntitySet="Collections" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Gender" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Gender">
+      <End Role="Gender" EntitySet="Genders" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Images_Products" Association="ParTech.ImageLibrary.Core.Models.FK_Images_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderLines_Images" Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="OrderLines" EntitySet="OrderLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartItems_Images" Association="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="ShoppingCartItems" EntitySet="ShoppingCartItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderLines_Invoices" Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Invoices">
+      <End Role="Invoices" EntitySet="Invoices" />
+      <End Role="OrderLines" EntitySet="OrderLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderLines_Products" Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderLines" EntitySet="OrderLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderLines_UserProfile" Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="OrderLines" EntitySet="OrderLines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Seasons" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons">
+      <End Role="Seasons" EntitySet="Seasons" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Users" Association="ParTech.ImageLibrary.Core.Models.FK_Products_Users">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ShoppingCartItems_UserProfile" Association="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="ShoppingCartItems" EntitySet="ShoppingCartItems" />
+    </AssociationSet>
+    <AssociationSet Name="Products_Colors" Association="ParTech.ImageLibrary.Core.Models.Products_Colors">
+      <End Role="Colors" EntitySet="Colors" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="webpages_UsersInRoles" Association="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="BrandID" />
+    </Key>
+    <Property Name="BrandID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Brand" FromRole="Brand" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="LanguageID" Type="Int32" Nullable="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Category" FromRole="Category" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Collection">
+    <Key>
+      <PropertyRef Name="CollectionID" />
+    </Key>
+    <Property Name="CollectionID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Collections" FromRole="Collections" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="ColorID" />
+    </Key>
+    <Property Name="ColorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Colors" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="GenderID" />
+    </Key>
+    <Property Name="GenderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="LanguageID" Type="Int32" Nullable="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Gender" FromRole="Gender" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Filepath" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Resolution" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Thumbnailpath" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="ImageFormat" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SmallThumbnailpath" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Product" Relationship="ParTech.ImageLibrary.Core.Models.FK_Images_Products" FromRole="Images" ToRole="Products" />
+    <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Images" FromRole="Images" ToRole="OrderLines" />
+    <NavigationProperty Name="ShoppingCartItems" Relationship="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_Images" FromRole="Images" ToRole="ShoppingCartItems" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceNumber" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ProfileID" Type="Int32" Nullable="false" />
+    <Property Name="InvoiceTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Invoices" FromRole="Invoices" ToRole="OrderLines" />
+  </EntityType>
+  <EntityType Name="Language">
+    <Key>
+      <PropertyRef Name="LanguageID" />
+    </Key>
+    <Property Name="LanguageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="OrderLine">
+    <Key>
+      <PropertyRef Name="OrderlineID" />
+    </Key>
+    <Property Name="OrderlineID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageID" Type="Int32" Nullable="false" />
+    <Property Name="BuyerID" Type="Int32" Nullable="false" />
+    <Property Name="SellerID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Image" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Images" FromRole="OrderLines" ToRole="Images" />
+    <NavigationProperty Name="Invoice" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Invoices" FromRole="OrderLines" ToRole="Invoices" />
+    <NavigationProperty Name="Product" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products" FromRole="OrderLines" ToRole="Products" />
+    <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile" FromRole="OrderLines" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="EDI" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SKU" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Year" Type="Int32" Nullable="false" />
+    <Property Name="Material" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Size" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="SeasonID" Type="Int32" Nullable="false" />
+    <Property Name="GenderID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CollectionID" Type="Int32" />
+    <Property Name="BrandID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Brand" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Brand" FromRole="Products" ToRole="Brand" />
+    <NavigationProperty Name="Category" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Category" FromRole="Products" ToRole="Category" />
+    <NavigationProperty Name="Collection" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Collections" FromRole="Products" ToRole="Collections" />
+    <NavigationProperty Name="Gender" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Gender" FromRole="Products" ToRole="Gender" />
+    <NavigationProperty Name="Images" Relationship="ParTech.ImageLibrary.Core.Models.FK_Images_Products" FromRole="Products" ToRole="Images" />
+    <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products" FromRole="Products" ToRole="OrderLines" />
+    <NavigationProperty Name="Season" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons" FromRole="Products" ToRole="Seasons" />
+    <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="Products" ToRole="UserProfile" />
+    <NavigationProperty Name="Colors" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Products" ToRole="Colors" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="ProfileID" />
+    </Key>
+    <Property Name="ProfileID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="SalutationID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Telephone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="PostalCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="CountryID" Type="Int32" Nullable="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LanguageID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salutation">
+    <Key>
+      <PropertyRef Name="SalutationID" />
+    </Key>
+    <Property Name="SalutationID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LanguageID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="SeasonID" />
+    </Key>
+    <Property Name="SeasonID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons" FromRole="Seasons" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="ShoppingCartItem">
+    <Key>
+      <PropertyRef Name="CartItemID" />
+    </Key>
+    <Property Name="CartItemID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ImageID" Type="Int32" Nullable="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Image" Relationship="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_Images" FromRole="ShoppingCartItems" ToRole="Images" />
+    <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile" FromRole="ShoppingCartItems" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="AccountType" Type="Int32" Nullable="false" />
+    <Property Name="ProfileID" Type="Int32" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile" FromRole="UserProfile" ToRole="OrderLines" />
+    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="UserProfile" ToRole="Products" />
+    <NavigationProperty Name="ShoppingCartItems" Relationship="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile" FromRole="UserProfile" ToRole="ShoppingCartItems" />
+    <NavigationProperty Name="webpages_Roles" Relationship="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="UserProfiles" Relationship="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_Products_Brand">
+    <End Role="Brand" Type="ParTech.ImageLibrary.Core.Models.Brand" Multiplicity="1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="BrandID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="BrandID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Category">
+    <End Role="Category" Type="ParTech.ImageLibrary.Core.Models.Category" Multiplicity="1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Collections">
+    <End Role="Collections" Type="ParTech.ImageLibrary.Core.Models.Collection" Multiplicity="0..1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Collections">
+        <PropertyRef Name="CollectionID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CollectionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Gender">
+    <End Role="Gender" Type="ParTech.ImageLibrary.Core.Models.Gender" Multiplicity="1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="GenderID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="GenderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Images_Products">
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="1" />
+    <End Role="Images" Type="ParTech.ImageLibrary.Core.Models.Image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Images">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderLines_Images">
+    <End Role="Images" Type="ParTech.ImageLibrary.Core.Models.Image" Multiplicity="1" />
+    <End Role="OrderLines" Type="ParTech.ImageLibrary.Core.Models.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="ImageID" />
+      </Principal>
+      <Dependent Role="OrderLines">
+        <PropertyRef Name="ImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartItems_Images">
+    <End Role="Images" Type="ParTech.ImageLibrary.Core.Models.Image" Multiplicity="1" />
+    <End Role="ShoppingCartItems" Type="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="ImageID" />
+      </Principal>
+      <Dependent Role="ShoppingCartItems">
+        <PropertyRef Name="ImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderLines_Invoices">
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Invoice" Multiplicity="0..1" />
+    <End Role="OrderLines" Type="ParTech.ImageLibrary.Core.Models.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoices">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="OrderLines">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderLines_Products">
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="1" />
+    <End Role="OrderLines" Type="ParTech.ImageLibrary.Core.Models.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderLines">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderLines_UserProfile">
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="1" />
+    <End Role="OrderLines" Type="ParTech.ImageLibrary.Core.Models.OrderLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderLines">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Seasons">
+    <End Role="Seasons" Type="ParTech.ImageLibrary.Core.Models.Season" Multiplicity="1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Seasons">
+        <PropertyRef Name="SeasonID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="SeasonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Users">
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="1" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ShoppingCartItems_UserProfile">
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="1" />
+    <End Role="ShoppingCartItems" Type="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ShoppingCartItems">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Products_Colors">
+    <End Role="Colors" Type="ParTech.ImageLibrary.Core.Models.Color" Multiplicity="*" />
+    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
+  </Association>
+  <Association Name="webpages_UsersInRoles">
+    <End Role="webpages_Roles" Type="ParTech.ImageLibrary.Core.Models.webpages_Roles" Multiplicity="*" />
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="*" />
+  </Association>
+</Schema>

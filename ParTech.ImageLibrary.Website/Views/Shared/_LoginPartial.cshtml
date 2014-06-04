@@ -1,0 +1,29 @@
+﻿@using ParTech.ImageLibrary.Core.Repositories
+
+@if (Request.IsAuthenticated) {
+    <text>
+        <span>Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", null, new { @class = "username", title = "Manage your account" })!</span>
+        
+        @{
+            var orderRepository = new OrderRepository(new UserRepository());
+            var userId = WebSecurity.GetUserId(User.Identity.Name);
+            var cart = orderRepository.GetCartForUser(userId);
+            if (cart.Count > 0)
+            {
+                <span class="noofimagescontainer">
+                    @Html.Raw(string.Format("<span id=\"noofimagestop\">{0}</span> image(s) in cart", cart.Count))
+                </span>
+            }
+        }
+
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
+    </text>
+} else {
+    <ul>
+        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", null, new { id = "loginLink" })</li>
+    </ul>
+}

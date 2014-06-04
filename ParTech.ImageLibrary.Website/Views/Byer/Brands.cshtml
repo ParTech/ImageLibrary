@@ -1,0 +1,38 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerBrandsModel
+@{
+    ViewBag.Title = "Brands";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.ListBrands.Any())
+    {
+        <span>
+            No brands available.
+        </span>
+    }
+    else
+    {
+        <ul>
+
+        @foreach (var brand in Model.ListBrands)
+        {
+            <li>
+                <strong>@Html.AuthorizedActionLinkOrText(@brand.Name, "ShowBrand", "Byer", new { brandid = brand.BrandID }, null)</strong><br />
+                <span>@brand.Description</span><br />
+                <span>No of products: @brand.Products.Count</span>
+            </li>
+        }
+
+        </ul>
+    }
+</section>
+
+@section Scripts {
+}

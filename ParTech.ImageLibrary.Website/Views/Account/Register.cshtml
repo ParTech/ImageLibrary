@@ -1,0 +1,54 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<section class="form">
+    <h2>Create a new account.</h2>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <fieldset>
+            <legend>Registration Form</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password, new { @class = "required" } )
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "required" } )
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
+                    @Html.RadioButtonFor(m => m.AccountType, 0) Byer<br />
+                    @Html.RadioButtonFor(m => m.AccountType, 1) Seller<br />
+                    @Html.ValidationMessageFor(m => m.AccountType)
+                </li>
+            </ol>
+            <input type="submit" value="Register" />
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

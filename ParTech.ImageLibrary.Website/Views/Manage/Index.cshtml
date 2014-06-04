@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Miscellaneous";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<section class="pagebody">
+    
+    <ul>
+        @if (@Html.ActionIsAccessibleToUser("Brands", "Manage"))
+        {
+            <li>@Html.ActionLink("Brands", "Brands", "Manage")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Categories", "Manage"))
+        {
+            <li>@Html.ActionLink("Categories", "Categories", "Manage")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Collections", "Manage"))
+        {
+            <li>@Html.ActionLink("Collections", "Collections", "Manage")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Genders", "Manage"))
+        {
+            <li>@Html.ActionLink("Genders", "Genders", "Manage")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Seasons", "Manage"))
+        {
+            <li>@Html.ActionLink("Seasons", "Seasons", "Manage")</li>
+        }
+
+    </ul>
+
+</section>

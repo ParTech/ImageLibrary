@@ -1,0 +1,21 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.LocalUserModel
+
+<h3>Change User Profile Data</h3>
+
+@using (Html.BeginForm("SaveUserProfileData", "Account")) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Change User Data</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Email, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </li>
+        </ol>
+        @Html.HiddenFor(m => m.Id)
+        <input type="submit" value="Save changes" />
+    </fieldset>
+}

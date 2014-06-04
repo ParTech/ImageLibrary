@@ -1,0 +1,43 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerImagesModel
+@{
+    ViewBag.Title = "Images";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebodysmall">
+    @if (!Model.ListImages.Any())
+    {
+        <span>
+            No images available.
+        </span>
+    }
+    else
+    {
+        foreach (var image in Model.ListImages)
+        {
+            <div class="draggableimage">
+                <div class="imagecontainer" data-imageid="@image.ImageID">
+                    <img src="@Url.Action("ShowThumbnail", "Byer", new { imageid = image.ImageID })" />
+                </div>
+                <div class="datacontainer">
+                    @Html.AuthorizedActionLinkOrText(image.Product.Name, "ShowProduct", "Byer",  new { productid = image.ProductID }, null)<br />
+                    @image.Resolution; @image.ImageFormat.Replace("image/", string.Empty)
+                </div>
+            </div>
+        }
+    }
+</section>
+
+<section class="shoppingcart">
+    @Html.Partial("~/Views/Byer/ShoppingCart.cshtml")
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+}

@@ -1,0 +1,60 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageGenderModel
+@{
+    ViewBag.Title = "Genders";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.ListGenders.Any())
+    {
+        <span>
+            No genders available.
+        </span>
+    }
+
+    <ul>
+
+    @foreach (var gender in Model.ListGenders)
+    {
+        <li>
+            <strong>@gender.Name</strong> @Html.AuthorizedActionLink("Edit", "Genders", "Manage", new { message = string.Empty, Genderid = gender.GenderID }, null )<br />
+        </li>
+    }
+
+
+    </ul>
+</section>
+
+<section class="form">
+
+    <h2>@ViewBag.FormHeader</h2>
+
+    @using (Html.BeginForm("SaveGender", "Manage")) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.GenderModel.Name)
+                    @Html.TextBoxFor(m => m.GenderModel.Name)
+                    @Html.ValidationMessageFor(m => m.GenderModel.Name)
+                </li>
+            </ol>
+            @Html.HiddenFor(m => m.GenderModel.GenderID)
+            <input type="submit" value="@ViewBag.ButtonText" />
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

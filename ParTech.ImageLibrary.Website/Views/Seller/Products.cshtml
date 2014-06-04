@@ -1,0 +1,61 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductModel
+@{
+    ViewBag.Title = "Your products";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.ListProducts.Any())
+    {
+        <span>
+            No products available.
+        </span>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>EDI</th>
+                <th>SKU</th>
+                <th>Year</th>
+                <th>Material</th>
+                <th>Size</th>
+                <th>No of images</th>
+            </tr>
+
+        @foreach (var product in Model.ListProducts)
+        {
+            <tr>
+                <td>
+                    @Html.AuthorizedActionLink("Edit", "Products", "Seller", new { message = string.Empty, productid = product.ProductID }, null)
+                </td>
+                <td>@Html.AuthorizedActionLink(@product.Name, "ShowProduct", "Seller",  new { productid = product.ProductID }, null)</td>
+                <td>@product.EDI</td>
+                <td>@product.SKU</td>
+                <td>@product.Year</td>
+                <td>@product.Material</td>
+                <td>@product.Size</td>
+                <td>@product.Images.Count()</td>
+            </tr>
+        }
+
+        </table>
+    }
+</section>
+
+<section class="form">
+    @Html.Partial("_AddEditProductPartial", Model.ProductModel)
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,60 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageSeasonModel
+@{
+    ViewBag.Title = "Seasons";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+
+    @if (!Model.ListSeasons.Any())
+    {
+        <span>
+            No seasons available.
+        </span>
+    }
+
+    <ul>
+
+    @foreach (var season in Model.ListSeasons)
+    {
+        <li>
+            <strong>@season.Name</strong> @Html.AuthorizedActionLink("Edit", "Seasons", "Manage", new { message = string.Empty, Seasonid = season.SeasonID }, null )<br />
+        </li>
+    }
+
+
+    </ul>
+</section>
+
+<section class="form">
+
+    <h2>@ViewBag.FormHeader</h2>
+
+    @using (Html.BeginForm("SaveSeason", "Manage")) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.SeasonModel.Name)
+                    @Html.TextBoxFor(m => m.SeasonModel.Name)
+                    @Html.ValidationMessageFor(m => m.SeasonModel.Name)
+                </li>
+            </ol>
+            @Html.HiddenFor(m => m.SeasonModel.SeasonID)
+            <input type="submit" value="@ViewBag.ButtonText" />
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,49 @@
+﻿<nav>
+    <ul id="menu">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        
+        @if (@Html.ActionIsAccessibleToUser("ShowInactiveUsers", "Admin"))
+        {
+            <li>@Html.ActionLink("Inactive users", "ShowInactiveUsers", "Admin")</li>
+        }
+        
+        @if (@Html.ActionIsAccessibleToUser("Images", "Seller"))
+        {
+            <li>@Html.ActionLink("Your images", "Images", "Seller")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Products", "Seller"))
+        {
+            <li>@Html.ActionLink("Your products", "Products", "Seller")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Index", "Manage"))
+        {
+            <li>@Html.ActionLink("Miscellaneous", "Index", "Manage")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("DownloadHistory", "Seller"))
+        {
+            <li>@Html.ActionLink("Download history", "DownloadHistory", "Seller")</li>
+        }
+        
+        @if (@Html.ActionIsAccessibleToUser("Images", "Byer"))
+        {
+            <li>@Html.ActionLink("Images", "Images", "Byer")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Brands", "Byer"))
+        {
+            <li>@Html.ActionLink("Brands", "Brands", "Byer")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("Collections", "Byer"))
+        {
+            <li>@Html.ActionLink("Collections", "Collections", "Byer")</li>
+        }
+        @if (@Html.ActionIsAccessibleToUser("DownloadHistory", "Byer"))
+        {
+            <li>@Html.ActionLink("Download history", "DownloadHistory", "Byer")</li>
+        }
+
+        @if (@Html.ActionIsAccessibleToUser("EditProfile", "Profile"))
+        {
+            <li>@Html.ActionLink("Your profile", "EditProfile", "Profile")</li>
+        }
+    </ul>
+</nav>

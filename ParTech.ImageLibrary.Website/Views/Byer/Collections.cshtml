@@ -1,0 +1,38 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerCollectionsModel
+@{
+    ViewBag.Title = "Collections";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+
+<section class="pagebody">
+
+    @if (!Model.ListCollections.Any())
+    {
+        <span>
+            No collections available.
+        </span>
+    }
+    else
+    {
+        <ul>
+
+        @foreach (var collection in Model.ListCollections)
+        {
+            <li>
+                <strong>@Html.AuthorizedActionLinkOrText(@collection.Name, "ShowCollection", "Byer", new { collectionid = collection.CollectionID }, null)</strong><br />
+                <span>No of products: @collection.Products.Count</span>
+            </li>
+        }
+
+        </ul>
+    }
+</section>
+
+@section Scripts {
+}
