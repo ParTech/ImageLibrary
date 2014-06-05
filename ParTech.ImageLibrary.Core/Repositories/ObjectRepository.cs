@@ -6,6 +6,7 @@ using System.Threading;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
+using ParTech.ImageLibrary.Core.ViewModels.Seller;
 
 namespace ParTech.ImageLibrary.Core.Repositories
 {
@@ -93,9 +94,11 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Product GetProductAndContext(int? productid);
 
+        SellerProductModel GetProductAndMapToSellerProductModel(int? productid);
+
         IEnumerable<Product> GetProductsForUser(int userid);
 
-        bool SaveProduct(Product product, int userid);
+        bool SaveProduct(SellerProductModel product, int userid);
 
         #endregion
 
@@ -866,6 +869,36 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return product;
         }
+
+        public SellerProductModel GetProductAndMapToSellerProductModel(int? productid)
+        {
+            var productModel = new SellerProductModel();
+
+            var product = GetProduct(productid);
+            if (product != null)
+            {
+                productModel.ProductId = product.ProductID;
+                productModel.Name = product.Name;
+                productModel.Edi = product.EDI;
+                productModel.Sku = product.SKU;
+                productModel.Year = product.Year;
+                productModel.Material = product.Material;
+                productModel.Size = product.Size;
+                productModel.SeasonId = product.SeasonID;
+                productModel.GenderId = product.GenderID;
+                productModel.CategoryId = product.CategoryID;
+
+                if (product.CollectionID != null)
+                {
+                    productModel.CollectionId = (int)product.CollectionID;
+                }
+                
+                productModel.BrandId = product.BrandID;
+            }
+
+            return productModel;
+        }
+
         public IEnumerable<Product> GetProductsForUser(int userid)
         {
             var products = new List<Product>();
@@ -888,7 +921,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return products;
         }
 
-        public bool SaveProduct(Product product, int userid)
+        public bool SaveProduct(SellerProductModel product, int userid)
         {
             var saveSucceeded = false;
 
@@ -896,34 +929,47 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new Entities())
                 {
-                    if (product.ProductID > 0)
+                    if (product.ProductId > 0)
                     {
-                        var tmpProduct = db.Products.SingleOrDefault(i => i.ProductID == product.ProductID);
+                        var tmpProduct = db.Products.SingleOrDefault(i => i.ProductID == product.ProductId);
                         if (tmpProduct != null)
                         {
                             tmpProduct.Name = product.Name;
-                            tmpProduct.EDI = product.EDI;
-                            tmpProduct.SKU = product.SKU;
+                            tmpProduct.EDI = product.Edi;
+                            tmpProduct.SKU = product.Sku;
                             tmpProduct.Year = product.Year;
                             tmpProduct.Material = product.Material;
                             tmpProduct.Size = product.Size;
-                            tmpProduct.BrandID = product.BrandID;
-                            tmpProduct.CategoryID = product.CategoryID;
-                            tmpProduct.CollectionID = product.CollectionID;
-                            tmpProduct.GenderID = product.GenderID;
-                            tmpProduct.SeasonID = product.SeasonID;
-
+                            tmpProduct.BrandID = product.BrandId;
+                            tmpProduct.CategoryID = product.CategoryId;
+                            tmpProduct.CollectionID = product.CollectionId;
+                            tmpProduct.GenderID = product.GenderId;
+                            tmpProduct.SeasonID = product.SeasonId;
                             tmpProduct.updated = DateTime.Now;
                             tmpProduct.UserID = userid;
                         }
                     }
                     else
                     {
-                        product.created = DateTime.Now;
-                        product.updated = DateTime.Now;
-                        product.UserID = userid;
+                        var tmpProduct = new Product
+                        {
+                            Name = product.Name,
+                            EDI = product.Edi,
+                            SKU = product.Sku,
+                            Year = product.Year,
+                            Material = product.Material,
+                            Size = product.Size,
+                            BrandID = product.BrandId,
+                            CategoryID = product.CategoryId,
+                            CollectionID = product.CollectionId,
+                            GenderID = product.GenderId,
+                            SeasonID = product.SeasonId,
+                            created = DateTime.Now,
+                            updated = DateTime.Now,
+                            UserID = userid
+                        };
 
-                        db.Products.Add(product);
+                        db.Products.Add(tmpProduct);
                     }
 
                     db.SaveChanges();

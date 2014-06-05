@@ -95,6 +95,14 @@
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_Profile" Association="ParTech.ImageLibrary.Core.Models.Store.FK_UserProfile_Profile">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfile_webpages_Membership" Association="ParTech.ImageLibrary.Core.Models.Store.FK_UserProfile_webpages_Membership">
+      <End Role="webpages_Membership" EntitySet="webpages_Membership" />
+      <End Role="UserProfile" EntitySet="UserProfile" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Brand">
     <Key>
@@ -525,6 +533,30 @@
       </Principal>
       <Dependent Role="webpages_UsersInRoles">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_Profile">
+    <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="0..1" />
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.Store.UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="ProfileID" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="ProfileID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfile_webpages_Membership">
+    <End Role="webpages_Membership" Type="ParTech.ImageLibrary.Core.Models.Store.webpages_Membership" Multiplicity="1" />
+    <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.Store.UserProfile" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -4,7 +4,7 @@ using ParTech.ImageLibrary.Core.Models;
 
 namespace ParTech.ImageLibrary.Core.ViewModels.Seller
 {
-    public class SellerImageModel
+    public class SellerImagesModel
     {
         public IEnumerable<Image> ListImages { get; set; }
 

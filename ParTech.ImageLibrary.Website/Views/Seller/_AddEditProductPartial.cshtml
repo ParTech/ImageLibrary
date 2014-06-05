@@ -1,4 +1,4 @@
-﻿@model ParTech.ImageLibrary.Core.Models.Product
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductModel
 
 <hgroup class="title">
     <h2>@ViewBag.FormHeader</h2>
@@ -17,14 +17,14 @@
                 @Html.ValidationMessageFor(m => m.Name)
             </li>
             <li>
-                @Html.LabelFor(m => m.EDI, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.EDI)
-                @Html.ValidationMessageFor(m => m.EDI)
+                @Html.LabelFor(m => m.Edi, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.Edi)
+                @Html.ValidationMessageFor(m => m.Edi)
             </li>
             <li>
-                @Html.LabelFor(m => m.SKU, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.SKU)
-                @Html.ValidationMessageFor(m => m.SKU)
+                @Html.LabelFor(m => m.Sku, new { @class = "required" } )
+                @Html.TextBoxFor(m => m.Sku)
+                @Html.ValidationMessageFor(m => m.Sku)
             </li>
             <li>
                 @Html.LabelFor(m => m.Year, new { @class = "required" } )
@@ -42,32 +42,37 @@
                 @Html.ValidationMessageFor(m => m.Size)
             </li>
             <li>
-                @Html.LabelFor(m => m.BrandID, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.BrandID, new SelectList(Model.BrandItems, "BrandID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage brands", "Brands", "Manage")
-                @Html.ValidationMessageFor(m => m.BrandID)
+                @Html.LabelFor(m => m.BrandId, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.BrandId, new SelectList(Model.BrandItems, "BrandID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage brands", "Brands", "Manage")
+                @Html.ValidationMessageFor(m => m.BrandId)
             </li>
             <li>
-                @Html.LabelFor(m => m.CategoryID, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.CategoryID, new SelectList(Model.CategoryItems, "CategoryID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage categories", "Categories", "Manage")
-                @Html.ValidationMessageFor(m => m.CategoryID)
+                @Html.LabelFor(m => m.CategoryId, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryItems, "CategoryID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage categories", "Categories", "Manage")
+                @Html.ValidationMessageFor(m => m.CategoryId)
             </li>
             <li>
-                @Html.LabelFor(m => m.CollectionID)
-                @Html.DropDownListFor(m => m.CollectionID, new SelectList(Model.CollectionItems, "CollectionID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage collections", "Collections", "Manage")
-                @Html.ValidationMessageFor(m => m.CollectionID)
+                @Html.LabelFor(m => m.CollectionId)
+                @Html.DropDownListFor(m => m.CollectionId, new SelectList(Model.CollectionItems, "CollectionID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage collections", "Collections", "Manage")
+                @Html.ValidationMessageFor(m => m.CollectionId)
             </li>
             <li>
-                @Html.LabelFor(m => m.GenderID, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.GenderItems, "GenderID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage genders", "Genders", "Manage")
-                @Html.ValidationMessageFor(m => m.GenderID)
+                @Html.LabelFor(m => m.GenderId, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.GenderId, new SelectList(Model.GenderItems, "GenderID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage genders", "Genders", "Manage")
+                @Html.ValidationMessageFor(m => m.GenderId)
             </li>
             <li>
-                @Html.LabelFor(m => m.SeasonID, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.SeasonID, new SelectList(Model.SeasonItems, "SeasonID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage seasons", "Seasons", "Manage")
-                @Html.ValidationMessageFor(m => m.SeasonID)
+                @Html.LabelFor(m => m.SeasonId, new { @class = "required" } )
+                @Html.DropDownListFor(m => m.SeasonId, new SelectList(Model.SeasonItems, "SeasonID", "Name"), "-- make a choice --") @Html.AuthorizedActionLink("Manage seasons", "Seasons", "Manage")
+                @Html.ValidationMessageFor(m => m.SeasonId)
             </li>
         </ol>
-        @Html.HiddenFor(m => m.ProductID)
+        @Html.HiddenFor(m => m.ProductId)
         <input type="submit" value="@ViewBag.ButtonText" />
+        
+        @if (Model.ProductId > 0)
+        {
+            @Html.ActionLink("Cancel", "Products", "Seller")
+        }
     </fieldset>
 }

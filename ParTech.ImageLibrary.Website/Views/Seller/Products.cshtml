@@ -1,4 +1,4 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductModel
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductsModel
 @{
     ViewBag.Title = "Your products";
 }
@@ -52,7 +52,7 @@
 </section>
 
 <section class="form">
-    @Html.Partial("_AddEditProductPartial", Model.ProductModel)
+    @Html.Partial("_AddEditProductPartial", Model.SellerProductModel)
 </section>
 
 @section Scripts {

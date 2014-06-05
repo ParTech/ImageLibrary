@@ -15,11 +15,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
     {
         #region Profile
 
+        int AddProfile(RegisterModel profile);
+
         Profile GetProfile(int? profileId);
 
         EditProfileModel GetProfileAndMapItToEditProfileModel(int? profileId);
 
-        bool SaveProfile(Profile profile);
+        bool SaveProfile(EditProfileModel profile);
 
         #endregion
         
@@ -33,21 +35,27 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         UserProfile GetUserProfileById(int userId);
 
+        UserProfile GetUserProfileAndContextById(int userId);
+
         UserProfile GetUserProfileByName(string userName);
 
         UserProfile GetUserProfileByNameAndEmail(string userName, string emailAddress);
 
-        IEnumerable<UserProfile> GetUserProfiles(bool active);
+        IEnumerable<UserProfile> GetUserProfilesAndContext(bool active);
 
         bool SaveUserProfile(LocalUserModel profile);
 
         bool SaveUserProfile(UserProfile profile, string roleName);
+
+        bool UpdateActiveFlagUserProfile(int userId, bool newActiveState);
 
         #endregion
 
         #region WebpagesMembership
 
         webpages_Membership GetMembership(int userId);
+
+        webpages_Membership GetMembershipByConfirmationToken(string confirmationToken);
 
         bool VerifyPasswordVerificationToken(int userId, string passwordVerificationToken);
 
@@ -59,6 +67,46 @@ namespace ParTech.ImageLibrary.Core.Repositories
         public ILogger Logger { get; set; }
 
         #region Profile
+
+        public int AddProfile(RegisterModel profile)
+        {
+            var addSucceeded = false;
+            var tmpProfile = new Profile
+            {
+                CompanyName = profile.CompanyName,
+                LanguageID = profile.LanguageId,
+                SalutationID = profile.SalutationId,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+                Email = profile.Email,
+                Telephone = profile.Telephone,
+                Address = profile.Address,
+                PostalCode = profile.PostalCode,
+                City = profile.City,
+                CountryID = profile.CountryId,
+                created = DateTime.Now,
+                updated = DateTime.Now
+            };
+
+            try
+            {
+                using (var db = new Entities())
+                {
+
+                    db.Profiles.Add(tmpProfile);
+
+                    db.SaveChanges();
+
+                    addSucceeded = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("AddProfile - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return !addSucceeded ? 0 : tmpProfile.ProfileID;
+        }
 
         public Profile GetProfile(int? profileId)
         {
@@ -112,7 +160,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return editProfileModel;
         }
 
-        public bool SaveProfile(Profile profile)
+        public bool SaveProfile(EditProfileModel profile)
         {
             var saveSucceeded = false;
 
@@ -120,27 +168,26 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new Entities())
                 {
-                    var tmpProfile = db.Profiles.Single(u => u.ProfileID == profile.ProfileID);
+                    var tmpProfile = db.Profiles.Single(u => u.ProfileID == profile.ProfileId);
                     if (tmpProfile != null)
                     {
                         tmpProfile.CompanyName = profile.CompanyName;
-
-                        tmpProfile.SalutationID = profile.SalutationID;
+                        tmpProfile.LanguageID = profile.LanguageId;
+                        tmpProfile.SalutationID = profile.SalutationId;
                         tmpProfile.FirstName = profile.FirstName;
                         tmpProfile.LastName = profile.LastName;
                         tmpProfile.Email = profile.Email;
                         tmpProfile.Telephone = profile.Telephone;
-
                         tmpProfile.Address = profile.Address;
                         tmpProfile.PostalCode = profile.PostalCode;
                         tmpProfile.City = profile.City;
-                        tmpProfile.CountryID = profile.CountryID;
+                        tmpProfile.CountryID = profile.CountryId;
 
                         db.SaveChanges();
+
+                        saveSucceeded = true;
                     }
                 }
-
-                saveSucceeded = true;
             }
             catch (Exception ex)
             {
@@ -230,6 +277,33 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return outProfile;
         }
 
+        public UserProfile GetUserProfileAndContextById(int userId)
+        {
+            UserProfile outProfile = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var tmpProfile = db.UserProfiles.Where(u => u.Id == userId)
+                                                    .Include("Profile")
+                                                    .Include("webpages_Membership")
+                                                    .Include("webpages_Roles")
+                                                    .Single();
+                    if (tmpProfile != null)
+                    {
+                        outProfile = tmpProfile;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetProfileById - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return outProfile;
+        }
+
         public UserProfile GetUserProfileByName(string userName)
         {
             UserProfile outProfile = null;
@@ -279,7 +353,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return outProfile;
         }
 
-        public IEnumerable<UserProfile> GetUserProfiles(bool active)
+        public IEnumerable<UserProfile> GetUserProfilesAndContext(bool active)
         {
             List<UserProfile> userProfiles = null;
 
@@ -288,6 +362,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                 using (var db = new Entities())
                 {
                     userProfiles = db.UserProfiles.Where(u => u.Active == active)
+                                                  .Include("Profile")
+                                                  .Include("webpages_Membership")
                                                   .OrderBy(u => u.UserName)
                                                   .ToList();
                 }
@@ -370,6 +446,33 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return saveSucceeded;
         }
 
+        public bool UpdateActiveFlagUserProfile(int userId, bool newActiveState)
+        {
+            var saveSucceeded = false;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
+                    if (tmpProfile != null)
+                    {
+                        tmpProfile.Active = newActiveState;
+
+                        db.SaveChanges();
+                    }
+                }
+
+                saveSucceeded = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("UpdateActiveFlagUserProfile - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return saveSucceeded;
+        }
+
         #endregion
 
         #region WebpagesMembership
@@ -388,6 +491,25 @@ namespace ParTech.ImageLibrary.Core.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("GetMembership - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return membership;
+        }
+
+        public webpages_Membership GetMembershipByConfirmationToken(string confirmationToken)
+        {
+            webpages_Membership membership = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    membership = db.webpages_Membership.Single(i => i.ConfirmationToken == confirmationToken);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetMembershipByConfirmationToken - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return membership;

@@ -17,8 +17,6 @@ body {
 a {
     color: #333;
     outline: none;
-    padding-left: 3px;
-    padding-right: 3px;
     text-decoration: underline;
 }
 
@@ -384,26 +382,30 @@ section.form hgroup.title{
     display: inline;
 }
 
-#upload {
+
+section.uploadform {
     font-family:'PT Sans Narrow', sans-serif;
     background-color:#373a3d;
-
     background-image:-webkit-linear-gradient(top, #373a3d, #313437);
     background-image:-moz-linear-gradient(top, #373a3d, #313437);
     background-image:linear-gradient(top, #373a3d, #313437);
-
-    width:250px;
-    padding:30px;
+    width: 215px;
+    padding: 20px;
+    float: right;
     border-radius:3px;
-
-    margin:10px 0px 0px 0px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-#drop {
+section.uploadform h2 {
+    color: white;
+    margin: 0px;
+    padding: 0px 0px 10px 0px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+section.uploadform div.drop {
     background-color: #2E3134;
-    padding: 40px 50px;
-    margin-bottom: 30px;
     border: 20px solid rgba(0, 0, 0, 0);
     border-radius: 3px;
     border-image: url('../images/border-image.png') 25 repeat;
@@ -415,7 +417,7 @@ section.form hgroup.title{
     color:#7f858a;
 }
 
-#drop a {
+section.uploadform div.drop a {
     background-color:#007a96;
     padding:12px 26px;
     color:#fff;
@@ -427,24 +429,25 @@ section.form hgroup.title{
     line-height:1;
 }
 
-#drop a:hover{
+section.uploadform div.drop a:hover{
     background-color:#0986a3;
 }
 
-#drop input {
+section.uploadform div.drop input {
     display:none;
 }
 
-#upload div.question {
+section.uploadform div.question {
     color: #7F858A;
     padding: 0px 0px 10px 0px;
+    text-align: center;
 }
 
-#upload div.question select {
-    width: 250px;
+section.uploadform div.question select {
+    width: 210px;
 }
 
-#upload ul {
+section.uploadform ul {
     margin: 0px;
     padding: 0px;
 
@@ -453,7 +456,7 @@ section.form hgroup.title{
     border-bottom:1px solid #3d4043;
 }
 
-#upload ul li {
+section.uploadform ul li {
     margin: 0px 0px 0px -30px;
     padding: 0px;
 
@@ -471,11 +474,11 @@ section.form hgroup.title{
     position: relative;
 }
 
-#upload ul li input {
+section.uploadform ul li input {
     display: none;
 }
 
-#upload ul li p {
+section.uploadform ul li p {
     width: 160px;
     overflow: hidden;
     white-space: nowrap;
@@ -487,20 +490,20 @@ section.form hgroup.title{
     left: 90px;
 }
 
-#upload ul li i {
+section.uploadform ul li i {
     font-weight: normal;
     font-style:normal;
     color:#7f7f7f;
     display:block;
 }
 
-#upload ul li canvas {
+section.uploadform ul li canvas {
     top: 15px;
     left: 32px;
     position: absolute;
 }
 
-#upload ul li span {
+section.uploadform ul li span {
     width: 15px;
     height: 12px;
     background: url('../images/icons.png') no-repeat;
@@ -510,16 +513,16 @@ section.form hgroup.title{
     cursor:pointer;
 }
 
-#upload ul li.working span {
+section.uploadform ul li.working span {
     height: 16px;
     background-position: 0 -12px;
 }
 
-#upload ul li.error p {
+section.uploadform ul li.error p {
     color:red;
 }
 
-#upload ul li.success p {
+section.uploadform ul li.success p {
     color:green;
 }
 
@@ -746,12 +749,13 @@ section.pagebodysmall {
     float: left;
 }
 
-    section.pagebodysmall div.draggableimage {
-        width: 150px;
-        height: 200px;
-        float: left;
-        margin: 0px 20px 20px 0px;
-    }
+section.pagebodysmall div.draggableimage,
+section.pagebodysmall div.nondraggableimage {
+    width: 150px;
+    height: 200px;
+    float: left;
+    margin: 0px 20px 20px 0px;
+}
 
 section.shoppingcart {
     width: 215px;

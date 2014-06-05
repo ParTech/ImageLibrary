@@ -331,6 +331,7 @@
     <Content Include="Views\Byer\DownloadHistory.cshtml" />
     <Content Include="Views\Byer\ShoppingCart.cshtml" />
     <Content Include="Views\Admin\ShowInactiveUsers.cshtml" />
+    <Content Include="Views\Admin\ShowActiveUsers.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

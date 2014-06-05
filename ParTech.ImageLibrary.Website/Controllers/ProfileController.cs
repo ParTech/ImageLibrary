@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
+using ParTech.ImageLibrary.Core.ViewModels.Profile;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -57,7 +58,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Byer,Seller")]
-        public ActionResult SaveProfile(Profile profileModel)
+        public ActionResult SaveProfile(EditProfileModel profileModel)
         {
             const MessageIdEnum successMessage = MessageIdEnum.SaveProfileSuccess;
             const MessageIdEnum failureMessage = MessageIdEnum.SaveProfileFailure;

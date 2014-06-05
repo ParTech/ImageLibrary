@@ -2,11 +2,15 @@
     <ul id="menu">
         <li>@Html.ActionLink("Home", "Index", "Home")</li>
         
+        @if (@Html.ActionIsAccessibleToUser("ShowActiveUsers", "Admin"))
+        {
+            <li>@Html.ActionLink("Active users", "ShowActiveUsers", "Admin")</li>
+        }
         @if (@Html.ActionIsAccessibleToUser("ShowInactiveUsers", "Admin"))
         {
             <li>@Html.ActionLink("Inactive users", "ShowInactiveUsers", "Admin")</li>
         }
-        
+                
         @if (@Html.ActionIsAccessibleToUser("Images", "Seller"))
         {
             <li>@Html.ActionLink("Your images", "Images", "Seller")</li>

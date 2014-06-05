@@ -27,7 +27,6 @@
         </li>
     }
 
-
     </ul>
 </section>
 
@@ -50,6 +49,11 @@
             </ol>
             @Html.HiddenFor(m => m.GenderModel.GenderID)
             <input type="submit" value="@ViewBag.ButtonText" />
+        
+            @if (Model.GenderModel.GenderID > 0)
+            {
+                @Html.ActionLink("Cancel", "Genders", "Manage")
+            }
         </fieldset>
     }
 </section>

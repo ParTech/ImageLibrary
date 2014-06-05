@@ -100,6 +100,14 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_Profile" Association="ParTech.ImageLibrary.Core.Models.Store.FK_UserProfile_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_webpages_Membership" Association="ParTech.ImageLibrary.Core.Models.Store.FK_UserProfile_webpages_Membership">
+            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -533,6 +541,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProfile_Profile">
+          <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.Store.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_webpages_Membership">
+          <End Role="webpages_Membership" Type="ParTech.ImageLibrary.Core.Models.Store.webpages_Membership" Multiplicity="1" />
+          <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.Store.UserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Membership">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
@@ -606,9 +638,17 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_Profile" Association="ParTech.ImageLibrary.Core.Models.FK_UserProfile_Profile">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShoppingCartItems_UserProfile" Association="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="ShoppingCartItems" EntitySet="ShoppingCartItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_webpages_Membership" Association="ParTech.ImageLibrary.Core.Models.FK_UserProfile_webpages_Membership">
+            <End Role="webpages_Membership" EntitySet="webpages_Membership" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
           <AssociationSet Name="Products_Colors" Association="ParTech.ImageLibrary.Core.Models.Products_Colors">
             <End Role="Colors" EntitySet="Colors" />
@@ -780,6 +820,7 @@
           <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="ParTech.ImageLibrary.Core.Models.FK_UserProfile_Profile" FromRole="Profile" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="Salutation">
           <Key>
@@ -822,7 +863,9 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile" FromRole="UserProfile" ToRole="OrderLines" />
           <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="UserProfile" ToRole="Products" />
+          <NavigationProperty Name="Profile" Relationship="ParTech.ImageLibrary.Core.Models.FK_UserProfile_Profile" FromRole="UserProfile" ToRole="Profile" />
           <NavigationProperty Name="ShoppingCartItems" Relationship="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile" FromRole="UserProfile" ToRole="ShoppingCartItems" />
+          <NavigationProperty Name="webpages_Membership" Relationship="ParTech.ImageLibrary.Core.Models.FK_UserProfile_webpages_Membership" FromRole="UserProfile" ToRole="webpages_Membership" />
           <NavigationProperty Name="webpages_Roles" Relationship="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
         </EntityType>
         <EntityType Name="webpages_Membership">
@@ -840,6 +883,7 @@
           <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
           <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
           <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_UserProfile_webpages_Membership" FromRole="webpages_Membership" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="webpages_OAuthMembership">
           <Key>
@@ -1002,6 +1046,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProfile_Profile">
+          <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Profile" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="ProfileID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShoppingCartItems_UserProfile">
           <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="1" />
           <End Role="ShoppingCartItems" Type="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" Multiplicity="*" />
@@ -1011,6 +1067,18 @@
             </Principal>
             <Dependent Role="ShoppingCartItems">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_webpages_Membership">
+          <End Role="webpages_Membership" Type="ParTech.ImageLibrary.Core.Models.webpages_Membership" Multiplicity="1" />
+          <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Membership">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

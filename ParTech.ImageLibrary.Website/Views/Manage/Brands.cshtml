@@ -55,6 +55,11 @@
             </ol>
             @Html.HiddenFor(m => m.BrandModel.BrandID)
             <input type="submit" value="@ViewBag.ButtonText" />
+        
+            @if (Model.BrandModel.BrandID > 0)
+            {
+                @Html.ActionLink("Cancel", "Brands", "Manage")
+            }
         </fieldset>
     }
 </section>

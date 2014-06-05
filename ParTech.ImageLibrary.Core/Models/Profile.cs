@@ -14,6 +14,11 @@ namespace ParTech.ImageLibrary.Core.Models
     
     public partial class Profile
     {
+        public Profile()
+        {
+            this.UserProfiles = new HashSet<UserProfile>();
+        }
+    
         public int ProfileID { get; set; }
         public string CompanyName { get; set; }
         public int SalutationID { get; set; }
@@ -28,5 +33,7 @@ namespace ParTech.ImageLibrary.Core.Models
         public System.DateTime created { get; set; }
         public System.DateTime updated { get; set; }
         public int LanguageID { get; set; }
+    
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

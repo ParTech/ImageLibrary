@@ -1,4 +1,4 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerImageModel
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerImagesModel
 @{
     ViewBag.Title = "Your images";
 }
@@ -9,7 +9,7 @@
 
 @Html.Partial("_StatusMessage")
 
-<section class="pagebody">
+<section class="pagebodysmall">
     @if (!Model.ListImages.Any())
     {
         <span>
@@ -20,24 +20,21 @@
     {
         foreach (var image in Model.ListImages)
         {
-            <div class="image">
+            <div class="nondraggableimage">
                 <div class="imagecontainer">
                     <img src="@Url.Action("ShowThumbnail", "Seller", new { imageid = image.ImageID })" />
                 </div>
                 <div class="datacontainer">
-                    Product: @Html.AuthorizedActionLinkOrText(image.Product.Name, "ShowProduct", "Seller",  new { productid = image.ProductID }, null)<br />
-                    Resolution: @image.Resolution<br />
-                    Type: @image.ImageFormat.Replace("image/", string.Empty)
+                    @Html.AuthorizedActionLinkOrText(image.Product.Name, "ShowProduct", "Seller", new { productid = image.ProductID }, null)<br />
+                    @image.Resolution; @image.ImageFormat.Replace("image/", string.Empty)
                 </div>
             </div>
         }
     }
 </section>
 
-<section class="form">
-    <hgroup class="title">
-        <h2>Upload images</h2>
-    </hgroup>
+<section class="uploadform">
+    <h2>Upload images</h2>
 
     @using (Html.BeginForm("UploadImage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", id = "upload" }))
     {
@@ -45,14 +42,14 @@
             @Html.LabelFor(m => m.Product, "Link them to this product")
             @Html.DropDownList("product", new SelectList(Model.ListProducts, "ProductID", "Name"), "-- make a choice --")
         </div>		
+
+        <div class="drop">
+            Drop Files Here
+
+            <a>Browse</a>
+            <input type="file" name="upl" multiple />
+        </div>
         
-        <div id="drop">
-		    Drop Here
-
-		    <a>Browse</a>
-		    <input type="file" name="upl" multiple />
-	    </div>
-
 	    <ul>
 		    <!-- The file uploads will be shown here -->
 	    </ul>

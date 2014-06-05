@@ -15,6 +15,7 @@
 
         <fieldset>
             <legend>Registration Form</legend>
+            <h3>Login information</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName, new { @class = "required" } )
@@ -32,15 +33,81 @@
                     @Html.ValidationMessageFor(m => m.ConfirmPassword)
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.Email, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
+                    @Html.LabelFor(m => m.UserEmail, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.UserEmail)
+                    @Html.ValidationMessageFor(m => m.UserEmail)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
                     @Html.RadioButtonFor(m => m.AccountType, 0) Byer<br />
                     @Html.RadioButtonFor(m => m.AccountType, 1) Seller<br />
                     @Html.ValidationMessageFor(m => m.AccountType)
+                </li>
+            </ol>
+            
+            <h3>Company information</h3>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.CompanyName)
+                    @Html.ValidationMessageFor(m => m.CompanyName)
+                </li>
+            </ol>
+
+            <h3>Contact information</h3>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.LanguageId, new { @class = "required" } )
+                    @Html.DropDownListFor(m => m.LanguageId, new SelectList(Model.LanguageItems, "LanguageID", "Name"), "-- make a choice --")
+                    @Html.ValidationMessageFor(m => m.LanguageId)
+                </li>  
+                <li>
+                    @Html.LabelFor(m => m.SalutationId, new { @class = "required" } )
+                    @Html.DropDownListFor(m => m.SalutationId, new SelectList(Model.SalutationItems, "SalutationID", "Name"), "-- make a choice --")
+                    @Html.ValidationMessageFor(m => m.SalutationId)
+                </li>            <li>
+                    @Html.LabelFor(m => m.FirstName, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.LastName, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Telephone)
+                    @Html.TextBoxFor(m => m.Telephone)
+                    @Html.ValidationMessageFor(m => m.Telephone)
+                </li>
+            </ol>
+
+            <h3>Billing address</h3>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.Address, new { @class = "required" })
+                    @Html.TextBoxFor(m => m.Address)
+                    @Html.ValidationMessageFor(m => m.Address)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.PostalCode, new { @class = "required" })
+                    @Html.TextBoxFor(m => m.PostalCode)
+                    @Html.ValidationMessageFor(m => m.PostalCode)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.City, new { @class = "required" })
+                    @Html.TextBoxFor(m => m.City)
+                    @Html.ValidationMessageFor(m => m.City)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.CountryId, new { @class = "required" } )
+                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryItems, "CountryID", "Name"), "-- make a choice --")
+                    @Html.ValidationMessageFor(m => m.CountryId)
                 </li>
             </ol>
             <input type="submit" value="Register" />

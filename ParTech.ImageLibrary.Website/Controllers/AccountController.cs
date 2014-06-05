@@ -2,7 +2,6 @@
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using ParTech.ImageLibrary.Core.Enums;
-using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.Account;
 using ParTech.ImageLibrary.Core.Workers;
@@ -17,12 +16,15 @@ namespace ParTech.ImageLibrary.Website.Controllers
     {
         private readonly IAccountsWorker _accountsWorker;
 
+        private readonly IObjectRepository _objectRepository;
+
         private readonly IUserRepository _userRepository;
 
-        public AccountController(IAccountsWorker accountsWorker,
+        public AccountController(IAccountsWorker accountsWorker, IObjectRepository objectRepository,
             IUserRepository userRepository)
         {
             _accountsWorker = accountsWorker;
+            _objectRepository = objectRepository;
             _userRepository = userRepository;
         }
 
@@ -83,7 +85,14 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var registerModel = new RegisterModel
+            {
+                CountryItems = _objectRepository.GetCountries(),
+                LanguageItems = _objectRepository.GetLanguages(),
+                SalutationItems = _objectRepository.GetSalutations()
+            };
+
+            return View(registerModel);
         }
 
         //
@@ -101,11 +110,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
                     TempData["Message"] = MessageIdEnum.RegisterStepTwo;
                     return RedirectToAction("Message", "Messages");
                 }
+
+                // If we got this far, something failed, display failure message
+                TempData["Message"] = MessageIdEnum.RegisterFailure;
+                return RedirectToAction("Message", "Messages");
             }
 
-            // If we got this far, something failed, display failure message
-            TempData["Message"] = MessageIdEnum.RegisterFailure;
-            return RedirectToAction("Message", "Messages");
+            model.CountryItems = _objectRepository.GetCountries();
+            model.LanguageItems = _objectRepository.GetLanguages();
+            model.SalutationItems = _objectRepository.GetSalutations();
+
+            return View(model);
         }
 
         //
@@ -114,7 +129,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [AllowAnonymous]
         public ActionResult RegisterConfirmation(string id)
         {
-            if (WebSecurity.ConfirmAccount(id))
+            if (_accountsWorker.ConfirmAndActivateUserProfile(id))
             {
                 TempData["Message"] = MessageIdEnum.RegisterConfirmationSuccess;
                 return RedirectToAction("Message", "Messages");

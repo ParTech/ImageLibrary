@@ -11,11 +11,15 @@ namespace ParTech.ImageLibrary.Core.Workers
 {
     public interface IAccountsWorker : IWorker
     {
+        bool ConfirmAndActivateUserProfile(string confirmationToken);
+
         string GenerateRandomPassword(int length);
 
         bool RegisterUser(RegisterModel model);
 
         bool SendRecoverPasswordEmail(RecoverModel model, string resetPasswordActionUrl);
+
+        bool SendRegistrationConfirmationEmail(int userid);
 
         MessageIdEnum SendResetPasswordEmail(string username, string passwordVerificationToken);
     }
@@ -29,6 +33,32 @@ namespace ParTech.ImageLibrary.Core.Workers
         public AccountsWorker(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        public bool ConfirmAndActivateUserProfile(string confirmationToken)
+        {
+            var confirmationSucceeded = false;
+
+            try
+            {
+                // first confirm the user
+                if (WebSecurity.ConfirmAccount(confirmationToken))
+                {
+                    // then activate the user
+                    var webpagesMembership = _userRepository.GetMembershipByConfirmationToken(confirmationToken);
+                    if (webpagesMembership != null &&
+                        _userRepository.UpdateActiveFlagUserProfile(webpagesMembership.UserId, true))
+                    {
+                        confirmationSucceeded = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat(" ConfirmAndActivateUserProfile - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return confirmationSucceeded;
         }
         
         public string GenerateRandomPassword(int length)
@@ -49,21 +79,33 @@ namespace ParTech.ImageLibrary.Core.Workers
         {
             var registrationSucceeded = false;
 
-            // Attempt to register the user
             try
             {
-                var confirmationToken = WebSecurity.CreateUserAndAccount(
-                    model.UserName,
-                    model.Password,
-                    new
+                // first save the profile information of the user
+                var newProfileId = _userRepository.AddProfile(model);
+                if (newProfileId > 0)
+                {
+                    // then register the new (inactive) user 
+                    WebSecurity.CreateUserAndAccount(
+                        model.UserName,
+                        model.Password,
+                        new
+                        {
+                            Email = model.UserEmail,
+                            AccountType = model.AccountType.GetHashCode(),
+                            ProfileID = newProfileId,
+                            Active = 0
+                        },
+                        true);
+                    
+                    // and finally add the selected role to the new user
+                    var profile = _userRepository.GetUserProfileByName(model.UserName);
+                    if (profile != null &&
+                        _userRepository.SaveUserProfile(profile, model.AccountType.ToString()))
                     {
-                        model.Email,
-                        AccountType = model.AccountType.GetHashCode(),
-                        Active = 0
-                    },
-                    true);
-
-                registrationSucceeded = true;
+                        registrationSucceeded = true;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -72,53 +114,6 @@ namespace ParTech.ImageLibrary.Core.Workers
 
             return registrationSucceeded;
         }
-
-        //public bool RegisterUserAndSendConfirmationEmail(RegisterModel model,
-        //    string registerConfirmationActionUrl)
-        //{
-        //    var registrationSucceeded = false;
-
-        //    // Attempt to register the user
-        //    try
-        //    {
-        //        var confirmationToken = WebSecurity.CreateUserAndAccount(
-        //            model.UserName,
-        //            model.Password,
-        //            new
-        //            {
-        //                model.Email,
-        //                AccountType = model.AccountType.GetHashCode(),
-        //                Active = 0
-        //            },
-        //            true);
-        //        var confirmationLink = string.Format("<a href='http://{0}{1}/{2}'>{3}</a>",
-        //                                             System.Web.HttpContext.Current.Request.Url.Host,
-        //                                             registerConfirmationActionUrl,
-        //                                             confirmationToken,
-        //                                             "Confirm registration");
-
-        //        var profile = _userRepository.GetUserProfileByName(model.UserName);
-        //        if (profile != null)
-        //        {
-        //            if (_userRepository.SaveUserProfile(profile, model.AccountType.ToString()))
-        //            {
-        //                dynamic email = new Email("RegistrationConfirmation");
-        //                email.To = model.Email;
-        //                email.UserName = model.UserName;
-        //                email.ConfirmationLink = confirmationLink;
-        //                email.Send();
-
-        //                registrationSucceeded = true;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Logger.ErrorFormat(" RegisterUserAndSendConfirmationEmail - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
-        //    }
-
-        //    return registrationSucceeded;
-        //}
 
         public bool SendRecoverPasswordEmail(RecoverModel model, string resetPasswordActionUrl)
         {
@@ -156,6 +151,37 @@ namespace ParTech.ImageLibrary.Core.Workers
             catch (Exception ex)
             {
                 Logger.ErrorFormat(" SendRecoverPasswordEmail - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return emailSent;
+        }
+
+        public bool SendRegistrationConfirmationEmail(int userid)
+        {
+            var emailSent = false;
+
+            try
+            {
+                var userProfile = _userRepository.GetUserProfileAndContextById(userid);
+                if (userProfile != null)
+                {
+                    var confirmationLink = string.Format("<a href='http://{0}/Account/RegisterConfirmation/{1}'>{2}</a>",
+                                                            System.Web.HttpContext.Current.Request.Url.Host,
+                                                            userProfile.webpages_Membership.ConfirmationToken,
+                                                            "Confirm registration");
+
+                    dynamic email = new Email("RegistrationConfirmation");
+                    email.To = userProfile.Email;
+                    email.UserName = userProfile.UserName;
+                    email.ConfirmationLink = confirmationLink;
+                    email.Send();
+
+                    emailSent = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat(" ActivateUserAndSendRegistrationConfirmationEmail - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return emailSent;

@@ -79,7 +79,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 }
             }
             
-            var sim = new SellerImageModel
+            var sim = new SellerImagesModel
             {
                 ListImages = _imageRepository.GetImagesForUser(WebSecurity.GetUserId(User.Identity.Name)),
                 ListProducts = _objectRepository.GetProductsForUser(WebSecurity.GetUserId(User.Identity.Name))
@@ -279,7 +279,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 }
             }
 
-            var spm = new SellerProductModel
+            var spm = new SellerProductsModel
             {
                 ListProducts = _objectRepository.GetProductsForUser(WebSecurity.GetUserId(User.Identity.Name))
             };
@@ -290,7 +290,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = "New product";
                 ViewBag.ButtonText = "Add product";
 
-                spm.ProductModel = new Product();
+                spm.SellerProductModel = new SellerProductModel();
             }
             else
             {
@@ -298,14 +298,14 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = "Edit product";
                 ViewBag.ButtonText = "Save product";
 
-                spm.ProductModel = _objectRepository.GetProduct(productid);
+                spm.SellerProductModel = _objectRepository.GetProductAndMapToSellerProductModel(productid);
             }
 
-            spm.BrandItems = _objectRepository.GetBrands();
-            spm.CategoryItems = _objectRepository.GetCategories(Thread.CurrentThread.CurrentCulture.LCID);
-            spm.CollectionItems = _objectRepository.GetCollections();
-            spm.GenderItems = _objectRepository.GetGenders(Thread.CurrentThread.CurrentCulture.LCID);
-            spm.SeasonItems = _objectRepository.GetSeasons();
+            spm.SellerProductModel.BrandItems = _objectRepository.GetBrands();
+            spm.SellerProductModel.CategoryItems = _objectRepository.GetCategories(Thread.CurrentThread.CurrentCulture.LCID);
+            spm.SellerProductModel.CollectionItems = _objectRepository.GetCollections();
+            spm.SellerProductModel.GenderItems = _objectRepository.GetGenders(Thread.CurrentThread.CurrentCulture.LCID);
+            spm.SellerProductModel.SeasonItems = _objectRepository.GetSeasons();
 
             return View(spm);
         }
@@ -316,12 +316,12 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public ActionResult SaveProduct(Product productModel)
+        public ActionResult SaveProduct(SellerProductModel productModel)
         {
             var successMessage = MessageIdEnum.NewProductSuccess;
             var failureMessage = MessageIdEnum.NewProductFailure;
 
-            if (productModel.ProductID > 0)
+            if (productModel.ProductId > 0)
             {
                 successMessage = MessageIdEnum.EditProductSuccess;
                 failureMessage = MessageIdEnum.EditProductFailure;

@@ -31,7 +31,9 @@ namespace ParTech.ImageLibrary.Core.Models
     
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+        public virtual Profile Profile { get; set; }
         public virtual ICollection<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public virtual webpages_Membership webpages_Membership { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

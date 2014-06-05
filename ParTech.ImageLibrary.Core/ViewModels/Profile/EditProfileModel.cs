@@ -30,7 +30,7 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "The email address is not valid!")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

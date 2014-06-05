@@ -2,6 +2,8 @@
 {
     public enum MessageIdEnum
     {
+        ActivateUserFailure,
+        ActivateUserSuccess,
         AddImagesToCartFailure,
         AddImagesToCartSuccess,
         ChangePasswordSuccess,
@@ -9,6 +11,8 @@
         ChangeUserProfileDataSuccess,
         CreateDownloadCartFailed,
         CreateDownloadCartSuccess,
+        DeactivateUserFailure,
+        DeactivateUserSuccess,
         DeleteCartFailure,
         DeleteCartSuccess,
         DeleteCartItemFailure,
@@ -45,6 +49,8 @@
         RegisterConfirmationSuccess,
         RegisterFailure,
         RegisterStepTwo,
+        RegistrationConfirmationEmailFailure,
+        RegistrationConfirmationEmailSuccess,
         RemoveLoginSuccess,
         ResetPasswordFailure,
         ResetPasswordNoMatch,
