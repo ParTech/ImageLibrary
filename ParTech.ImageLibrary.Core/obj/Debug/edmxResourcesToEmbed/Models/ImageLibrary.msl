@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="Entities">
+  <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="ImageDatabaseEntities">
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Brand">
         <MappingFragment StoreEntitySet="Brand">
@@ -190,6 +190,7 @@
           <ScalarProperty Name="AccountType" ColumnName="AccountType" />
           <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
           <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="MainAccount" ColumnName="MainAccount" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

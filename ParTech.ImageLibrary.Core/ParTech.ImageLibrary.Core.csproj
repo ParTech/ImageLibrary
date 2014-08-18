@@ -192,7 +192,9 @@
     <Compile Include="ViewModels\Manage\ManageCollectionModel.cs" />
     <Compile Include="ViewModels\Manage\ManageGenderModel.cs" />
     <Compile Include="ViewModels\Manage\ManageSeasonModel.cs" />
+    <Compile Include="ViewModels\Profile\AdditionalAccountsModel.cs" />
     <Compile Include="ViewModels\Profile\EditProfileModel.cs" />
+    <Compile Include="ViewModels\Profile\UserProfileModel.cs" />
     <Compile Include="ViewModels\Seller\SellerImagesModel.cs" />
     <Compile Include="ViewModels\Seller\SellerProductModel.cs" />
     <Compile Include="ViewModels\Seller\SellerProductsModel.cs" />

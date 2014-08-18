@@ -28,6 +28,7 @@ namespace ParTech.ImageLibrary.Core.Models
         public int AccountType { get; set; }
         public Nullable<int> ProfileID { get; set; }
         public bool Active { get; set; }
+        public bool MainAccount { get; set; }
     
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual ICollection<Product> Products { get; set; }

@@ -295,6 +295,7 @@
           <Property Name="AccountType" Type="int" Nullable="false" />
           <Property Name="ProfileID" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="MainAccount" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -569,7 +570,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ParTech.ImageLibrary.Core.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="ImageDatabaseEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Brands" EntityType="ParTech.ImageLibrary.Core.Models.Brand" />
           <EntitySet Name="Categories" EntityType="ParTech.ImageLibrary.Core.Models.Category" />
           <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Collection" />
@@ -859,6 +860,7 @@
           <Property Name="AccountType" Type="Int32" Nullable="false" />
           <Property Name="ProfileID" Type="Int32" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="MainAccount" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile" FromRole="UserProfile" ToRole="OrderLines" />
           <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="UserProfile" ToRole="Products" />
           <NavigationProperty Name="Profile" Relationship="ParTech.ImageLibrary.Core.Models.FK_UserProfile_Profile" FromRole="UserProfile" ToRole="Profile" />
@@ -1093,7 +1095,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="ImageDatabaseEntities">
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Brand">
               <MappingFragment StoreEntitySet="Brand">
@@ -1283,6 +1285,7 @@
                 <ScalarProperty Name="AccountType" ColumnName="AccountType" />
                 <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MainAccount" ColumnName="MainAccount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

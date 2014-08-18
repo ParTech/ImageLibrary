@@ -38,7 +38,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     count = db.Images.Count(i => i.ProductID == productid);
                 }
@@ -57,7 +57,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     image = db.Images.SingleOrDefault(i => i.ImageID == imageId);
                 }
@@ -76,7 +76,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     images = db.Images.Include("Product")
                                       .OrderBy(i => i.Product.Name)
@@ -97,7 +97,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     images = db.Images.Where(i => i.Product.UserID == userid)
                                       .Include("Product")
@@ -118,7 +118,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     images = db.Images.Where(i => i.ProductID == productid)
                                       .ToList();
@@ -193,7 +193,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (image.ImageID > 0)
                     {

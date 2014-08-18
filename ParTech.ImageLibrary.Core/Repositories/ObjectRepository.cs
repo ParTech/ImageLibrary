@@ -153,7 +153,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (brandid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         brand = db.Brands.SingleOrDefault(i => i.BrandID == brandid);
                     }
@@ -175,7 +175,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (brandid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         brand = db.Brands.Where(i => i.BrandID == brandid)
                                          .Include("Products")
@@ -198,7 +198,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     brands = db.Brands.OrderBy(i => i.Name)
                                       .ToList();
@@ -218,7 +218,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     brands = db.Brands.Include("Products")
                                       .OrderBy(i => i.Name)
@@ -239,7 +239,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (brand.BrandID > 0)
                     {
@@ -286,7 +286,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (categoryid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         category = db.Categories.SingleOrDefault(i => i.CategoryID == categoryid);
                     }
@@ -306,7 +306,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     categories = db.Categories.ToList();
                 }
@@ -325,7 +325,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (category.CategoryID > 0)
                     {
@@ -372,7 +372,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (collectionid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         collection = db.Collections.SingleOrDefault(i => i.CollectionID == collectionid);
                     }
@@ -394,7 +394,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (collectionid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         collection = db.Collections.Where(i => i.CollectionID == collectionid)
                                                    .Include("Products")
@@ -417,7 +417,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     collections = db.Collections.OrderBy(i => i.Name)
                                                 .ToList();
@@ -437,7 +437,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     collections = db.Collections.Include("Products")
                                                 .OrderBy(i => i.Name)
@@ -458,7 +458,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (collection.CollectionID > 0)
                     {
@@ -504,7 +504,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (countryid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         country = db.Countries.SingleOrDefault(i => i.CountryID == countryid);
                     }
@@ -526,7 +526,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (countryid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         country = db.Countries.Where(i => i.CountryID == countryid)
                                               .Include("Profiles")
@@ -548,7 +548,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     countrys = db.Countries.OrderBy(i => i.Name)
                                            .ToList();
@@ -568,7 +568,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     countrys = db.Countries.Include("Profiles")
                                           .OrderBy(i => i.Name)
@@ -589,7 +589,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (country.CountryID > 0)
                     {
@@ -629,7 +629,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (genderid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         gender = db.Genders.SingleOrDefault(i => i.GenderID == genderid);
                     }
@@ -649,7 +649,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     genders = db.Genders.OrderBy(j => j.Name)
                                         .ToList();
@@ -669,7 +669,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (gender.GenderID > 0)
                     {
@@ -713,7 +713,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (languageid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         language = db.Languages.SingleOrDefault(i => i.LanguageID == languageid);
                     }
@@ -735,7 +735,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (languageid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         language = db.Languages.Where(i => i.LanguageID == languageid)
                                                .Include("Profiles")
@@ -757,7 +757,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     languages = db.Languages.OrderBy(i => i.Name)
                                             .ToList();
@@ -777,7 +777,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     languages = db.Languages.Include("Profiles")
                                             .OrderBy(i => i.Name)
@@ -798,7 +798,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (language.LanguageID > 0)
                     {
@@ -838,7 +838,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (productid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         product = db.Products.SingleOrDefault(i => i.ProductID == productid);
                     }
@@ -860,7 +860,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (productid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         product = db.Products.Where(i => i.ProductID == productid)
                                              .Include("Brand")
@@ -916,7 +916,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     products = db.Products.OrderBy(i => i.Name)
                                           .ToList();
@@ -936,7 +936,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     products = db.Products.OrderBy(i => i.Name)
                                           .Include("Brand")
@@ -962,7 +962,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     products = db.Products.Where(i => i.UserID == userid)
                                           .Include("Images")
@@ -986,7 +986,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 Product tmpProduct;
 
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (product.ProductId > 0)
                     {
@@ -1058,7 +1058,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (salutationid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         salutation = db.Salutations.SingleOrDefault(i => i.SalutationID == salutationid);
                     }
@@ -1080,7 +1080,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (salutationid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         salutation = db.Salutations.Where(i => i.SalutationID == salutationid)
                                                    .Include("Profiles")
@@ -1102,7 +1102,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     salutations = db.Salutations.OrderBy(i => i.Name)
                                                 .ToList();
@@ -1122,7 +1122,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     salutations = db.Salutations.Include("Profiles")
                                                 .OrderBy(i => i.Name)
@@ -1143,7 +1143,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (salutation.SalutationID > 0)
                     {
@@ -1183,7 +1183,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (seasonid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         season = db.Seasons.SingleOrDefault(i => i.SeasonID == seasonid);
                     }
@@ -1203,7 +1203,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     seasons = db.Seasons.OrderBy(i => i.Name).ToList();
                 }
@@ -1222,7 +1222,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (season.SeasonID > 0)
                     {

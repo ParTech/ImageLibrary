@@ -1,7 +1,7 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
 @model IEnumerable<ParTech.ImageLibrary.Core.Models.UserProfile>
 @{
-    ViewBag.Title = "Inactive users";
+    ViewBag.Title = "Users";
 }
 
 <hgroup class="title">
@@ -15,13 +15,14 @@
     @if (!Model.Any())
     {
         <span>
-            No inactive users available.
+            No users available.
         </span>
     }
     else
     {
         <table>
             <tr>
+                <th>&nbsp;</th>
                 <th>&nbsp;</th>
                 <th>User name</th>
                 <th>Email address</th>
@@ -45,9 +46,23 @@
                     {
                         @Html.AuthorizedActionLinkOrText("Send confirmation email", "SendConfirmationEmail", "Admin", new { userid = userProfile.Id }, null)
                     }
+                    else if (userProfile.Active)
+                    {
+                        @Html.AuthorizedActionLinkOrText("Deactivate user", "DeactivateUser", "Admin", new { userid = userProfile.Id }, null)
+                    }
                     else
                     {
                         @Html.AuthorizedActionLinkOrText("Activate user", "ActivateUser", "Admin", new { userid = userProfile.Id }, null)
+                    }
+                </td>
+                <td>
+                    @if (userProfile.MainAccount)
+                    {
+                        @: !
+                    }
+                    else
+                    {
+                        @: &nbsp;
                     }
                 </td>
                 <td>@userProfile.UserName</td>
@@ -68,8 +83,7 @@
                         {
                             @: -
                         }
-                        <br />
-                        T: 
+                        <br />                        T: 
                         @if (!string.IsNullOrEmpty(userProfile.Profile.Telephone))
                         {
                             @userProfile.Profile.Telephone

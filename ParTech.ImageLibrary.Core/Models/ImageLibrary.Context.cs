@@ -13,10 +13,10 @@ namespace ParTech.ImageLibrary.Core.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class ImageDatabaseEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public ImageDatabaseEntities()
+            : base("name=ImageDatabaseEntities")
         {
         }
     

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Enums;
 using ParTech.ImageLibrary.Core.Interfaces;
+using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.Account;
+using ParTech.ImageLibrary.Core.ViewModels.Profile;
 using Postal;
 using WebMatrix.WebData;
 
@@ -14,6 +17,8 @@ namespace ParTech.ImageLibrary.Core.Workers
         bool ConfirmAndActivateUserProfile(string confirmationToken);
 
         string GenerateRandomPassword(int length);
+
+        bool RegisterAdditionalAccount(UserProfileModel model, UserProfile userProfile);
 
         bool RegisterUser(RegisterModel model);
 
@@ -75,6 +80,46 @@ namespace ParTech.ImageLibrary.Core.Workers
             return new string(chars);
         }
 
+        public bool RegisterAdditionalAccount(UserProfileModel model, UserProfile userProfile)
+        {
+            var registrationSucceeded = false;
+
+            try
+            {
+                AccountTypeEnum accountType;
+
+                if (Enum.TryParse(userProfile.AccountType.ToString(CultureInfo.InvariantCulture), out accountType));
+                {
+                    // register the new (inactive) user 
+                    WebSecurity.CreateUserAndAccount(
+                        model.UserName,
+                        model.Password,
+                        new
+                        {
+                            Email = model.UserEmail,
+                            AccountType = accountType.GetHashCode(),
+                            ProfileID = userProfile.ProfileID,
+                            Active = 0,
+                            MainAccount = 0
+                        },
+                        true);
+
+                    // and add the selected role to the new user
+                    var profile = _userRepository.GetUserProfileByName(model.UserName);
+                    if (profile != null &&
+                        _userRepository.SaveUserProfile(profile, accountType.ToString()))
+                    {
+                        registrationSucceeded = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat(" RegisterAdditionalAccount - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return registrationSucceeded;
+        }
         public bool RegisterUser(RegisterModel model)
         {
             var registrationSucceeded = false;
@@ -94,7 +139,8 @@ namespace ParTech.ImageLibrary.Core.Workers
                             Email = model.UserEmail,
                             AccountType = model.AccountType.GetHashCode(),
                             ProfileID = newProfileId,
-                            Active = 0
+                            Active = 0,
+                            MainAccount = 1
                         },
                         true);
                     

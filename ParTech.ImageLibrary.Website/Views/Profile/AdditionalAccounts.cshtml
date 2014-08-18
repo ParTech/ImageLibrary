@@ -1,0 +1,109 @@
+﻿@model ParTech.ImageLibrary.Core.ViewModels.Profile.AdditionalAccountsModel
+@{
+    ViewBag.Title = "Additional accounts";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+    @if (Model.ListUserProfiles == null || !Model.ListUserProfiles.Any())
+    {
+        <span>
+            No additional accounts available.
+        </span>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th>&nbsp;</th>
+                <th>User name</th>
+                <th>Email address</th>
+                <th>Created</th>
+            </tr>
+
+            @foreach (var userProfile in Model.ListUserProfiles)
+            {
+                var createdDateString = "-";
+                if (userProfile.webpages_Membership.CreateDate != null)
+                {
+                    createdDateString = userProfile.webpages_Membership.CreateDate.ToString();
+                }
+                <tr>
+                    <td>
+                        @if (userProfile.webpages_Membership.IsConfirmed == null ||
+                            !(bool)userProfile.webpages_Membership.IsConfirmed)
+                        {
+                            @Html.AuthorizedActionLinkOrText("Send confirmation email", "SendConfirmationEmail", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                        }
+                        else if (userProfile.Active)
+                        {
+                            @Html.AuthorizedActionLinkOrText("Deactivate user", "DeactivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                        }
+                        else
+                        {
+                            @Html.AuthorizedActionLinkOrText("Activate user", "ActivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                        }                      
+                    </td>
+                    <td>@userProfile.UserName</td>
+                    <td>@userProfile.Email</td>
+                    <td>@createdDateString</td>
+                </tr>
+            }
+
+        </table>
+    }
+</section>
+
+<section class="form">
+
+    <h2>@ViewBag.FormHeader</h2>
+
+    @using (Html.BeginForm("SaveAccount", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>@ViewBag.Legend</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserProfileModel.UserName, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.UserProfileModel.UserName)
+                    @Html.ValidationMessageFor(m => m.UserProfileModel.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.UserProfileModel.Password, new { @class = "required" } )
+                    @Html.PasswordFor(m => m.UserProfileModel.Password)
+                    @Html.ValidationMessageFor(m => m.UserProfileModel.Password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.UserProfileModel.ConfirmPassword, new { @class = "required" } )
+                    @Html.PasswordFor(m => m.UserProfileModel.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.UserProfileModel.ConfirmPassword)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.UserProfileModel.UserEmail, new { @class = "required" } )
+                    @Html.TextBoxFor(m => m.UserProfileModel.UserEmail)
+                    @Html.ValidationMessageFor(m => m.UserProfileModel.UserEmail)
+                </li>
+            </ol>
+            @Html.HiddenFor(m => m.UserProfileModel.UserProfileId)
+            <input type="submit" value="@ViewBag.ButtonText" />
+        
+            @if (Model.UserProfileModel.UserProfileId > 0)
+            {
+                @Html.ActionLink("Cancel", "AdditionalAccounts", "Profile")
+            }
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}

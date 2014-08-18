@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Castle.Core.Logging;
+using log4net.Util;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.ViewModels.Account;
@@ -33,7 +34,9 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         LocalUserModel GetUserProfileAndMapToLocalUserModel();
 
-        UserProfile GetUserProfileById(int userId);
+        UserProfile GetUserProfileById(int? userId);
+
+        UserProfileModel GetUserProfileAndMapToUserProfileModel(int? userId);
 
         UserProfile GetUserProfileAndContextById(int userId);
 
@@ -41,7 +44,9 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         UserProfile GetUserProfileByNameAndEmail(string userName, string emailAddress);
 
-        IEnumerable<UserProfile> GetUserProfilesAndContext(bool active);
+        IEnumerable<UserProfile> GetUserProfilesAndContext();
+
+        IEnumerable<UserProfile> GetUserProfilesByProfileIdAndContext(int? profileId, bool includeMainAccount);
 
         bool SaveUserProfile(LocalUserModel profile);
 
@@ -60,6 +65,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
         bool VerifyPasswordVerificationToken(int userId, string passwordVerificationToken);
 
         #endregion
+
     }
 
     public class UserRepository : IUserRepository
@@ -90,7 +96,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
 
                     db.Profiles.Add(tmpProfile);
@@ -116,7 +122,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 try
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         var tmpProfile = db.Profiles.Single(u => u.ProfileID == profileId);
                         if (tmpProfile != null)
@@ -166,7 +172,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.Profiles.Single(u => u.ProfileID == profile.ProfileId);
                     if (tmpProfile != null)
@@ -208,7 +214,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             try
             {
                 // Insert a new user into the database
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower());
                     if (user == null)
@@ -254,36 +260,55 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return userModel;
         }
 
-        public UserProfile GetUserProfileById(int userId)
+        public UserProfile GetUserProfileById(int? userId)
         {
             UserProfile outProfile = null;
 
             try
             {
-                using (var db = new Entities())
+                if (userId != null)
                 {
-                    var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
-                    if (tmpProfile != null)
+                    using (var db = new ImageDatabaseEntities())
                     {
-                        outProfile = tmpProfile;
+                        var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
+                        if (tmpProfile != null)
+                        {
+                            outProfile = tmpProfile;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("GetProfileById - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                Logger.ErrorFormat("GetUserProfileById - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return outProfile;
         }
 
+        public UserProfileModel GetUserProfileAndMapToUserProfileModel(int? userId)
+        {
+            var userProfile = GetUserProfileById(userId);
+            if (userProfile == null)
+            {
+                return new UserProfileModel();
+            }
+
+            var userProfileModel = new UserProfileModel
+            {
+                UserName = userProfile.UserName,
+                UserEmail = userProfile.Email
+            };
+
+            return userProfileModel;
+        }
         public UserProfile GetUserProfileAndContextById(int userId)
         {
             UserProfile outProfile = null;
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.Id == userId)
                                                     .Include("Profile")
@@ -298,7 +323,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("GetProfileById - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                Logger.ErrorFormat("GetUserProfileAndContextById - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return outProfile;
@@ -310,7 +335,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.UserName.ToLower() == userName.ToLower())
                                                     .Include("webpages_Roles")
@@ -323,7 +348,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("GetProfileByName - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                Logger.ErrorFormat("GetUserProfileByName - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return outProfile;
@@ -335,7 +360,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.SingleOrDefault(u => u.UserName.ToLower() == userName.ToLower()
                                                                           && u.Email == emailAddress);
@@ -347,22 +372,21 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("GetProfileByNameAndEmail - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                Logger.ErrorFormat("GetUserProfileByNameAndEmail - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return outProfile;
         }
 
-        public IEnumerable<UserProfile> GetUserProfilesAndContext(bool active)
+        public IEnumerable<UserProfile> GetUserProfilesAndContext()
         {
             List<UserProfile> userProfiles = null;
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
-                    userProfiles = db.UserProfiles.Where(u => u.Active == active)
-                                                  .Include("Profile")
+                    userProfiles = db.UserProfiles.Include("Profile")
                                                   .Include("webpages_Membership")
                                                   .OrderBy(u => u.UserName)
                                                   .ToList();
@@ -370,7 +394,45 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("GetUserProfiles - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                Logger.ErrorFormat("GetUserProfilesAndContext - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return userProfiles;
+        }
+
+        public IEnumerable<UserProfile> GetUserProfilesByProfileIdAndContext(int? profileId, bool includeMainAccount)
+        {
+            List<UserProfile> userProfiles = null;
+
+            try
+            {
+                if (profileId != null)
+                {
+                    using (var db = new ImageDatabaseEntities())
+                    {
+                        if (includeMainAccount)
+                        {
+                            userProfiles = db.UserProfiles.Where(u => u.ProfileID == profileId)
+                                .Include("Profile")
+                                .Include("webpages_Membership")
+                                .OrderBy(u => u.UserName)
+                                .ToList();
+                        }
+                        else
+                        {
+                            userProfiles = db.UserProfiles.Where(u => u.ProfileID == profileId
+                                                                      && !u.MainAccount)
+                                .Include("Profile")
+                                .Include("webpages_Membership")
+                                .OrderBy(u => u.UserName)
+                                .ToList();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetUserProfilesForCompanyAndContext - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return userProfiles;
@@ -382,7 +444,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.Single(u => u.Id == profile.Id);
                     if (tmpProfile != null)
@@ -409,7 +471,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.Id == profile.Id)
                                                     .Include("webpages_Roles")
@@ -452,7 +514,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
                     if (tmpProfile != null)
@@ -483,7 +545,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     membership = db.webpages_Membership.Single(i => i.UserId == userId);
                 }
@@ -502,7 +564,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     membership = db.webpages_Membership.Single(i => i.ConfirmationToken == confirmationToken);
                 }
@@ -521,7 +583,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     tokenVerified = db.webpages_Membership.Any(i => i.PasswordVerificationToken == passwordVerificationToken
                                                                     && DateTime.Now < i.PasswordVerificationTokenExpirationDate
@@ -537,5 +599,6 @@ namespace ParTech.ImageLibrary.Core.Repositories
         }
 
         #endregion
+
     }
 }

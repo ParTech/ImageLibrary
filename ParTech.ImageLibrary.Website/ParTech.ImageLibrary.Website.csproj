@@ -332,12 +332,12 @@
     <Content Include="Views\Seller\DownloadHistory.cshtml" />
     <Content Include="Views\Byer\DownloadHistory.cshtml" />
     <Content Include="Views\Byer\ShoppingCart.cshtml" />
-    <Content Include="Views\Admin\ShowInactiveUsers.cshtml" />
-    <Content Include="Views\Admin\ShowActiveUsers.cshtml" />
+    <Content Include="Views\Admin\ShowUsers.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
     <Content Include="Views\General\Search.cshtml" />
     <Content Include="Views\Admin\ShowProduct.cshtml" />
+    <Content Include="Views\Profile\AdditionalAccounts.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

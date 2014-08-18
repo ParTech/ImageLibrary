@@ -52,6 +52,8 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         [Display(Name = "Country")]
         public int CountryId { get; set; }
        
+        public bool MainAccount { get; set; }
+
         public IEnumerable<Country> CountryItems { get; set; }
 
         public IEnumerable<Language> LanguageItems { get; set; }

@@ -1,10 +1,18 @@
 ﻿@model ParTech.ImageLibrary.Core.ViewModels.Profile.EditProfileModel
+@{
+    ViewBag.Title = "Edit profile";
+}
 
 <hgroup class="title">
-    <h1>Edit profile</h1>
+    <h1>@ViewBag.Title</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
+
+@if (Model.MainAccount)
+{
+    @Html.ActionLink("Additional accounts", "AdditionalAccounts", "Profile")
+}
 
 <section class="pagebody">
 

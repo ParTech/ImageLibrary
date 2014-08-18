@@ -49,89 +49,95 @@ namespace ParTech.ImageLibrary.Website.Controllers
         //
         // GET: /Admin/ActivateUser
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult ActivateUser(int userid)
+        [Authorize(Roles = "Admin,Byer,Seller")]
+        public ActionResult ActivateUser(int userid, string returnTo)
         {
             if (_userRepository.UpdateActiveFlagUserProfile(userid, true))
             {
                 TempData["Message"] = MessageIdEnum.ActivateUserSuccess;
-                return RedirectToAction("ShowInactiveUsers", "Admin");
+
+                if (returnTo == "AdditionalAccounts")
+                {
+                    return RedirectToAction("AdditionalAccounts", "Profile");
+                }
+                
+                return RedirectToAction("ShowUsers", "Admin");
             }
 
             // If we got this far, something failed, display failure message
             TempData["Message"] = MessageIdEnum.ActivateUserFailure;
-            return RedirectToAction("ShowInactiveUsers", "Admin");
+
+            if (returnTo == "AdditionalAccounts")
+            {
+                return RedirectToAction("AdditionalAccounts", "Profile");
+            }
+
+            return RedirectToAction("ShowUsers", "Admin");
         }
 
         //
         // GET: /Admin/DeactivateUser
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult DeactivateUser(int userid)
+        [Authorize(Roles = "Admin,Byer,Seller")]
+        public ActionResult DeactivateUser(int userid, string returnTo)
         {
             if (_userRepository.UpdateActiveFlagUserProfile(userid, false))
             {
                 TempData["Message"] = MessageIdEnum.DeactivateUserSuccess;
-                return RedirectToAction("ShowInactiveUsers", "Admin");
+                
+                if (returnTo == "AdditionalAccounts")
+                {
+                    return RedirectToAction("AdditionalAccounts", "Profile");
+                }
+                
+                return RedirectToAction("ShowUsers", "Admin");
             }
 
             // If we got this far, something failed, display failure message
             TempData["Message"] = MessageIdEnum.DeactivateUserFailure;
-            return RedirectToAction("ShowActiveUsers", "Admin");
+            
+            if (returnTo == "AdditionalAccounts")
+            {
+                return RedirectToAction("AdditionalAccounts", "Profile");
+            } 
+            
+            return RedirectToAction("ShowUsers", "Admin");
         }
 
         //
         // GET: /Admin/SendConfirmationEmail
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult SendConfirmationEmail(int userid)
+        [Authorize(Roles = "Admin,Byer,Seller")]
+        public ActionResult SendConfirmationEmail(int userid, string returnTo)
         {
             if (_accountsWorker.SendRegistrationConfirmationEmail(userid))
             {
                 TempData["Message"] = MessageIdEnum.RegistrationConfirmationEmailSuccess;
-                return RedirectToAction("ShowInactiveUsers", "Admin");
+                
+                if (returnTo == "AdditionalAccounts")
+                {
+                    return RedirectToAction("AdditionalAccounts", "Profile");
+                } 
+                
+                return RedirectToAction("ShowUsers", "Admin");
             }
 
             // If we got this far, something failed, display failure message
             TempData["Message"] = MessageIdEnum.RegistrationConfirmationEmailFailure;
-            return RedirectToAction("ShowInactiveUsers", "Admin");
-        }
-
-        //
-        // GET: /Admin/ShowActiveUsers
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult ShowActiveUsers()
-        {
-            if (TempData != null && TempData["Message"] != null)
+            
+            if (returnTo == "AdditionalAccounts")
             {
-                switch ((MessageIdEnum)TempData["Message"])
-                {
-                    case MessageIdEnum.DeactivateUserFailure:
-                        TempData["StatusMessage"] = "The user could not be deactivated.";
-                        TempData["StatusMessageClass"] = "message-error";
-                        break;
-                    case MessageIdEnum.DeactivateUserSuccess:
-                        TempData["StatusMessage"] = "The user has been deactivated.";
-                        TempData["StatusMessageClass"] = "message-success";
-                        break;
-                    default:
-                        TempData["StatusMessage"] = string.Empty;
-                        TempData["StatusMessageClass"] = string.Empty;
-                        break;
-                }
-            }
-
-            var model = _userRepository.GetUserProfilesAndContext(true);
-
-            return View(model);
+                return RedirectToAction("AdditionalAccounts", "Profile");
+            } 
+            
+            return RedirectToAction("ShowUsers", "Admin");
         }
 
         //
-        // GET: /Admin/ShowInactiveUsers
+        // GET: /Admin/ShowUsers
 
         [Authorize(Roles = "Admin")]
-        public ActionResult ShowInactiveUsers()
+        public ActionResult ShowUsers()
         {
             if (TempData != null && TempData["Message"] != null)
             {
@@ -143,6 +149,14 @@ namespace ParTech.ImageLibrary.Website.Controllers
                         break;
                     case MessageIdEnum.ActivateUserSuccess:
                         TempData["StatusMessage"] = "The user has been activated.";
+                        TempData["StatusMessageClass"] = "message-success";
+                        break;
+                    case MessageIdEnum.DeactivateUserFailure:
+                        TempData["StatusMessage"] = "The user could not be deactivated.";
+                        TempData["StatusMessageClass"] = "message-error";
+                        break;
+                    case MessageIdEnum.DeactivateUserSuccess:
+                        TempData["StatusMessage"] = "The user has been deactivated.";
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.RegistrationConfirmationEmailFailure:
@@ -160,7 +174,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 }
             }
 
-            var model = _userRepository.GetUserProfilesAndContext(false);
+            var model = _userRepository.GetUserProfilesAndContext();
 
             return View(model);
         }

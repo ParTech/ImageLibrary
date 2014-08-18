@@ -290,6 +290,7 @@
     <Property Name="AccountType" Type="int" Nullable="false" />
     <Property Name="ProfileID" Type="int" />
     <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="MainAccount" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="webpages_Membership">
     <Key>

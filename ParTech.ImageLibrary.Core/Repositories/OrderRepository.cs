@@ -69,7 +69,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 try
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         foreach (var cartItem in cartItems)
                         {
@@ -114,7 +114,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (orderLineid != null)
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         orderLine = db.OrderLines.SingleOrDefault(i => i.OrderlineID == orderLineid);
                     }
@@ -134,7 +134,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     orderLines = db.OrderLines.OrderBy(i => i.created)
                                               .ToList();
@@ -156,7 +156,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 try
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         orderLines = db.OrderLines.Where(i => i.BuyerID == byerId)
                                                   .Include("Image")
@@ -183,7 +183,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 try
                 {
-                    using (var db = new Entities())
+                    using (var db = new ImageDatabaseEntities())
                     {
                         orderLines = db.OrderLines.Where(i => i.SellerID == sellerId)
                                                   .Include("Image")
@@ -208,7 +208,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (orderLine.OrderlineID > 0)
                     {
@@ -277,7 +277,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var items = db.ShoppingCartItems.Where(i => i.UserID == userid)
                                                     .ToList();
@@ -303,7 +303,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     var items = db.ShoppingCartItems.Where(i => i.UserID == userid
                                                                 && i.ImageID == imageid)
@@ -362,7 +362,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     cartItem = db.ShoppingCartItems.SingleOrDefault(i => i.UserID == userid 
                                                                          && i.ImageID == imageid);
@@ -382,7 +382,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     cartItems = db.ShoppingCartItems.Where(i => i.UserID == userid)
                                                     .Include("Image")
@@ -404,7 +404,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new Entities())
+                using (var db = new ImageDatabaseEntities())
                 {
                     if (cartItem.CartItemID > 0)
                     {
