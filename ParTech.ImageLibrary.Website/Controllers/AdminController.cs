@@ -1,6 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Enums;
+using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.Workers;
 
@@ -14,22 +22,29 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         private readonly IImageRepository _imageRepository;
 
+        private readonly ILuceneWorker _luceneWorker;
+
         private readonly IObjectRepository _objectRepository;
 
         private readonly IOrderRepository _orderRepository;
 
         private readonly IUserRepository _userRepository;
 
+        private static IDictionary<Guid, string> tasks = new Dictionary<Guid, string>();
+
         public AdminController(IAccountsWorker accountsWorker, IImageRepository imageRepository, 
-            IObjectRepository objectRepository, IOrderRepository orderRepository, 
+            ILuceneWorker luceneWorker, IObjectRepository objectRepository, IOrderRepository orderRepository, 
             IUserRepository userRepository)
         {
             _accountsWorker = accountsWorker;
             _imageRepository = imageRepository;
+            _luceneWorker = luceneWorker;
             _objectRepository = objectRepository;
             _orderRepository = orderRepository;
             _userRepository = userRepository;
         }
+
+        #region User related action methods 
 
         //
         // GET: /Admin/ActivateUser
@@ -149,5 +164,109 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             return View(model);
         }
+
+        #endregion
+
+        #region Lucene Index action methods
+
+        //
+        // GET: /Admin/Index
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Admin/StartIndexRebuild
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult StartIndexRebuild()
+        {
+            var currentLanguage = Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName;
+            var taskId = Guid.NewGuid();
+            tasks.Add(taskId, "0");
+
+            _luceneWorker.ClearLuceneIndex();
+
+            Task.Factory.StartNew(() => TaskUpdateAllProducts(currentLanguage, taskId));
+
+            return Json(taskId);
+        }
+
+        //
+        // POST: /Admin/ProgressIndexRebuild
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult ProgressIndexRebuild(Guid id)
+        {
+            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
+        }
+
+        private void TaskUpdateAllProducts(string language, Guid taskId)
+        {
+            var allProducts = _objectRepository.GetProductsAndContext().ToList();
+            var productsInStep = new List<Product>();
+            for (var i = 0; i <= allProducts.Count; i++)
+            {
+                // update task progress
+                var x = Decimal.Divide(i, allProducts.Count);
+                tasks[taskId] = (x*100).ToString("f0", CultureInfo.InvariantCulture);
+
+                int step = i%10;
+                if (step == 0)
+                {
+                    _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+
+                    productsInStep = new List<Product>();
+                }
+                else
+                {
+                    productsInStep.Add(allProducts[i - 1]);
+                }
+
+                // simulate long running operation
+                Thread.Sleep(2000);
+            }
+
+            if (productsInStep.Any())
+            {
+                _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+            }
+
+            tasks.Remove(taskId);
+        }
+        
+        #endregion
+
+        //
+        // GET: /Byer/ShowProduct
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ShowProduct(int productid = 0)
+        {
+            var productModel = _objectRepository.GetProductAndContext(productid);
+
+            return View(productModel);
+        }
+
+        //
+        // GET: /Byer/ShowThumbnail
+
+        [Authorize(Roles = "Byer")]
+        public ActionResult ShowThumbnail(int imageid = 0)
+        {
+            var imageModel = _imageRepository.GetImage(imageid);
+            if (imageModel != null)
+            {
+                return new FileStreamResult(new FileStream(imageModel.Thumbnailpath, FileMode.Open), imageModel.ImageFormat);
+            }
+
+            return null;
+        }
+
     }
 }

@@ -155,7 +155,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             var mbm = new ManageCategoryModel
             {
-                ListCategories = _objectRepository.GetCategories(Thread.CurrentThread.CurrentCulture.LCID)
+                ListCategories = _objectRepository.GetCategories()
             };
 
             if (categoryid == null || categoryid == 0)
@@ -340,7 +340,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             var mbm = new ManageGenderModel
             {
-                ListGenders = _objectRepository.GetGenders(Thread.CurrentThread.CurrentCulture.LCID)
+                ListGenders = _objectRepository.GetGenders()
             };
 
             if (genderid == null || genderid == 0)

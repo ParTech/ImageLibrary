@@ -1,0 +1,13 @@
+﻿@using ParTech.ImageLibrary.Core.ViewModels.General
+@model SearchModel
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Search", "General", FormMethod.Post, new { id = "searchForm" })) {
+        @Html.AntiForgeryToken()
+        @Html.TextBoxFor(m => m.SearchString)
+        @Html.ValidationMessageFor(m => m.SearchString)
+
+        @Html.HiddenFor(m => m.FieldName)
+    }
+}

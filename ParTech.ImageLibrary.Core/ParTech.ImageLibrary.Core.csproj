@@ -50,17 +50,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\Assemblies\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Postal">
       <HintPath>..\Assemblies\Postal.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
@@ -80,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\BitmapProperties.cs" />
+    <Compile Include="Classes\LanguageString.cs" />
+    <Compile Include="Classes\LanguageStringValue.cs" />
     <Compile Include="Classes\ShoppingCart.cs" />
     <Compile Include="Classes\ShoppingCartImage.cs" />
     <Compile Include="Enums\AccountTypeEnum.cs" />
@@ -165,6 +174,7 @@
     <Compile Include="Repositories\ObjectRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Utils\LanguageString.cs" />
     <Compile Include="ViewModels\Account\ExternalLogin.cs" />
     <Compile Include="ViewModels\Account\LocalAccountModel.cs" />
     <Compile Include="ViewModels\Account\LocalPasswordModel.cs" />
@@ -176,6 +186,7 @@
     <Compile Include="ViewModels\Byer\ByerBrandsModel.cs" />
     <Compile Include="ViewModels\Byer\ByerCollectionsModel.cs" />
     <Compile Include="ViewModels\Byer\ByerImagesModel.cs" />
+    <Compile Include="ViewModels\General\SearchModel.cs" />
     <Compile Include="ViewModels\Manage\ManageBrandModel.cs" />
     <Compile Include="ViewModels\Manage\ManageCategoryModel.cs" />
     <Compile Include="ViewModels\Manage\ManageCollectionModel.cs" />
@@ -186,6 +197,7 @@
     <Compile Include="ViewModels\Seller\SellerProductModel.cs" />
     <Compile Include="ViewModels\Seller\SellerProductsModel.cs" />
     <Compile Include="Workers\AccountsWorker.cs" />
+    <Compile Include="Workers\LuceneWorker.cs" />
     <Compile Include="Workers\ShoppingCartWorker.cs" />
   </ItemGroup>
   <ItemGroup>

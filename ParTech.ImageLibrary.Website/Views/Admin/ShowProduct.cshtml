@@ -1,0 +1,89 @@
+﻿@using ParTech.ImageLibrary.Core.Utils
+@model ParTech.ImageLibrary.Core.Models.Product
+@{
+    ViewBag.Title = "Product details";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<input type="button" value="Back to list" onclick="history.go(-1);" />
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebodysmall">
+    <ul>
+        <li>
+            Name: @Model.Name
+        </li>
+        <li>
+            EDI: @Model.EDI
+        </li>
+        <li>
+            SKU: @Model.SKU
+        </li>
+        <li>
+            Year: @Model.Year
+        </li>
+        <li>
+            Material: @Model.Material
+        </li>
+        <li>
+            Size: @Model.Size
+        </li>
+        <li>
+            Brand: @Model.Brand.Name
+        </li>
+        <li>
+            Category: @LanguageString.GetStringForCurrentLanguage(Model.Category.Name)
+        </li>
+        <li>
+            Collection: 
+            @if (Model.Collection == null)
+            {
+                @Html.Raw("-");
+            }
+            else
+            {
+                @Model.Collection.Name;
+            }
+        </li>
+        <li>
+            Gender: @LanguageString.GetStringForCurrentLanguage(Model.Gender.Name)
+        </li>
+        <li>
+            Season: @LanguageString.GetStringForCurrentLanguage(Model.Season.Name)
+        </li>
+    </ul>
+
+    <hgroup class="title">
+        <h2>Product images</h2>
+    </hgroup>
+
+    @if (!Model.Images.Any())
+    {
+        <span>
+            No images available.
+        </span>
+    }
+    else
+    {
+        foreach (var image in Model.Images)
+        {
+            <div class="draggableimage">
+                <div class="imagecontainer" data-imageid="@image.ImageID">
+                    <img src="@Url.Action("ShowThumbnail", "Admin", new { imageid = image.ImageID })" />
+                </div>
+                <div class="datacontainer">
+                    @Html.AuthorizedActionLinkOrText(image.Product.Name, "ShowProduct", "Admin", new { productid = image.ProductID }, null)<br />
+                    @image.Resolution; @image.ImageFormat.Replace("image/", string.Empty)
+                </div>
+            </div>
+        }
+    }
+</section>
+
+
+@section Scripts {
+}

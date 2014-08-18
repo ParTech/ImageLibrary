@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index management";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+<section class="pagebody">
+    <div id="monitors"></div>
+    
+    <a id="startindexrebuild" href="#">Rebuild Index</a>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryindexrebuild")
+}

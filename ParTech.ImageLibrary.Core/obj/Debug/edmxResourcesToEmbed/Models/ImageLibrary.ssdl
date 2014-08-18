@@ -119,8 +119,7 @@
       <PropertyRef Name="CategoryID" />
     </Key>
     <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="LanguageID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="created" Type="datetime" Nullable="false" />
     <Property Name="updated" Type="datetime" Nullable="false" />
   </EntityType>
@@ -154,8 +153,7 @@
       <PropertyRef Name="GenderID" />
     </Key>
     <Property Name="GenderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
-    <Property Name="LanguageID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="created" Type="datetime" Nullable="false" />
     <Property Name="updated" Type="datetime" Nullable="false" />
   </EntityType>
@@ -188,6 +186,7 @@
     </Key>
     <Property Name="LanguageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="OrderLines">
     <Key>
@@ -268,7 +267,7 @@
       <PropertyRef Name="SeasonID" />
     </Key>
     <Property Name="SeasonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="512" />
     <Property Name="created" Type="datetime" Nullable="false" />
     <Property Name="updated" Type="datetime" Nullable="false" />
   </EntityType>

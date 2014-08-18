@@ -10,7 +10,11 @@
         {
             <li>@Html.ActionLink("Inactive users", "ShowInactiveUsers", "Admin")</li>
         }
-                
+        @if (@Html.ActionIsAccessibleToUser("Index", "Admin"))
+        {
+            <li>@Html.ActionLink("Index management", "Index", "Admin")</li>
+        }
+                        
         @if (@Html.ActionIsAccessibleToUser("Images", "Seller"))
         {
             <li>@Html.ActionLink("Your images", "Images", "Seller")</li>

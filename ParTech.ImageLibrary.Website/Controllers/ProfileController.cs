@@ -21,7 +21,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         //
         // GET: /Profile/
 
-        [Authorize(Roles = "Admin,Byer,Seller")]
+        [Authorize(Roles = "Byer,Seller")]
         public ActionResult EditProfile()
         {
             if (TempData != null && TempData["Message"] != null)

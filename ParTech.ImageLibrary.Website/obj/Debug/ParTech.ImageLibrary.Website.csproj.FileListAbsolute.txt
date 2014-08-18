@@ -58,3 +58,6 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Castle.Facilities.Factor
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Castle.Facilities.Logging.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Castle.Facilities.Logging.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Ionic.Zip.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.pdb
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.xml

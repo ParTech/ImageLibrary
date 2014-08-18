@@ -20,3 +20,7 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Castle.Windsor.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\log4net.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Postal.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Ionic.Zip.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.pdb
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.xml

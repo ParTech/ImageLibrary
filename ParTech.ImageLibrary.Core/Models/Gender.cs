@@ -21,7 +21,6 @@ namespace ParTech.ImageLibrary.Core.Models
     
         public int GenderID { get; set; }
         public string Name { get; set; }
-        public int LanguageID { get; set; }
         public System.DateTime created { get; set; }
         public System.DateTime updated { get; set; }
     

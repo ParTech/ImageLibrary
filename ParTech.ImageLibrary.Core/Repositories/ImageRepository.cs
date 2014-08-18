@@ -19,6 +19,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         IEnumerable<Image> GetImages();
 
+        IEnumerable<Image> GetImagesForProduct(int productid);
+
         IEnumerable<Image> GetImagesForUser(int userid);
 
         ImageTypeEnum GetImageTypeEnum(ImageFormat rawImageFormat);
@@ -106,6 +108,25 @@ namespace ParTech.ImageLibrary.Core.Repositories
             catch (Exception ex)
             {
                 Logger.ErrorFormat("GetImagesForUser - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return images;
+        }
+        public IEnumerable<Image> GetImagesForProduct(int productid)
+        {
+            var images = new List<Image>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    images = db.Images.Where(i => i.ProductID == productid)
+                                      .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetImagesForProduct - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return images;

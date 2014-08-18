@@ -7,6 +7,7 @@ using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.ViewModels.Seller;
+using ParTech.ImageLibrary.Core.Workers;
 
 namespace ParTech.ImageLibrary.Core.Repositories
 {
@@ -30,7 +31,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Category GetCategory(int? categoryid);
 
-        IEnumerable<Category> GetCategories(int cultureId);
+        IEnumerable<Category> GetCategories();
 
         bool SaveCategory(Category category);
 
@@ -68,7 +69,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Gender GetGender(int? genderid);
 
-        IEnumerable<Gender> GetGenders(int cultureId);
+        IEnumerable<Gender> GetGenders();
 
         bool SaveGender(Gender gender);
 
@@ -95,6 +96,10 @@ namespace ParTech.ImageLibrary.Core.Repositories
         Product GetProductAndContext(int? productid);
 
         SellerProductModel GetProductAndMapToSellerProductModel(int? productid);
+
+        IEnumerable<Product> GetProducts();
+
+        IEnumerable<Product> GetProductsAndContext();
 
         IEnumerable<Product> GetProductsForUser(int userid);
 
@@ -130,6 +135,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
     public class ObjectRepository : IObjectRepository
     {
         public ILogger Logger { get; set; }
+
+        private readonly ILuceneWorker _luceneWorker;
+
+        public ObjectRepository(ILuceneWorker luceneWorker)
+        {
+            _luceneWorker = luceneWorker;
+        }
 
         #region Brand
 
@@ -237,6 +249,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                             tmpBrand.Description = brand.Description;
                             tmpBrand.Name = brand.Name;
                             tmpBrand.updated = DateTime.Now;
+
+                            UpdateProductsInIndex(tmpBrand.Products);
                         }
                     }
                     else
@@ -286,7 +300,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return category;
         }
 
-        public IEnumerable<Category> GetCategories(int cultureId)
+        public IEnumerable<Category> GetCategories()
         {
             var categories = new List<Category>();
 
@@ -294,9 +308,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new Entities())
                 {
-                    categories = db.Categories.Where(i => i.LanguageID == cultureId)
-                                              .OrderBy(j => j.Name)
-                                              .ToList();
+                    categories = db.Categories.ToList();
                 }
             }
             catch (Exception ex)
@@ -321,13 +333,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         if (tmpCategory != null)
                         {
                             tmpCategory.Name = category.Name;
-                            tmpCategory.LanguageID = Thread.CurrentThread.CurrentCulture.LCID;
                             tmpCategory.updated = DateTime.Now;
+
+                            UpdateProductsInIndex(tmpCategory.Products);
                         }
                     }
                     else
                     {
-                        category.LanguageID = Thread.CurrentThread.CurrentCulture.LCID;
                         category.updated = DateTime.Now;
                         category.created = DateTime.Now;
 
@@ -455,6 +467,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         {
                             tmpCollection.Name = collection.Name;
                             tmpCollection.updated = DateTime.Now;
+
+                            UpdateProductsInIndex(tmpCollection.Products);
                         }
                     }
                     else
@@ -629,7 +643,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return gender;
         }
 
-        public IEnumerable<Gender> GetGenders(int cultureId)
+        public IEnumerable<Gender> GetGenders()
         {
             var genders = new List<Gender>();
 
@@ -637,8 +651,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new Entities())
                 {
-                    genders = db.Genders.Where(i => i.LanguageID == cultureId)
-                                        .OrderBy(j => j.Name)
+                    genders = db.Genders.OrderBy(j => j.Name)
                                         .ToList();
                 }
             }
@@ -664,13 +677,11 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         if (tmpGender != null)
                         {
                             tmpGender.Name = gender.Name;
-                            tmpGender.LanguageID = Thread.CurrentThread.CurrentCulture.LCID;
                             tmpGender.updated = DateTime.Now;
                         }
                     }
                     else
                     {
-                        gender.LanguageID = Thread.CurrentThread.CurrentCulture.LCID;
                         gender.updated = DateTime.Now;
                         gender.created = DateTime.Now;
 
@@ -899,6 +910,52 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return productModel;
         }
 
+        public IEnumerable<Product> GetProducts()
+        {
+            var products = new List<Product>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    products = db.Products.OrderBy(i => i.Name)
+                                          .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetProducts - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return products;
+        }
+
+        public IEnumerable<Product> GetProductsAndContext()
+        {
+            var products = new List<Product>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    products = db.Products.OrderBy(i => i.Name)
+                                          .Include("Brand")
+                                          .Include("Category")
+                                          .Include("Collection")
+                                          .Include("Gender")
+                                          .Include("Season")
+                                          .Include("Images")
+                                          .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetProducts - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return products;
+        }
+
         public IEnumerable<Product> GetProductsForUser(int userid)
         {
             var products = new List<Product>();
@@ -927,11 +984,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
+                Product tmpProduct;
+
                 using (var db = new Entities())
                 {
                     if (product.ProductId > 0)
                     {
-                        var tmpProduct = db.Products.SingleOrDefault(i => i.ProductID == product.ProductId);
+                        tmpProduct = db.Products.SingleOrDefault(i => i.ProductID == product.ProductId);
                         if (tmpProduct != null)
                         {
                             tmpProduct.Name = product.Name;
@@ -951,7 +1010,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
                     }
                     else
                     {
-                        var tmpProduct = new Product
+                        tmpProduct = new Product
                         {
                             Name = product.Name,
                             EDI = product.Edi,
@@ -974,6 +1033,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
                     db.SaveChanges();
                 }
+
+                _luceneWorker.AddUpdateLuceneIndex(Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName, tmpProduct);
 
                 saveSucceeded = true;
             }
@@ -1170,6 +1231,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         {
                             tmpSeason.Name = season.Name;
                             tmpSeason.updated = DateTime.Now;
+
+                            UpdateProductsInIndex(tmpSeason.Products);
                         }
                     }
                     else
@@ -1194,6 +1257,18 @@ namespace ParTech.ImageLibrary.Core.Repositories
         }
 
         #endregion
+
+        private void UpdateProductsInIndex(IEnumerable<Product> products)
+        {
+            var entireProducts = products.Select(product => GetProductAndContext(product.ProductID))
+                                         .Where(entireProduct => entireProduct != null)
+                                         .ToList();
+
+            if (entireProducts.Any())
+            {
+                _luceneWorker.AddUpdateLuceneIndex(Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName, entireProducts);
+            }
+        }
 
     }
 }

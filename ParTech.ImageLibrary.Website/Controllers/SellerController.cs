@@ -302,9 +302,9 @@ namespace ParTech.ImageLibrary.Website.Controllers
             }
 
             spm.SellerProductModel.BrandItems = _objectRepository.GetBrands();
-            spm.SellerProductModel.CategoryItems = _objectRepository.GetCategories(Thread.CurrentThread.CurrentCulture.LCID);
+            spm.SellerProductModel.CategoryItems = _objectRepository.GetCategories();
             spm.SellerProductModel.CollectionItems = _objectRepository.GetCollections();
-            spm.SellerProductModel.GenderItems = _objectRepository.GetGenders(Thread.CurrentThread.CurrentCulture.LCID);
+            spm.SellerProductModel.GenderItems = _objectRepository.GetGenders();
             spm.SellerProductModel.SeasonItems = _objectRepository.GetSeasons();
 
             return View(spm);

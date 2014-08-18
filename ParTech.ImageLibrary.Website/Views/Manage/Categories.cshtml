@@ -1,4 +1,5 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageCategoryModel
+﻿@using ParTech.ImageLibrary.Core.Utils
+@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageCategoryModel
 @{
     ViewBag.Title = "Categories";
 }
@@ -23,7 +24,7 @@
     @foreach (var category in Model.ListCategories)
     {
         <li>
-            <strong>@category.Name</strong> @Html.AuthorizedActionLink("Edit", "Categories", "Manage", new { message = string.Empty, categoryid = category.CategoryID }, null )<br />
+            <strong>@LanguageString.GetStringForCurrentLanguage(category.Name)</strong> @Html.AuthorizedActionLink("Edit", "Categories", "Manage", new { message = string.Empty, categoryid = category.CategoryID }, null )<br />
         </li>
     }
 

@@ -16,5 +16,6 @@ namespace ParTech.ImageLibrary.Core.Models
     {
         public int LanguageID { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
     }
 }

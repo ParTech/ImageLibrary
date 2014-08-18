@@ -1,4 +1,5 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageSeasonModel
+﻿@using ParTech.ImageLibrary.Core.Utils
+@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageSeasonModel
 @{
     ViewBag.Title = "Seasons";
 }
@@ -23,7 +24,7 @@
     @foreach (var season in Model.ListSeasons)
     {
         <li>
-            <strong>@season.Name</strong> @Html.AuthorizedActionLink("Edit", "Seasons", "Manage", new { message = string.Empty, Seasonid = season.SeasonID }, null )<br />
+            <strong>@LanguageString.GetStringForCurrentLanguage(season.Name)</strong> @Html.AuthorizedActionLink("Edit", "Seasons", "Manage", new { message = string.Empty, Seasonid = season.SeasonID }, null )<br />
         </li>
     }
 

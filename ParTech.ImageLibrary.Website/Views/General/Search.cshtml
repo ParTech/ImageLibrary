@@ -1,0 +1,49 @@
+﻿@using ParTech.ImageLibrary.Core.ViewModels.General
+@model SearchModel
+@{
+    ViewBag.Title = "Search result";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title</h1>
+</hgroup>
+
+@Html.Partial("_StatusMessage")
+
+<section class="pagebody">
+    @if (Model.FoundProducts.Any())
+    {
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>EDI</th>
+                <th>SKU</th>
+                <th>Year</th>
+                <th>Material</th>
+                <th>Size</th>
+                <th>No of images</th>
+            </tr>
+
+            @foreach (var product in Model.FoundProducts)
+            {
+                <tr>
+                    <td>
+                        @Html.AuthorizedActionLink(product.Name, "ShowProduct", 
+                            Model.GetUserMainRole(),  new { productid = product.ProductID }, null)
+                    </td>
+                    <td>@product.EDI</td>
+                    <td>@product.SKU</td>
+                    <td>@product.Year</td>
+                    <td>@product.Material</td>
+                    <td>@product.Size</td>
+                    <td>@product.Images.Count</td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        Html.Raw("No products found");
+    }
+</section>

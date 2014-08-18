@@ -17,7 +17,6 @@
         <MappingFragment StoreEntitySet="Category">
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="created" ColumnName="created" />
           <ScalarProperty Name="updated" ColumnName="updated" />
         </MappingFragment>
@@ -56,7 +55,6 @@
         <MappingFragment StoreEntitySet="Gender">
           <ScalarProperty Name="GenderID" ColumnName="GenderID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="created" ColumnName="created" />
           <ScalarProperty Name="updated" ColumnName="updated" />
         </MappingFragment>
@@ -92,6 +90,7 @@
         <MappingFragment StoreEntitySet="Languages">
           <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

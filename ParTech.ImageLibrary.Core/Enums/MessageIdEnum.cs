@@ -57,6 +57,8 @@
         ResetPasswordNotReset,
         ResetPasswordUnknownUser,
         SaveProfileFailure,
-        SaveProfileSuccess
+        SaveProfileSuccess,
+        SearchFailure,
+        SearchSuccess
     }
 }
