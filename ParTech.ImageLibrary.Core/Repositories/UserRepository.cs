@@ -386,7 +386,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new ImageDatabaseEntities())
                 {
-                    userProfiles = db.UserProfiles.Include("Profile")
+                    userProfiles = db.UserProfiles.Where(p => p.ProfileID != null)
+                                                  .Include("Profile")
                                                   .Include("webpages_Membership")
                                                   .OrderBy(u => u.UserName)
                                                   .ToList();

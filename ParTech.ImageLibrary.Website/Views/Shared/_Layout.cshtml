@@ -11,16 +11,24 @@
     <body>
         <header>
             <div class="content-wrapper">
+                <div class="float-left fifty-percent-width">
+                    <div id="changelanguage">
+                        @Html.Partial("_ChangeLanguagePartial", new ChangeLanguageModel())
+                    </div>
+                    <div id="search">
+                        @Html.Partial("_SearchPartial", new SearchModel())
+                    </div>
+                </div>
+                <div class="float-right">
+                    <div id="login">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+                <div class="clear-fix"></div>
                 <div class="float-left">
                     <p class="site-title">@Html.ActionLink("Image Database v0.1", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <section id="search">
-                        @Html.Partial("_SearchPartial", new SearchModel())
-                    </section>
                     @Html.Partial("_MainMenuPartial")
                 </div>
             </div>

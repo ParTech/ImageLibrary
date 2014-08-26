@@ -5,7 +5,7 @@
 {
     using (Html.BeginForm("Search", "General", FormMethod.Post, new { id = "searchForm" })) {
         @Html.AntiForgeryToken()
-        @Html.TextBoxFor(m => m.SearchString)
+        @Html.TextBoxFor(m => m.SearchString, new { placeholder = "Search for ..."})
         @Html.ValidationMessageFor(m => m.SearchString)
 
         @Html.HiddenFor(m => m.FieldName)

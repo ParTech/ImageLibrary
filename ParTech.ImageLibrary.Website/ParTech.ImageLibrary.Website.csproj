@@ -338,6 +338,7 @@
     <Content Include="Views\General\Search.cshtml" />
     <Content Include="Views\Admin\ShowProduct.cshtml" />
     <Content Include="Views\Profile\AdditionalAccounts.cshtml" />
+    <Content Include="Views\Shared\_ChangeLanguagePartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="ImageDatabaseEntities">
+  <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="Entities">
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Brand">
         <MappingFragment StoreEntitySet="Brand">
@@ -90,7 +90,8 @@
         <MappingFragment StoreEntitySet="Languages">
           <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
+          <ScalarProperty Name="LocaleCode" ColumnName="LocaleCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

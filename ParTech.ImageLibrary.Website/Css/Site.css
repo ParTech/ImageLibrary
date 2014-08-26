@@ -48,6 +48,10 @@ mark {
     float: right;
 }
 
+.fifty-percent-width {
+    width: 50%;
+}
+
 .clear-fix:after {
     content: ".";
     clear: both;
@@ -144,10 +148,8 @@ footer {
 /* login
 ----------------------------------------------------------*/
 #login {
-    display: block;
     font-size: .85em;
     margin: 0 0 10px;
-    text-align: right;
 }
 
     #login a {
@@ -174,6 +176,50 @@ footer {
         list-style: none;
     }
 
+/* search
+----------------------------------------------------------*/
+#search {
+    font-size: .85em;
+    margin: 0 0 10px;
+    display: inline;
+    width: 200px;
+    float: left;
+}
+
+    #search input[type="text"] {
+        border: 1px solid #e2e2e2;
+        background: #fff;
+        color: #333;
+        font-size: 100%;
+        margin: 0;
+        padding: 2px;
+        width: 200px;
+    }
+
+/* changelanguage
+----------------------------------------------------------*/
+#changelanguage {
+    font-size: .85em;
+    margin: 0 0 10px;
+    display: inline;
+    width: 100px;
+    float: left;
+}
+    #changelanguage ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #changelanguage li {
+        display: inline;
+        list-style: none;
+        padding: 0px;
+        margin: 0px 0px 0px 0px;
+    }
+
+    #changelanguage li.active a {
+        text-decoration: none;
+    }
 
 /* menu
 ----------------------------------------------------------*/

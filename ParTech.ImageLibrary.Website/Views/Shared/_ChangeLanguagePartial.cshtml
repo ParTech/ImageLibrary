@@ -1,0 +1,19 @@
+﻿@using System.Globalization
+@using ParTech.ImageLibrary.Core.ViewModels.General
+
+@model ChangeLanguageModel
+
+<ul>
+    @foreach (var language in Model.Languages)
+    {
+        var classes = language.IsoCode.ToLower();
+        if (language.LocaleCode.ToLower() == CultureInfo.CurrentUICulture.Name.ToLower())
+        {
+            classes += " active";
+        }
+        
+        <li class="@classes">
+            @Html.ActionLink(language.Name, "ChangeLanguage", "General", new { Lang = language.LocaleCode, ReturnUrl = Url.Encode(Request.RawUrl) }, null)
+        </li>
+    }
+</ul>

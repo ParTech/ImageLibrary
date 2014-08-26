@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
@@ -15,12 +16,25 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         private readonly ILuceneWorker _luceneWorker;
 
-        public GeneralController(IImageRepository imageRepository, ILuceneWorker luceneWorker)
+        private readonly IObjectRepository _objectRepository;
+
+        public GeneralController(IImageRepository imageRepository, ILuceneWorker luceneWorker,
+            IObjectRepository objectRepository)
         {
             _imageRepository = imageRepository;
             _luceneWorker = luceneWorker;
+            _objectRepository = objectRepository;
         }
-       
+        
+        //
+        // GET: /General/ChangeLanguage
+        public ActionResult ChangeLanguage(string lang, string returnUrl)
+        {
+            var langCookie = new HttpCookie("locale", lang) { HttpOnly = true };
+            Response.AppendCookie(langCookie);
+            return Redirect(HttpUtility.UrlDecode(returnUrl));
+        }
+
         //
         // POST: /General/SaveProfile
 

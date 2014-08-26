@@ -94,6 +94,10 @@
     <Compile Include="Enums\AccountTypeEnum.cs" />
     <Compile Include="Enums\ImageTypeEnum.cs" />
     <Compile Include="Enums\MessageIdEnum.cs" />
+    <Compile Include="Extensions\RouteCollectionExtensions.cs" />
+    <Compile Include="Handlers\LocalizationRedirectRouteHandler.cs" />
+    <Compile Include="Handlers\LocalizedRouteHandler.cs" />
+    <Compile Include="Handlers\RedirectHandler.cs" />
     <Compile Include="Installers\CoreInstaller.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
@@ -186,6 +190,7 @@
     <Compile Include="ViewModels\Byer\ByerBrandsModel.cs" />
     <Compile Include="ViewModels\Byer\ByerCollectionsModel.cs" />
     <Compile Include="ViewModels\Byer\ByerImagesModel.cs" />
+    <Compile Include="ViewModels\General\ChangeLanguageModel.cs" />
     <Compile Include="ViewModels\General\SearchModel.cs" />
     <Compile Include="ViewModels\Manage\ManageBrandModel.cs" />
     <Compile Include="ViewModels\Manage\ManageCategoryModel.cs" />

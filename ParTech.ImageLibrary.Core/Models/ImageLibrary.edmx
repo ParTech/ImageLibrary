@@ -191,7 +191,8 @@
           </Key>
           <Property Name="LanguageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsoCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LocaleCode" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderLines">
           <Key>
@@ -570,7 +571,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ParTech.ImageLibrary.Core.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ImageDatabaseEntities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Brands" EntityType="ParTech.ImageLibrary.Core.Models.Brand" />
           <EntitySet Name="Categories" EntityType="ParTech.ImageLibrary.Core.Models.Category" />
           <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Collection" />
@@ -750,7 +751,8 @@
           </Key>
           <Property Name="LanguageID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsoCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LocaleCode" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="OrderLine">
           <Key>
@@ -1095,7 +1097,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="ImageDatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="ParTechImageLibraryCoreModelsStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Brands">
             <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Brand">
               <MappingFragment StoreEntitySet="Brand">
@@ -1185,7 +1187,8 @@
               <MappingFragment StoreEntitySet="Languages">
                 <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
+                <ScalarProperty Name="LocaleCode" ColumnName="LocaleCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
