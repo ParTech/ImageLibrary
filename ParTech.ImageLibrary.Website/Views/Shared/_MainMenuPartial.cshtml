@@ -1,53 +1,54 @@
-﻿<nav>
+﻿@using Westwind.Globalization
+<nav>
     <ul id="menu">
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink(DbRes.T("General.Home", "Resources"), "Index", "Home")</li>
         
         @if (@Html.ActionIsAccessibleToUser("ShowUsers", "Admin"))
         {
-            <li>@Html.ActionLink("User management", "ShowUsers", "Admin")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ShowUsersLink", "Resources"), "ShowUsers", "Admin")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Index", "Admin"))
         {
-            <li>@Html.ActionLink("Index management", "Index", "Admin")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.IndexLink", "Resources"), "Index", "Admin")</li>
         }
                         
         @if (@Html.ActionIsAccessibleToUser("Images", "Seller"))
         {
-            <li>@Html.ActionLink("Your images", "Images", "Seller")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.SellerImagesLink", "Resources"), "Images", "Seller")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Products", "Seller"))
         {
-            <li>@Html.ActionLink("Your products", "Products", "Seller")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.SellerProductsLink", "Resources"), "Products", "Seller")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Index", "Manage"))
         {
-            <li>@Html.ActionLink("Miscellaneous", "Index", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ManageLink", "Resources"), "Index", "Manage")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("DownloadHistory", "Seller"))
         {
-            <li>@Html.ActionLink("Download history", "DownloadHistory", "Seller")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.SellerDownloadHistoryLink", "Resources"), "DownloadHistory", "Seller")</li>
         }
         
         @if (@Html.ActionIsAccessibleToUser("Images", "Byer"))
         {
-            <li>@Html.ActionLink("Images", "Images", "Byer")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ByerImagesLink", "Resources"), "Images", "Byer")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Brands", "Byer"))
         {
-            <li>@Html.ActionLink("Brands", "Brands", "Byer")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ByerBrandsLink", "Resources"), "Brands", "Byer")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Collections", "Byer"))
         {
-            <li>@Html.ActionLink("Collections", "Collections", "Byer")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ByerCollectionsLink", "Resources"), "Collections", "Byer")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("DownloadHistory", "Byer"))
         {
-            <li>@Html.ActionLink("Download history", "DownloadHistory", "Byer")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ByerDownloadHistoryLink", "Resources"), "DownloadHistory", "Byer")</li>
         }
 
         @if (@Html.ActionIsAccessibleToUser("EditProfile", "Profile"))
         {
-            <li>@Html.ActionLink("Your profile", "EditProfile", "Profile")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.EditProfileLink", "Resources"), "EditProfile", "Profile")</li>
         }
     </ul>
 </nav>

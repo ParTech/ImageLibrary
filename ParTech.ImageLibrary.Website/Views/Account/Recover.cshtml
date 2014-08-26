@@ -1,22 +1,23 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.RecoverModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Account.RecoverModel
 @{
-    ViewBag.Title = "Recover password";
+    ViewBag.Title = DbRes.T("Recover.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Recover.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
 
 <section class="form">
-    <h2>Recover from a forgotten password.</h2>
+    <h2>@DbRes.T("Recover.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
 
         <fieldset>
-            <legend>Forgot Password Form</legend>
+            <legend>@DbRes.T("Recover.RecoverFormLegend", "Resources")</legend>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName)
@@ -29,7 +30,7 @@
                     @Html.ValidationMessageFor(m => m.Email)
                 </li>
             </ol>
-            <input type="submit" value="Recover" />
+            <input type="submit" value="@DbRes.T("Recover.BtnSubmit", "Resources")" />
         </fieldset>
     }
 </section>

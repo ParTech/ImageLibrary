@@ -1,13 +1,14 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.LocalUserModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Account.LocalUserModel
 
-<h3>Change User Profile Data</h3>
+<h3>@DbRes.T("ChangeUserProfileDataPartial.PageSubtitle", "Resources")</h3>
 
 @using (Html.BeginForm("SaveUserProfileData", "Account")) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Change User Data</legend>
+        <legend>@DbRes.T("ChangeUserProfileDataPartial.ChangeUserDataFormLegend", "Resources")</legend>
         <ol>
             <li>
                 @Html.LabelFor(m => m.Email, new { @class = "required" } )
@@ -16,6 +17,6 @@
             </li>
         </ol>
         @Html.HiddenFor(m => m.Id)
-        <input type="submit" value="Save changes" />
+        <input type="submit" value="@DbRes.T("ChangeUserProfileDataPartial.BtnSubmit", "Resources")" />
     </fieldset>
 }

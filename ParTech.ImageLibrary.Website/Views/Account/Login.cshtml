@@ -1,20 +1,21 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.LoginModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Account.LoginModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = DbRes.T("Login.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Login.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="form">
-    <h2>Use a local account to log in.</h2>
+    <h2>@DbRes.T("Login.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>Log in Form</legend>
+            <legend>@DbRes.T("Login.LoginFormLegend", "Resources")</legend>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName)
@@ -31,13 +32,13 @@
                     @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
                 </li>
             </ol>
-            <input type="submit" value="Log in" />
+            <input type="submit" value="@DbRes.T("Login.BtnSubmit", "Resources")" />
         </fieldset>
         <p>
-            @Html.ActionLink("Recover", "Recover") if you forgot your password.
+            @Html.ActionLink(DbRes.T("Login.RecoverLink", "Resources"), "Recover") @DbRes.T("Login.RecoverLinkPart2", "Resources")
         </p>
         <p>
-            @Html.ActionLink("Register", "Register") if you don't have an account.
+            @Html.ActionLink(DbRes.T("Login.RegisterLink", "Resources"), "Register") @DbRes.T("Login.RegisterLinkPart2", "Resources")
         </p>
     }
 </section>

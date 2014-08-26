@@ -10,8 +10,8 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email")]
+        [EmailAddress()]
+        [Display()]
         public string Email { get; set; }
     }
 }

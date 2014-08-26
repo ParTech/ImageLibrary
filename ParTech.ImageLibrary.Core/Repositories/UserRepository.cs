@@ -30,6 +30,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         bool AddUserProfile(string userName);
 
+        bool CheckIfUserProfileExists(string userName);
+
         bool CheckIfUserProfileIsActive(string userName);
 
         LocalUserModel GetUserProfileAndMapToLocalUserModel();
@@ -233,6 +235,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return userProfileCreated;
+        }
+
+        public bool CheckIfUserProfileExists(string userName)
+        {
+            var userProfile = GetUserProfileByName(userName);
+
+            return userProfile != null;
         }
 
         public bool CheckIfUserProfileIsActive(string userName)

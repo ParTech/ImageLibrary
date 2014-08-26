@@ -24,3 +24,11 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\ICSharpCode.SharpZipL
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.pdb
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Lucene.Net.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Globalization.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Utilities.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Web.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Web.WebForms.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Globalization.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Utilities.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Web.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\bin\Debug\Westwind.Web.WebForms.xml

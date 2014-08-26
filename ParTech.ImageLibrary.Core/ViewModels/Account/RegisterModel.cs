@@ -8,73 +8,74 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "Account type")]
+        [Display()]
         public AccountTypeEnum AccountType { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display()]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [MaxLength(255, ErrorMessage = "The maximum length of the email address field is 255 characters.")]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email address")]
+        [MaxLength(255)]
+        [EmailAddress()]
+        [Display()]
         public string UserEmail { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display()]
         public string Password { get; set; }
 
         [Required]
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "User name")]
+        [StringLength(255, MinimumLength = 6)]
+        [Display()]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "Company name")]
+        [Display()]
         public string CompanyName { get; set; }
 
         [Required]
-        [Display(Name = "Language")]
+        [Display()]
         public int LanguageId { get; set; }
 
         [Required]
-        [Display(Name = "Salutation")]
+        [Display()]
         public int SalutationId { get; set; }
 
         [Required]
-        [Display(Name = "First name")]
+        [Display()]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Last name")]
+        [Display()]
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email")]
+        [EmailAddress()]
+        [Display()]
         public string Email { get; set; }
 
+        [Display()]
         public string Telephone { get; set; }
 
         [Required]
-        [Display(Name = "Address")]
+        [Display()]
         public string Address { get; set; }
 
         [Required]
-        [Display(Name = "Postal code")]
+        [Display()]
         public string PostalCode { get; set; }
 
         [Required]
-        [Display(Name = "City")]
+        [Display()]
         public string City { get; set; }
 
         [Required]
-        [Display(Name = "Country")]
+        [Display()]
         public int CountryId { get; set; }
 
         public IEnumerable<Country> CountryItems { get; set; }

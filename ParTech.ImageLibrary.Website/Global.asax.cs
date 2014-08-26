@@ -3,11 +3,11 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Castle.Facilities.FactorySupport;
-using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using ParTech.ImageLibrary.Core.Installers;
+using ParTech.ImageLibrary.Core.Providers;
 using ParTech.ImageLibrary.Website.Plumbing;
 using WebMatrix.WebData;
 
@@ -17,6 +17,8 @@ namespace ParTech.ImageLibrary.Website
     {
         protected void Application_Start()
         {
+            ModelMetadataProviders.Current = new CustomLocalizationProvider();
+            
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

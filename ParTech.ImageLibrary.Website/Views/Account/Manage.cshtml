@@ -1,13 +1,12 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.LocalAccountModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Account.LocalAccountModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = DbRes.T("Manage.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.PageTitle", "Resources")</h1>
 </hgroup>
-
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
 
 @Html.Partial("_StatusMessage")
 

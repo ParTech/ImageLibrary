@@ -1,8 +1,9 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
+@using Westwind.Globalization
 
 @if (Request.IsAuthenticated) {
     <text>
-        <span>Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", null, new { @class = "username", title = "Manage your account" })!</span>
+        <span>@DbRes.T("General.Hello", "Resources"), @Html.ActionLink(User.Identity.Name, "Manage", "Account", null, new { @class = "username", title = DbRes.T("LoginPartial.ManageTooltip", "Resources") })!</span>
         
         @{
             var orderRepository = new OrderRepository(new UserRepository());
@@ -11,19 +12,19 @@
             if (cart.Count > 0)
             {
                 <span class="noofimagescontainer">
-                    @Html.Raw(string.Format("<span id=\"noofimagestop\">{0}</span> image(s) in cart", cart.Count))
+                    @Html.Raw(string.Format("<span id=\"noofimagestop\">{0}</span> {1}", cart.Count, DbRes.T("LoginPartial.ImagesInShoppingCartLink", "Resources")))
                 </span>
             }
         }
 
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
             @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+            <a href="javascript:document.getElementById('logoutForm').submit()">@DbRes.T("LoginPartial.LogOffLink", "Resources")</a>
         }
     </text>
 } else {
     <ul>
-        <li>@Html.ActionLink("Register", "Register", "Account", null, new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", null, new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(DbRes.T("LoginPartial.RegisterLink", "Resources"), "Register", "Account", null, new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(DbRes.T("LoginPartial.LoginLink", "Resources"), "Login", "Account", null, new { id = "loginLink" })</li>
     </ul>
 }

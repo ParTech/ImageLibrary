@@ -50,7 +50,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Facilities.FactorySupport">
+    <Reference Include="Castle.Facilities.FactorySupport, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\Castle.Facilities.FactorySupport.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -63,11 +64,11 @@
     <Reference Include="DotNetOpenAuth.Core">
       <HintPath>..\Assemblies\DotNetOpenAuth.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\Assemblies\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
@@ -77,9 +78,6 @@
     <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\Microsoft.Web.WebPages.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Assemblies\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -158,6 +156,21 @@
       <HintPath>..\Assemblies\WebMatrix.WebData.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Westwind.Globalization">
+      <HintPath>..\Assemblies\Westwind.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="Westwind.Utilities, Version=2.55.5278.25222, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\Westwind.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Westwind.Web, Version=2.51.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\Westwind.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Westwind.Web.WebForms, Version=2.50.5196.39647, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\Westwind.Web.WebForms.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -183,6 +196,20 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizationAdmin\LocalizationAdmin.aspx.cs">
+      <DependentUpon>LocalizationAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LocalizationAdmin\LocalizationAdmin.aspx.designer.cs">
+      <DependentUpon>LocalizationAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizationAdmin\StronglyTypedGlobalResources.aspx.cs">
+      <DependentUpon>StronglyTypedGlobalResources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LocalizationAdmin\StronglyTypedGlobalResources.aspx.designer.cs">
+      <DependentUpon>StronglyTypedGlobalResources.aspx</DependentUpon>
     </Compile>
     <Compile Include="Plumbing\ControllersInstaller.cs" />
     <Compile Include="Plumbing\WindsorControllerFactory.cs" />
@@ -247,8 +274,48 @@
     <Content Include="Css\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Css\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="LocalizationAdmin\Default.aspx" />
+    <Content Include="LocalizationAdmin\images\backup.png" />
+    <Content Include="LocalizationAdmin\images\calendar.png" />
+    <Content Include="LocalizationAdmin\images\close.png" />
+    <Content Include="LocalizationAdmin\images\closeX.png" />
+    <Content Include="LocalizationAdmin\images\codegen.png" />
+    <Content Include="LocalizationAdmin\images\createtable.png" />
+    <Content Include="LocalizationAdmin\images\delete.png" />
+    <Content Include="LocalizationAdmin\images\DialogHeader.png" />
+    <Content Include="LocalizationAdmin\images\DialogHighlight.png" />
+    <Content Include="LocalizationAdmin\images\DialogSelection.png" />
+    <Content Include="LocalizationAdmin\images\DialogStrip.png" />
+    <Content Include="LocalizationAdmin\images\edit.png" />
+    <Content Include="LocalizationAdmin\images\extractresources.png" />
+    <Content Include="LocalizationAdmin\images\HeaderGradient.png" />
+    <Content Include="LocalizationAdmin\images\help.png" />
+    <Content Include="LocalizationAdmin\images\home.png" />
+    <Content Include="LocalizationAdmin\images\import.png" />
+    <Content Include="LocalizationAdmin\images\info.png" />
+    <Content Include="LocalizationAdmin\images\LightBlueGradient.png" />
+    <Content Include="LocalizationAdmin\images\LightOrangeGradient.png" />
+    <Content Include="LocalizationAdmin\images\list.png" />
+    <Content Include="LocalizationAdmin\images\loading_black.gif" />
+    <Content Include="LocalizationAdmin\images\loading_small.gif" />
+    <Content Include="LocalizationAdmin\images\localize.png" />
+    <Content Include="LocalizationAdmin\images\new.png" />
+    <Content Include="LocalizationAdmin\images\recycle.png" />
+    <Content Include="LocalizationAdmin\images\refresh.png" />
+    <Content Include="LocalizationAdmin\images\remove.png" />
+    <Content Include="LocalizationAdmin\images\Rename.png" />
+    <Content Include="LocalizationAdmin\images\search.png" />
+    <Content Include="LocalizationAdmin\images\sort.png" />
+    <Content Include="LocalizationAdmin\images\toolbar.gif" />
+    <Content Include="LocalizationAdmin\images\users.png" />
+    <Content Include="LocalizationAdmin\images\warning.png" />
+    <Content Include="LocalizationAdmin\LocalizationAdmin.aspx" />
+    <Content Include="LocalizationAdmin\LocalizeAdminForm.css" />
+    <Content Include="LocalizationAdmin\LocalizeAdminForm.js" />
+    <Content Include="LocalizationAdmin\StronglyTypedGlobalResources.aspx" />
     <Content Include="packages.config" />
     <Content Include="log4net.config" />
+    <Content Include="LocalizationAdmin\Web.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -340,7 +407,10 @@
     <Content Include="Views\Profile\AdditionalAccounts.cshtml" />
     <Content Include="Views\Shared\_ChangeLanguagePartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="LocalizationAdmin\App_LocalResources\LocalizationAdmin.aspx.de.resx" />
+    <Content Include="LocalizationAdmin\App_LocalResources\LocalizationAdmin.aspx.resx" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>

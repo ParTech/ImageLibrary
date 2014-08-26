@@ -1,9 +1,10 @@
 ﻿@using ParTech.ImageLibrary.Core.ViewModels.General
+@using Westwind.Globalization
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - ImageLibrary</title>
+        <title>@ViewBag.Title @DbRes.T("Layout.MetaTitleAddition", "Resources")</title>
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Css/css")
         @Scripts.Render("~/bundles/modernizr")
@@ -26,7 +27,7 @@
                 </div>
                 <div class="clear-fix"></div>
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Image Database v0.1", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink(@DbRes.T("Layout.SiteTitle", "Resources"), "Index", "Home")</p>
                 </div>
                 <div class="float-right">
                     @Html.Partial("_MainMenuPartial")
@@ -42,7 +43,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - ImageLibrary</p>
+                    <p>@Html.Raw(string.Format(@DbRes.T("Layout.CopyrightStatement", "Resources"), DateTime.Now.Year))</p>
                 </div>
             </div>
         </footer>

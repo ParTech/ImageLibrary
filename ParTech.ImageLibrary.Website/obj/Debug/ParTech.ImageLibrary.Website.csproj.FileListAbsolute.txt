@@ -8,7 +8,6 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Castle.Windsor.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\DotNetOpenAuth.AspNet.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\DotNetOpenAuth.Core.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.dll
-D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.SqlServer.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\log4net.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Microsoft.Web.Infrastructure.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Microsoft.Web.WebPages.OAuth.dll
@@ -34,7 +33,6 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Castle.Windsor.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\DotNetOpenAuth.AspNet.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\DotNetOpenAuth.Core.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.xml
-D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.SqlServer.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\log4net.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Microsoft.Web.WebPages.OAuth.xml
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Newtonsoft.Json.xml
@@ -61,3 +59,13 @@ D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Ionic.Zip.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.dll
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.pdb
 D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Lucene.Net.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Globalization.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Utilities.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Web.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Web.WebForms.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Globalization.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Utilities.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Web.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\Westwind.Web.WebForms.xml
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.SqlServer.dll
+D:\Intern\ImageLibrary\ParTech.ImageLibrary.Website\bin\EntityFramework.SqlServer.xml

@@ -5,12 +5,12 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
     public class RecoverModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display()]
         public string UserName { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email address")]
+        [EmailAddress()]
+        [Display()]
         public string Email { get; set; }
     }
 }

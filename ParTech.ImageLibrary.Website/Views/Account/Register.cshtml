@@ -1,21 +1,22 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Account.RegisterModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Account.RegisterModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = DbRes.T("Register.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Register.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="form">
-    <h2>Create a new account.</h2>
+    <h2>@DbRes.T("Register.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
 
         <fieldset>
-            <legend>Registration Form</legend>
-            <h3>Login information</h3>
+            <legend>@DbRes.T("Register.RegistrationFormLegend", "Resources")</legend>
+            <h3>@DbRes.T("Register.LoginInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName, new { @class = "required" } )
@@ -39,13 +40,13 @@
                 </li>
                 <li>
                     @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
-                    @Html.RadioButtonFor(m => m.AccountType, 0) Byer<br />
-                    @Html.RadioButtonFor(m => m.AccountType, 1) Seller<br />
+                    @Html.RadioButtonFor(m => m.AccountType, 0) @DbRes.T("General.Byer", "Resources")<br />
+                    @Html.RadioButtonFor(m => m.AccountType, 1) @DbRes.T("General.Seller", "Resources")<br />
                     @Html.ValidationMessageFor(m => m.AccountType)
                 </li>
             </ol>
             
-            <h3>Company information</h3>
+            <h3>@DbRes.T("Register.CompanyInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
@@ -54,16 +55,16 @@
                 </li>
             </ol>
 
-            <h3>Contact information</h3>
+            <h3>@DbRes.T("Register.ContactInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.LanguageId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.LanguageId, new SelectList(Model.LanguageItems, "LanguageID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.LanguageId, new SelectList(Model.LanguageItems, "LanguageID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.LanguageId)
                 </li>  
                 <li>
                     @Html.LabelFor(m => m.SalutationId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.SalutationId, new SelectList(Model.SalutationItems, "SalutationID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.SalutationId, new SelectList(Model.SalutationItems, "SalutationID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.SalutationId)
                 </li>            <li>
                     @Html.LabelFor(m => m.FirstName, new { @class = "required" } )
@@ -87,7 +88,7 @@
                 </li>
             </ol>
 
-            <h3>Billing address</h3>
+            <h3>@DbRes.T("Register.BillingAddress", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.Address, new { @class = "required" })
@@ -106,11 +107,11 @@
                 </li>
                 <li>
                     @Html.LabelFor(m => m.CountryId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryItems, "CountryID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryItems, "CountryID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.CountryId)
                 </li>
             </ol>
-            <input type="submit" value="Register" />
+            <input type="submit" value="@DbRes.T("Register.BtnSubmit", "Resources")" />
         </fieldset>
     }
 </section>

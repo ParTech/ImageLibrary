@@ -8,6 +8,7 @@ using ParTech.ImageLibrary.Core.Workers;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -47,9 +48,15 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            if (!_userRepository.CheckIfUserProfileExists(model.UserName))
+            {
+                ModelState.AddModelError("", DbRes.T("AccountController.UnknownUserOrIncorrectPassword", "Resources"));
+                return View(model);
+            }
+
             if (!_userRepository.CheckIfUserProfileIsActive(model.UserName))
             {
-                ModelState.AddModelError("", "Your account is not active.");
+                ModelState.AddModelError("", DbRes.T("LoginController.InactiveAccount", "Resources"));
                 return View(model);
             }
 
@@ -59,7 +66,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", DbRes.T("AccountController.UnknownUserOrIncorrectPassword", "Resources"));
             return View(model);
         }
 
@@ -199,23 +206,23 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.ChangePasswordSuccess:
-                        TempData["StatusMessage"] = "Your password has been changed.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.ChangePasswordSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.ChangeUserProfileDataFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The changes were not saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.ChangeUserProfileDataFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.ChangeUserProfileDataSuccess:
-                        TempData["StatusMessage"] = "The changes were saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.ChangeUserProfileDataSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.SetPasswordSuccess:
-                        TempData["StatusMessage"] = "Your password has been set.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.SetPasswordSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.RemoveLoginSuccess:
-                        TempData["StatusMessage"] = "The external login was removed.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.RemoveLoginSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -268,7 +275,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                         return RedirectToAction("Manage");
                     }
                     
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError("", DbRes.T("AccountController.CurrentPasswordIncorrectOrNewPasswordInvalid", "Resources"));
                 }
             }
             else
@@ -393,7 +400,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                     return RedirectToLocal(returnUrl);
                 }
 
-                ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                ModelState.AddModelError("UserName", DbRes.T("AccountController.UserNameAlreadyExists", "Resources"));
             }
 
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
