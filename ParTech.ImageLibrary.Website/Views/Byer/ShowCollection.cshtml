@@ -1,17 +1,18 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.Models.Collection
 
 @{
-    ViewBag.Title = "Collection details";
+    ViewBag.Title = DbRes.T("Byer.ShowCollection.MetaTitle", "Resources");
     
     var imageRepository = new ImageRepository();
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Byer.ShowCollection.PageTitle", "Resources")</h1>
 </hgroup>
 
-<input type="button" value="Back to list" onclick="history.go(-1);" />
+<input type="button" value="@DbRes.T("Byer.ShowCollection.BtnBack", "Resources")" onclick="history.go(-1);" />
 
 @Html.Partial("_StatusMessage")
 
@@ -19,33 +20,33 @@
 <section class="pagebody">
     <ul>
         <li>
-            Name: @Model.Name
+            @DbRes.T("General.Name", "Resources"): @Model.Name
         </li>
     </ul>
 
     <hgroup class="title">
-        <h2>Products</h2>
+        <h2>@DbRes.T("Byer.ShowCollection.ListSubTitle", "Resources")</h2>
     </hgroup>
 
     @if (!Model.Products.Any())
     {
         <span>
-            No products available.
+            @DbRes.T("Byer.ShowCollection.NoProductsAvailable", "Resources")
         </span>
     }
     else
     {
-        @Html.AuthorizedActionLink("Add all images to shopping cart", "AddCollectionImagesToShoppingCart", "Byer", new { collectionid = Model.CollectionID }, new { @class = "button"})
+        @Html.AuthorizedActionLink(DbRes.T("Byer.ShowCollection.AddAllImagesToCartLink", "Resources"), "AddCollectionImagesToShoppingCart", "Byer", new { collectionid = Model.CollectionID }, new { @class = "button"})
         
         <table>
             <tr>
-                <th>Name</th>
-                <th>EDI</th>
-                <th>SKU</th>
-                <th>Year</th>
-                <th>Material</th>
-                <th>Size</th>
-                <th>No of images</th>
+                <th>@DbRes.T("General.Name", "Resources")</th>
+                <th>@DbRes.T("General.EDI", "Resources")</th>
+                <th>@DbRes.T("General.SKU", "Resources")</th>
+                <th>@DbRes.T("General.Year", "Resources")</th>
+                <th>@DbRes.T("General.Material", "Resources")</th>
+                <th>@DbRes.T("General.Size", "Resources")</th>
+                <th>@DbRes.T("General.NoOfImages", "Resources")</th>
             </tr>
 
         @foreach (var product in Model.Products)

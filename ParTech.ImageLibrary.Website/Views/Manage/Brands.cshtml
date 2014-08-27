@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageBrandModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageBrandModel
 @{
-    ViewBag.Title = "Brands";
+    ViewBag.Title = DbRes.T("Manage.Brands.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Brands.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -14,7 +15,7 @@
     @if (!Model.ListBrands.Any())
     {
         <span>
-            No brands available.
+            @DbRes.T("Manage.Brands.NoBrandsAvailable", "Resources")
         </span>
     }
 
@@ -23,7 +24,8 @@
     @foreach (var brand in Model.ListBrands)
     {
         <li>
-            <strong>@brand.Name</strong> @Html.AuthorizedActionLink("Edit", "Brands", "Manage", new { message = string.Empty, brandid = brand.BrandID }, null )<br />
+            <strong>@brand.Name</strong> 
+            @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Brands", "Manage", new { message = string.Empty, brandid = brand.BrandID }, null )<br />
             <span>@brand.Description</span>
         </li>
     }
@@ -44,12 +46,12 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.BrandModel.Name)
-                    @Html.TextBoxFor(m => m.BrandModel.Name)
+                    @Html.TextBoxFor(m => m.BrandModel.Name, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.BrandModel.Name)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.BrandModel.Description)
-                    @Html.TextAreaFor(m => m.BrandModel.Description)
+                    @Html.TextAreaFor(m => m.BrandModel.Description, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.BrandModel.Description)
                 </li>
             </ol>
@@ -58,7 +60,7 @@
         
             @if (Model.BrandModel.BrandID > 0)
             {
-                @Html.ActionLink("Cancel", "Brands", "Manage")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "Brands", "Manage")
             }
         </fieldset>
     }

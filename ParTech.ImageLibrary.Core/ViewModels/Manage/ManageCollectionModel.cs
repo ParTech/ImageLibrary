@@ -6,6 +6,7 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Manage
     public class ManageCollectionModel
     {
         public IEnumerable<Collection> ListCollections { get; set; }
+
         public Collection CollectionModel { get; set; }
     }
 }

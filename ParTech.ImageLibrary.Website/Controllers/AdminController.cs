@@ -11,6 +11,7 @@ using ParTech.ImageLibrary.Core.Enums;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.Workers;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -144,27 +145,27 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.ActivateUserFailure:
-                        TempData["StatusMessage"] = "The user could not be activated.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.ActivateUserFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.ActivateUserSuccess:
-                        TempData["StatusMessage"] = "The user has been activated.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.ActivateUserSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.DeactivateUserFailure:
-                        TempData["StatusMessage"] = "The user could not be deactivated.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeactivateUserFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.DeactivateUserSuccess:
-                        TempData["StatusMessage"] = "The user has been deactivated.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeactivateUserSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.RegistrationConfirmationEmailFailure:
-                        TempData["StatusMessage"] = "The confirmation email could not be sent.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.RegistrationConfirmationEmailFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.RegistrationConfirmationEmailSuccess:
-                        TempData["StatusMessage"] = "The confirmation email has been sent.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.RegistrationConfirmationEmailSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.General;
 using ParTech.ImageLibrary.Core.Enums;
 using ParTech.ImageLibrary.Core.Workers;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -28,11 +30,21 @@ namespace ParTech.ImageLibrary.Website.Controllers
         
         //
         // GET: /General/ChangeLanguage
+
         public ActionResult ChangeLanguage(string lang, string returnUrl)
         {
             var langCookie = new HttpCookie("locale", lang) { HttpOnly = true };
             Response.AppendCookie(langCookie);
-            return Redirect(HttpUtility.UrlDecode(returnUrl));
+
+            returnUrl = HttpUtility.UrlDecode(returnUrl);
+            if (!string.IsNullOrEmpty(returnUrl) 
+                && !returnUrl.StartsWith(string.Concat("/", CultureInfo.CurrentUICulture.Name.ToLower()))
+                && !returnUrl.StartsWith(string.Concat("/", lang)))
+            {
+                returnUrl = string.Concat("/", lang, returnUrl);
+            }
+
+            return Redirect(returnUrl);
         }
 
         //
@@ -74,12 +86,13 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.SearchFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The search could not be executed.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.SearchFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.SearchSuccess:
-                        TempData["StatusMessage"] = string.Format("Found {0} product(s) on '{1}'.",
-                            searchModel.FoundProducts.Count, searchModel.SearchString);
+                        TempData["StatusMessage"] = string.Format(DbRes.T("Messages.SearchSuccess", "Resources"),
+                                                                  searchModel.FoundProducts.Count, 
+                                                                  searchModel.SearchString);
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:

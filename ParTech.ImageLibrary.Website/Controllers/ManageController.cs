@@ -4,6 +4,7 @@ using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.Manage;
 using System.Threading;
 using System.Web.Mvc;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -38,19 +39,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditBrandFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The brand could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditBrandFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditBrandSuccess:
-                        TempData["StatusMessage"] = "The brand was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditBrandSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewBrandFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The brand could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditAccountFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewBrandSuccess:
-                        TempData["StatusMessage"] = "The brand was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewBrandSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -67,17 +68,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (brandid == null || brandid == 0)
             {
-                ViewBag.FormHeader = "Add a new brand.";
-                ViewBag.Legend = "New brand";
-                ViewBag.ButtonText = "Add brand";
+                ViewBag.FormHeader = DbRes.T("ManageController.AddBrandForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.AddBrandForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.AddBrandForm.BtnSubmit", "Resources");
                 
                 mbm.BrandModel = new Brand();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a brand.";
-                ViewBag.Legend = "Edit brand";
-                ViewBag.ButtonText = "Save brand";
+                ViewBag.FormHeader = DbRes.T("ManageController.EditBrandForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.EditBrandForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.EditBrandForm.BtnSubmit", "Resources");
 
                 mbm.BrandModel = _objectRepository.GetBrand(brandid);
             }
@@ -131,19 +132,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditCategoryFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The category could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditCategoryFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditCategorySuccess:
-                        TempData["StatusMessage"] = "The category was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditCategorySuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewCategoryFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The category could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewCategoryFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewCategorySuccess:
-                        TempData["StatusMessage"] = "The category was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewCategorySuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -160,17 +161,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (categoryid == null || categoryid == 0)
             {
-                ViewBag.FormHeader = "Add a new Category.";
-                ViewBag.Legend = "New Category";
-                ViewBag.ButtonText = "Add Category";
+                ViewBag.FormHeader = DbRes.T("ManageController.AddCategoryForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.AddCategoryForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.AddCategoryForm.BtnSubmit", "Resources");
 
                 mbm.CategoryModel = new Category();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a Category.";
-                ViewBag.Legend = "Edit Category";
-                ViewBag.ButtonText = "Save Category";
+                ViewBag.FormHeader = DbRes.T("ManageController.EditCategoryForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.EditCategoryForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.EditCategoryForm.BtnSubmit", "Resources");
 
                 mbm.CategoryModel = _objectRepository.GetCategory(categoryid);
             }
@@ -223,19 +224,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditCollectionFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The collection could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditCollectionFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditCollectionSuccess:
-                        TempData["StatusMessage"] = "The collection was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditCollectionSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewCollectionFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The collection could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewCollectionFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewCollectionSuccess:
-                        TempData["StatusMessage"] = "The collection was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewCollectionSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -252,17 +253,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (collectionid == null || collectionid == 0)
             {
-                ViewBag.FormHeader = "Add a new collection.";
-                ViewBag.Legend = "New collection";
-                ViewBag.ButtonText = "Add collection";
+                ViewBag.FormHeader = DbRes.T("ManageController.AddCollectionForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.AddCollectionForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.AddCollectionForm.BtnSubmit", "Resources");
 
                 mbm.CollectionModel = new Collection();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a collection.";
-                ViewBag.Legend = "Edit collection";
-                ViewBag.ButtonText = "Save collection";
+                ViewBag.FormHeader = DbRes.T("ManageController.EditCollectionForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.EditCollectionForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.EditCollectionForm.BtnSubmit", "Resources");
 
                 mbm.CollectionModel = _objectRepository.GetCollection(collectionid);
             }
@@ -316,19 +317,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditGenderFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The gender could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditGenderFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditGenderSuccess:
-                        TempData["StatusMessage"] = "The gender was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditGenderSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewGenderFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The gender could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewGenderFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewGenderSuccess:
-                        TempData["StatusMessage"] = "The gender was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewGenderSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -345,17 +346,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (genderid == null || genderid == 0)
             {
-                ViewBag.FormHeader = "Add a new gender.";
-                ViewBag.Legend = "New gender";
-                ViewBag.ButtonText = "Add gender";
+                ViewBag.FormHeader = DbRes.T("ManageController.AddGenderForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.AddGenderForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.AddGenderForm.BtnSubmit", "Resources");
 
                 mbm.GenderModel = new Gender();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a gender.";
-                ViewBag.Legend = "Edit gender";
-                ViewBag.ButtonText = "Save gender";
+                ViewBag.FormHeader = DbRes.T("ManageController.EditGenderForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.EditGenderForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.EditGenderForm.BtnSubmit", "Resources");
 
                 mbm.GenderModel = _objectRepository.GetGender(genderid);
             }
@@ -408,19 +409,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditSeasonFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The season could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditSeasonFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditSeasonSuccess:
-                        TempData["StatusMessage"] = "The season was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditSeasonSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewSeasonFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The season could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewSeasonFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewSeasonSuccess:
-                        TempData["StatusMessage"] = "The season was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewSeasonSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -437,17 +438,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (seasonid == null || seasonid == 0)
             {
-                ViewBag.FormHeader = "Add a new season.";
-                ViewBag.Legend = "New season";
-                ViewBag.ButtonText = "Add season";
+                ViewBag.FormHeader = DbRes.T("ManageController.AddSeasonForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.AddSeasonForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.AddSeasonForm.BtnSubmit", "Resources");
 
                 mbm.SeasonModel = new Season();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a season.";
-                ViewBag.Legend = "Edit season";
-                ViewBag.ButtonText = "Save season";
+                ViewBag.FormHeader = DbRes.T("ManageController.EditSeasonForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ManageController.EditSeasonForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ManageController.EditSeasonForm.BtnSubmit", "Resources");
 
                 mbm.SeasonModel = _objectRepository.GetSeason(seasonid);
             }

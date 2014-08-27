@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductsModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductsModel
 @{
-    ViewBag.Title = "Your products";
+    ViewBag.Title = DbRes.T("Seller.Products.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Seller.Products.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -14,7 +15,7 @@
     @if (!Model.ListProducts.Any())
     {
         <span>
-            No products available.
+            @DbRes.T("Seller.Products.NoProductsAvailable", "Resources")
         </span>
     }
     else
@@ -22,20 +23,20 @@
         <table>
             <tr>
                 <th></th>
-                <th>Name</th>
-                <th>EDI</th>
-                <th>SKU</th>
-                <th>Year</th>
-                <th>Material</th>
-                <th>Size</th>
-                <th>No of images</th>
+                <th>@DbRes.T("General.Name", "Resources")</th>
+                <th>@DbRes.T("General.EDI", "Resources")</th>
+                <th>@DbRes.T("General.SKU", "Resources")</th>
+                <th>@DbRes.T("General.Year", "Resources")</th>
+                <th>@DbRes.T("General.Material", "Resources")</th>
+                <th>@DbRes.T("General.Size", "Resources")</th>
+                <th>@DbRes.T("General.NoOfImages", "Resources")</th>
             </tr>
 
         @foreach (var product in Model.ListProducts)
         {
             <tr>
                 <td>
-                    @Html.AuthorizedActionLink("Edit", "Products", "Seller", new { message = string.Empty, productid = product.ProductID }, null)
+                    @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Products", "Seller", new { message = string.Empty, productid = product.ProductID }, null)
                 </td>
                 <td>@Html.AuthorizedActionLink(@product.Name, "ShowProduct", "Seller",  new { productid = product.ProductID }, null)</td>
                 <td>@product.EDI</td>

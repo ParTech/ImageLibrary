@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerBrandsModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerBrandsModel
 @{
-    ViewBag.Title = "Brands";
+    ViewBag.Title = DbRes.T("Byer.Brands.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Byer.Brands.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -14,7 +15,7 @@
     @if (!Model.ListBrands.Any())
     {
         <span>
-            No brands available.
+            @DbRes.T("Byer.Brands.NoBrandsAvailable", "Resources")
         </span>
     }
     else
@@ -26,7 +27,7 @@
             <li>
                 <strong>@Html.AuthorizedActionLinkOrText(@brand.Name, "ShowBrand", "Byer", new { brandid = brand.BrandID }, null)</strong><br />
                 <span>@brand.Description</span><br />
-                <span>No of products: @brand.Products.Count</span>
+                <span>@DbRes.T("General.NoOfProducts", "Resources"): @brand.Products.Count</span>
             </li>
         }
 

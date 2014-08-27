@@ -1,17 +1,18 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Profile.EditProfileModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Profile.EditProfileModel
 @{
-    ViewBag.Title = "Edit profile";
+    ViewBag.Title = DbRes.T("Profile.EditProfile.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Profile.EditProfile.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
 
 @if (Model.MainAccount)
 {
-    @Html.ActionLink("Additional accounts", "AdditionalAccounts", "Profile")
+    @Html.ActionLink(DbRes.T("Profile.EditProfile.AdditionalAccountsLink", "Resources"), "AdditionalAccounts", "Profile")
 }
 
 <section class="pagebody">
@@ -21,74 +22,74 @@
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>Edit profile</legend>
-            <h3>Company information</h3>
+            <legend>@DbRes.T("Profile.EditProfile.EditProfileFormLegend", "Resources")</legend>
+            <h3>@DbRes.T("Profile.EditProfile.CompanyInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.CompanyName)
+                    @Html.TextBoxFor(m => m.CompanyName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.CompanyName)
                 </li>
             </ol>
 
-            <h3>Contact information</h3>
+            <h3>@DbRes.T("Profile.EditProfile.ContactInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.LanguageId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.LanguageId, new SelectList(Model.LanguageItems, "LanguageID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.LanguageId, new SelectList(Model.LanguageItems, "LanguageID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.LanguageId)
                 </li>  
                 <li>
                     @Html.LabelFor(m => m.SalutationId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.SalutationId, new SelectList(Model.SalutationItems, "SalutationID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.SalutationId, new SelectList(Model.SalutationItems, "SalutationID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.SalutationId)
                 </li>            <li>
                     @Html.LabelFor(m => m.FirstName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.FirstName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.LastName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.LastName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Email)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Telephone)
-                    @Html.TextBoxFor(m => m.Telephone)
+                    @Html.TextBoxFor(m => m.Telephone, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.Telephone)
                 </li>
             </ol>
 
-            <h3>Billing address</h3>
+            <h3>@DbRes.T("Profile.EditProfile.BillingAddress", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.Address, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.Address)
+                    @Html.TextBoxFor(m => m.Address, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Address)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.PostalCode, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.PostalCode)
+                    @Html.TextBoxFor(m => m.PostalCode, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.PostalCode)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.City, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.City)
+                    @Html.TextBoxFor(m => m.City, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.City)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.CountryId, new { @class = "required" } )
-                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryItems, "CountryID", "Name"), "-- make a choice --")
+                    @Html.DropDownListFor(m => m.CountryId, new SelectList(Model.CountryItems, "CountryID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
                     @Html.ValidationMessageFor(m => m.CountryId)
                 </li>
           </ol>
             @Html.HiddenFor(m => m.ProfileId)
-            <input type="submit" value="Save profile" />
+            <input type="submit" value="@DbRes.T("Profile.EditProfile.BtnSubmit", "Resources")" />
         </fieldset>
     }
 </section>

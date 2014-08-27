@@ -1,7 +1,9 @@
-﻿@using Westwind.Globalization
+﻿@using System.Globalization
+@using Westwind.Globalization
 @{
-    ViewBag.Title = DbRes.T("Index.MetaTitle", "Resources");
+    ViewBag.Title = DbRes.T("Home.Index.MetaTitle", "Resources");
 }
 
-<h2>@DbRes.T("Index.PageTitle", "Resources")</h2>
+<h2>@DbRes.T("Home.Index.PageTitle", "Resources")</h2>
 
+@CultureInfo.CurrentUICulture.Name.ToLower()

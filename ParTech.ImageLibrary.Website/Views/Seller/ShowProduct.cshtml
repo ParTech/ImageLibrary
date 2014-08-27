@@ -1,45 +1,47 @@
 ﻿@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.Models.Product
 @{
-    ViewBag.Title = "Product details";
+    ViewBag.Title = DbRes.T("Seller.ShowProduct.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Seller.ShowProduct.PageTitle", "Resources")</h1>
 </hgroup>
-
-<input type="button" value="Back to list" onclick="history.go(-1);" />
 
 @Html.Partial("_StatusMessage")
 
-<section class="pagebody">
+<section class="pagebodysmall">
+
+    <input type="button" value="@DbRes.T("Seller.ShowProduct.BtnBack", "Resources")" onclick="history.go(-1);" />
+
     <ul>
         <li>
-            Name: @Model.Name
+            @DbRes.T("General.Name", "Resources"): @Model.Name
         </li>
         <li>
-            EDI: @Model.EDI
+            @DbRes.T("General.EDI", "Resources"): @Model.EDI
         </li>
         <li>
-            SKU: @Model.SKU
+            @DbRes.T("General.SKU", "Resources"): @Model.SKU
         </li>
         <li>
-            Year: @Model.Year
+            @DbRes.T("General.Year", "Resources"): @Model.Year
         </li>
         <li>
-            Material: @Model.Material
+            @DbRes.T("General.Material", "Resources"): @Model.Material
         </li>
         <li>
-            Size: @Model.Size
+            @DbRes.T("General.Size", "Resources"): @Model.Size
         </li>
         <li>
-            Brand: @Model.Brand.Name
+            @DbRes.T("General.Brand", "Resources"): @Model.Brand.Name
         </li>
         <li>
-            Category: @LanguageString.GetStringForCurrentLanguage(Model.Category.Name)
+            @DbRes.T("General.Category", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Category.Name)
         </li>
         <li>
-            Collection: 
+            @DbRes.T("General.Collection", "Resources"): 
             @if (Model.Collection == null)
             {
                 @Html.Raw("-");
@@ -50,21 +52,21 @@
             }
         </li>
         <li>
-            Gender: @LanguageString.GetStringForCurrentLanguage(Model.Gender.Name)
+            @DbRes.T("General.Gender", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Gender.Name)
         </li>
         <li>
-            Season: @LanguageString.GetStringForCurrentLanguage(Model.Season.Name)
+            @DbRes.T("General.Season", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Season.Name)
         </li>
     </ul>
 
     <hgroup class="title">
-        <h2>Product images</h2>
+        <h2>@DbRes.T("Seller.ShowProduct.ListSubTitle", "Resources")</h2>
     </hgroup>
 
     @if (!Model.Images.Any())
     {
         <span>
-            No images available.
+            @DbRes.T("Seller.ShowProduct.NoImagesAvailable", "Resources")
         </span>
     }
     else
@@ -76,27 +78,25 @@
                     <img src="@Url.Action("ShowThumbnail", "Seller", new { imageid = image.ImageID })" />
                 </div>
                 <div class="datacontainer">
-                    Resolution: @image.Resolution<br />
-                    Type: @image.ImageFormat.Replace("image/", string.Empty)
+                    @DbRes.T("General.Resolution", "Resources"): @image.Resolution<br />
+                    @DbRes.T("General.Type", "Resources"): @image.ImageFormat.Replace("image/", string.Empty)
                 </div>
             </div>
         }
     }
 </section>
 
-<section class="form">
-    <hgroup class="title">
-        <h2>Upload images for product</h2>
-    </hgroup>
+<section class="uploadform">
+    <h2>@DbRes.T("Seller.ShowProducts.UploadImagesForm.Title", "Resources")</h2>
 
     @using (Html.BeginForm("UploadImage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", id = "upload" }))
     {
         @Html.Hidden("product", @Model.ProductID)        
         
-        <div id="drop">
-		    Drop Here
+        <div class="drop">
+		    @DbRes.T("Seller.ShowProducts.UploadImagesForm.Intro", "Resources")
 
-		    <a>Browse</a>
+		    <a>@DbRes.T("General.Browse", "Resources")</a>
 		    <input type="file" name="upl" multiple />
 	    </div>
 

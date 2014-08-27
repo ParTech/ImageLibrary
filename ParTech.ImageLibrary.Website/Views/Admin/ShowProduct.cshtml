@@ -1,45 +1,46 @@
 ﻿@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.Models.Product
 @{
-    ViewBag.Title = "Product details";
+    ViewBag.Title = DbRes.T("Admin.ShowProducts.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Admin.ShowProducts.PageTitle", "Resources")</h1>
 </hgroup>
 
-<input type="button" value="Back to list" onclick="history.go(-1);" />
+<input type="button" value="@DbRes.T("Admin.ShowProducts.BtnBack", "Resources")" onclick="history.go(-1);" />
 
 @Html.Partial("_StatusMessage")
 
 <section class="pagebodysmall">
     <ul>
         <li>
-            Name: @Model.Name
+            @DbRes.T("General.Name", "Resources"): @Model.Name
         </li>
         <li>
-            EDI: @Model.EDI
+            @DbRes.T("General.EDI", "Resources"): @Model.EDI
         </li>
         <li>
-            SKU: @Model.SKU
+            @DbRes.T("General.SKU", "Resources"): @Model.SKU
         </li>
         <li>
-            Year: @Model.Year
+            @DbRes.T("General.Year", "Resources"): @Model.Year
         </li>
         <li>
-            Material: @Model.Material
+            @DbRes.T("General.Material", "Resources"): @Model.Material
         </li>
         <li>
-            Size: @Model.Size
+            @DbRes.T("General.Size", "Resources"): @Model.Size
         </li>
         <li>
-            Brand: @Model.Brand.Name
+            @DbRes.T("General.Brand", "Resources"): @Model.Brand.Name
         </li>
         <li>
-            Category: @LanguageString.GetStringForCurrentLanguage(Model.Category.Name)
+            @DbRes.T("General.Category", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Category.Name)
         </li>
         <li>
-            Collection: 
+            @DbRes.T("General.Collection", "Resources"): 
             @if (Model.Collection == null)
             {
                 @Html.Raw("-");
@@ -50,21 +51,21 @@
             }
         </li>
         <li>
-            Gender: @LanguageString.GetStringForCurrentLanguage(Model.Gender.Name)
+            @DbRes.T("General.Gender", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Gender.Name)
         </li>
         <li>
-            Season: @LanguageString.GetStringForCurrentLanguage(Model.Season.Name)
+            @DbRes.T("General.Season", "Resources"): @LanguageString.GetStringForCurrentLanguage(Model.Season.Name)
         </li>
     </ul>
 
     <hgroup class="title">
-        <h2>Product images</h2>
+        <h2>@DbRes.T("Admin.ShowProduct.ListSubTitle", "Resources")</h2>
     </hgroup>
 
     @if (!Model.Images.Any())
     {
         <span>
-            No images available.
+            @DbRes.T("Admin.ShowProduct.NoImagesAvailable", "Resources")
         </span>
     }
     else

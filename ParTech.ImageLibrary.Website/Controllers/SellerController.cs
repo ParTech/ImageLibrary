@@ -11,6 +11,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -145,7 +146,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (string.IsNullOrEmpty(startPath) || newWidth == 0 || newHeight == 0 || newSmallWidth == 0 || newSmallHeight == 0)
             {
-                additionalinfo = "There are some missing settings.";
+                additionalinfo = DbRes.T("SellerController.UploadImage.Messages.MissingSettings", "Resources");
             }
             else
             {
@@ -225,7 +226,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                             }
                             else
                             {
-                                additionalinfo = "The meta data of the image could not be saved.";
+                                additionalinfo = DbRes.T("SellerController.UploadImage.Messages.MetaDataImageCouldNotBeSaved", "Resources");
                             }
 
                             thumbnail.Dispose();
@@ -234,7 +235,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                         }
                         else
                         {
-                            additionalinfo = "Unknown product.";
+                            additionalinfo = DbRes.T("SellerController.UploadImage.Messages.UnknownProduct", "Resources");
                         }
                     //}
                     //catch (Exception ex)
@@ -243,7 +244,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 }
                 else
                 {
-                    additionalinfo = "Product and/or upl not specified.";
+                    additionalinfo = DbRes.T("SellerController.UploadImage.Messages.ProductOrUplNotSpecified", "Resources");
                 }
             }
 
@@ -265,11 +266,11 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.NewProductFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The product could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewProductFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewProductSuccess:
-                        TempData["StatusMessage"] = "The product was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewProductSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -286,26 +287,26 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (productid == null || productid == 0)
             {
-                ViewBag.FormHeader = "Add a new product.";
-                ViewBag.Legend = "New product";
-                ViewBag.ButtonText = "Add product";
+                ViewBag.FormHeader = DbRes.T("SellerController.AddProductForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("SellerController.AddProductForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("SellerController.AddProductForm.BtnSubmit", "Resources");
 
                 spm.SellerProductModel = new SellerProductModel();
             }
             else
             {
-                ViewBag.FormHeader = "Edit a product.";
-                ViewBag.Legend = "Edit product";
-                ViewBag.ButtonText = "Save product";
+                ViewBag.FormHeader = DbRes.T("SellerController.EditProductForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("SellerController.EditProductForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("SellerController.EditProductForm.BtnSubmit", "Resources");
 
                 spm.SellerProductModel = _objectRepository.GetProductAndMapToSellerProductModel(productid);
             }
 
             spm.SellerProductModel.BrandItems = _objectRepository.GetBrands();
-            spm.SellerProductModel.CategoryItems = _objectRepository.GetCategories();
+            spm.SellerProductModel.CategoryItems = _objectRepository.GetCategoriesAndMapToSelectList();
             spm.SellerProductModel.CollectionItems = _objectRepository.GetCollections();
-            spm.SellerProductModel.GenderItems = _objectRepository.GetGenders();
-            spm.SellerProductModel.SeasonItems = _objectRepository.GetSeasons();
+            spm.SellerProductModel.GenderItems = _objectRepository.GetGendersAndMapToSelectList();
+            spm.SellerProductModel.SeasonItems = _objectRepository.GetSeasonsAndMapToSelectList();
 
             return View(spm);
         }

@@ -1,11 +1,12 @@
 ﻿@using ParTech.ImageLibrary.Core.ViewModels.General
+@using Westwind.Globalization
 @model SearchModel
 @{
-    ViewBag.Title = "Search result";
+    ViewBag.Title = DbRes.T("General.Search.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("General.Search.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,13 +16,13 @@
     {
         <table>
             <tr>
-                <th>Name</th>
-                <th>EDI</th>
-                <th>SKU</th>
-                <th>Year</th>
-                <th>Material</th>
-                <th>Size</th>
-                <th>No of images</th>
+                <th>@DbRes.T("General.Name", "Resources")</th>
+                <th>@DbRes.T("General.EDI", "Resources")</th>
+                <th>@DbRes.T("General.SKU", "Resources")</th>
+                <th>@DbRes.T("General.Year", "Resources")</th>
+                <th>@DbRes.T("General.Material", "Resources")</th>
+                <th>@DbRes.T("General.Size", "Resources")</th>
+                <th>@DbRes.T("General.NoOfImages", "Resources")</th>
             </tr>
 
             @foreach (var product in Model.FoundProducts)
@@ -44,6 +45,6 @@
     }
     else
     {
-        Html.Raw("No products found");
+        Html.Raw(DbRes.T("General.Search.NoProductsFound", "Resources"));
     }
 </section>

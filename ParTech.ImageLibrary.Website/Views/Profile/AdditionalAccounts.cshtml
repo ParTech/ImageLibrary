@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Profile.AdditionalAccountsModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Profile.AdditionalAccountsModel
 @{
-    ViewBag.Title = "Additional accounts";
+    ViewBag.Title = DbRes.T("Profile.AdditionalAccounts.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Profile.AdditionalAccounts.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -13,7 +14,7 @@
     @if (Model.ListUserProfiles == null || !Model.ListUserProfiles.Any())
     {
         <span>
-            No additional accounts available.
+            @DbRes.T("Profile.AdditionalAccounts.NoAccountAvailable", "Resources")
         </span>
     }
     else
@@ -21,9 +22,9 @@
         <table>
             <tr>
                 <th>&nbsp;</th>
-                <th>User name</th>
-                <th>Email address</th>
-                <th>Created</th>
+                <th>@DbRes.T("General.UserName", "Resources")</th>
+                <th>@DbRes.T("General.Email", "Resources")</th>
+                <th>@DbRes.T("General.Created", "Resources")</th>
             </tr>
 
             @foreach (var userProfile in Model.ListUserProfiles)
@@ -38,15 +39,15 @@
                         @if (userProfile.webpages_Membership.IsConfirmed == null ||
                             !(bool)userProfile.webpages_Membership.IsConfirmed)
                         {
-                            @Html.AuthorizedActionLinkOrText("Send confirmation email", "SendConfirmationEmail", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                            @Html.AuthorizedActionLinkOrText(DbRes.T("Profile.AdditionalAccounts.SendConfirmationLink", "Resources"), "SendConfirmationEmail", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
                         }
                         else if (userProfile.Active)
                         {
-                            @Html.AuthorizedActionLinkOrText("Deactivate user", "DeactivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                            @Html.AuthorizedActionLinkOrText(DbRes.T("Profile.AdditionalAccounts.DeactivateUserLink", "Resources"), "DeactivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
                         }
                         else
                         {
-                            @Html.AuthorizedActionLinkOrText("Activate user", "ActivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
+                            @Html.AuthorizedActionLinkOrText(DbRes.T("Profile.AdditionalAccounts.ActivateUserLink", "Resources"), "ActivateUser", "Admin", new { userid = userProfile.Id, returnTo = "AdditionalAccounts" }, null)
                         }                      
                     </td>
                     <td>@userProfile.UserName</td>
@@ -73,22 +74,22 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserProfileModel.UserName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.UserProfileModel.UserName)
+                    @Html.TextBoxFor(m => m.UserProfileModel.UserName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserProfileModel.UserName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.UserProfileModel.Password, new { @class = "required" } )
-                    @Html.PasswordFor(m => m.UserProfileModel.Password)
+                    @Html.PasswordFor(m => m.UserProfileModel.Password, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserProfileModel.Password)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.UserProfileModel.ConfirmPassword, new { @class = "required" } )
-                    @Html.PasswordFor(m => m.UserProfileModel.ConfirmPassword)
+                    @Html.PasswordFor(m => m.UserProfileModel.ConfirmPassword, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserProfileModel.ConfirmPassword)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.UserProfileModel.UserEmail, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.UserProfileModel.UserEmail)
+                    @Html.TextBoxFor(m => m.UserProfileModel.UserEmail, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserProfileModel.UserEmail)
                 </li>
             </ol>
@@ -97,7 +98,7 @@
         
             @if (Model.UserProfileModel.UserProfileId > 0)
             {
-                @Html.ActionLink("Cancel", "AdditionalAccounts", "Profile")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "AdditionalAccounts", "Profile")
             }
         </fieldset>
     }

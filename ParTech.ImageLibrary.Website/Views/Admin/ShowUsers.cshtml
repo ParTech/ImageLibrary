@@ -1,11 +1,12 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
+@using Westwind.Globalization
 @model IEnumerable<ParTech.ImageLibrary.Core.Models.UserProfile>
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = DbRes.T("Admin.ShowUsers.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Admin.ShowUsers.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,7 +16,7 @@
     @if (!Model.Any())
     {
         <span>
-            No users available.
+            @DbRes.T("Admin.ShowUsers.NoUsersAvailable", "Resources")
         </span>
     }
     else
@@ -24,12 +25,12 @@
             <tr>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
-                <th>User name</th>
-                <th>Email address</th>
-                <th>Created</th>
-                <th>Company</th>
-                <th>Contact information</th>
-                <th>Billing address</th>
+                <th>@DbRes.T("General.UserName", "Resources")</th>
+                <th>@DbRes.T("General.Email", "Resources")</th>
+                <th>@DbRes.T("General.Created", "Resources")</th>
+                <th>@DbRes.T("General.Company", "Resources")</th>
+                <th>@DbRes.T("General.ContactInformation", "Resources")</th>
+                <th>@DbRes.T("General.BillingAddress", "Resources")</th>
             </tr>
 
         @foreach (var userProfile in Model)
@@ -44,15 +45,15 @@
                     @if (userProfile.webpages_Membership.IsConfirmed == null ||
                         !(bool)userProfile.webpages_Membership.IsConfirmed)
                     {
-                        @Html.AuthorizedActionLinkOrText("Send confirmation email", "SendConfirmationEmail", "Admin", new { userid = userProfile.Id }, null)
+                        @Html.AuthorizedActionLinkOrText(DbRes.T("Admin.ShowUsers.SendConfirmationEmail", "Resources"), "SendConfirmationEmail", "Admin", new { userid = userProfile.Id }, null)
                     }
                     else if (userProfile.Active)
                     {
-                        @Html.AuthorizedActionLinkOrText("Deactivate user", "DeactivateUser", "Admin", new { userid = userProfile.Id }, null)
+                        @Html.AuthorizedActionLinkOrText(DbRes.T("Admin.ShowUsers.DeactivateUser", "Resources"), "DeactivateUser", "Admin", new { userid = userProfile.Id }, null)
                     }
                     else
                     {
-                        @Html.AuthorizedActionLinkOrText("Activate user", "ActivateUser", "Admin", new { userid = userProfile.Id }, null)
+                        @Html.AuthorizedActionLinkOrText(DbRes.T("Admin.ShowUsers.ActivateUser", "Resources"), "ActivateUser", "Admin", new { userid = userProfile.Id }, null)
                     }
                 </td>
                 <td>

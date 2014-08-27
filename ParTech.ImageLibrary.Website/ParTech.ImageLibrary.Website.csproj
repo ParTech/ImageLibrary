@@ -406,6 +406,7 @@
     <Content Include="Views\Admin\ShowProduct.cshtml" />
     <Content Include="Views\Profile\AdditionalAccounts.cshtml" />
     <Content Include="Views\Shared\_ChangeLanguagePartial.cshtml" />
+    <Content Include="Views\General\_SelectListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LocalizationAdmin\App_LocalResources\LocalizationAdmin.aspx.de.resx" />

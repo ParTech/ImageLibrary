@@ -1,13 +1,14 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
+@using Westwind.Globalization
 @model List<ParTech.ImageLibrary.Core.Models.OrderLine>
 @{
-    ViewBag.Title = "Download history";
+    ViewBag.Title = DbRes.T("Seller.DownloadHistory.MetaTitle", "Resources");
 
     var userRepository = new UserRepository();
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Seller.DownloadHistory.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -17,18 +18,18 @@
     @if (!Model.Any())
     {
         <span>
-            No downloads available.
+            @DbRes.T("Seller.DownloadHistory.NoDownloadsAvailable", "Resources")
         </span>
     }
     else
     {
         <table>
             <tr>
-                <th>Downloaded on</th>
-                <th>By</th>
-                <th>Details</th>
-                <th>Price</th>
-                <th>Invoice number</th>
+                <th>@DbRes.T("General.DownloadedOn", "Resources")</th>
+                <th>@DbRes.T("General.By", "Resources")</th>
+                <th>@DbRes.T("General.Details", "Resources")</th>
+                <th>@DbRes.T("General.Price", "Resources")</th>
+                <th>@DbRes.T("General.InvoiceNumber", "Resources")</th>
             </tr>
 
         @foreach (var download in Model)
@@ -50,9 +51,9 @@
                     @byerUserProfile.UserName
                 </td>
                 <td>
-                    Product: @download.ProductName<br />
-                    Resolution: @download.Image.Resolution<br />
-                    Type: @download.Image.ImageFormat.Replace("image/", string.Empty)
+                    @DbRes.T("General.Product", "Resources"): @download.ProductName<br />
+                    @DbRes.T("General.Resolution", "Resources"): @download.Image.Resolution<br />
+                    @DbRes.T("General.Type", "Resources"): @download.Image.ImageFormat.Replace("image/", string.Empty)
                 </td>
                 <td>
                     @download.Price.ToString("C")

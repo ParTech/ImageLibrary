@@ -1,30 +1,30 @@
 ﻿@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Account.LoginModel
 @{
-    ViewBag.Title = DbRes.T("Login.MetaTitle", "Resources");
+    ViewBag.Title = DbRes.T("Account.Login.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@DbRes.T("Login.PageTitle", "Resources")</h1>
+    <h1>@DbRes.T("Account.Login.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="form">
-    <h2>@DbRes.T("Login.PageSubtitle", "Resources")</h2>
+    <h2>@DbRes.T("Account.Login.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
         <fieldset>
-            <legend>@DbRes.T("Login.LoginFormLegend", "Resources")</legend>
+            <legend>@DbRes.T("Account.Login.LoginForm.Legend", "Resources")</legend>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName)
-                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Password)
                 </li>
                 <li>
@@ -32,13 +32,13 @@
                     @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
                 </li>
             </ol>
-            <input type="submit" value="@DbRes.T("Login.BtnSubmit", "Resources")" />
+            <input type="submit" value="@DbRes.T("Account.Login.BtnSubmit", "Resources")" />
         </fieldset>
         <p>
-            @Html.ActionLink(DbRes.T("Login.RecoverLink", "Resources"), "Recover") @DbRes.T("Login.RecoverLinkPart2", "Resources")
+            @Html.ActionLink(DbRes.T("Account.Login.RecoverLink", "Resources"), "Recover") @DbRes.T("Account.Login.RecoverLinkPart2", "Resources")
         </p>
         <p>
-            @Html.ActionLink(DbRes.T("Login.RegisterLink", "Resources"), "Register") @DbRes.T("Login.RegisterLinkPart2", "Resources")
+            @Html.ActionLink(DbRes.T("Account.Login.RegisterLink", "Resources"), "Register") @DbRes.T("Account.Login.RegisterLinkPart2", "Resources")
         </p>
     }
 </section>

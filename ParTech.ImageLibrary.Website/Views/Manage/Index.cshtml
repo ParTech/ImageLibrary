@@ -1,9 +1,10 @@
-﻿@{
-    ViewBag.Title = "Miscellaneous";
+﻿@using Westwind.Globalization
+@{
+    ViewBag.Title = DbRes.T("Manage.Index.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Index.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="pagebody">
@@ -11,23 +12,23 @@
     <ul>
         @if (@Html.ActionIsAccessibleToUser("Brands", "Manage"))
         {
-            <li>@Html.ActionLink("Brands", "Brands", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("Manage.Index.BrandsLink", "Resources"), "Brands", "Manage")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Categories", "Manage"))
         {
-            <li>@Html.ActionLink("Categories", "Categories", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("Manage.Index.CategoriesLink", "Resources"), "Categories", "Manage")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Collections", "Manage"))
         {
-            <li>@Html.ActionLink("Collections", "Collections", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("Manage.Index.CollectionsLink", "Resources"), "Collections", "Manage")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Genders", "Manage"))
         {
-            <li>@Html.ActionLink("Genders", "Genders", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("Manage.Index.GendersLink", "Resources"), "Genders", "Manage")</li>
         }
         @if (@Html.ActionIsAccessibleToUser("Seasons", "Manage"))
         {
-            <li>@Html.ActionLink("Seasons", "Seasons", "Manage")</li>
+            <li>@Html.ActionLink(DbRes.T("Manage.Index.SeasonsLink", "Resources"), "Seasons", "Manage")</li>
         }
 
     </ul>

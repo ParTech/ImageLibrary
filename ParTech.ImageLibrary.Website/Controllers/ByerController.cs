@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Web.Mvc;
 using ParTech.ImageLibrary.Core.Workers;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -97,31 +98,33 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.CreateDownloadCartFailed:
-                        TempData["StatusMessage"] = "The download could not be created.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.CreateDownloadCartFailed", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.CreateDownloadCartSuccess:
-                        TempData["StatusMessage"] = "The download has been created. Click <a href='/byer/downloadzipfile'>here</a> to start the download.";
+                        TempData["StatusMessage"] = string.Format(DbRes.T("Messages.CreateDownloadCartSuccess", "Resources"), 
+                                                                  "<a href='/byer/downloadzipfile'>", 
+                                                                  "</a>");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.DeleteCartFailure:
-                        TempData["StatusMessage"] = "The cart could not be deleted.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeleteCartFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.DeleteCartSuccess:
-                        TempData["StatusMessage"] = "The cart has been deleted.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeleteCartSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.DeleteCartItemFailure:
-                        TempData["StatusMessage"] = "The cart item could not be deleted.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeleteCartItemFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.DeleteCartItemSuccess:
-                        TempData["StatusMessage"] = "The cart item has been deleted.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DeleteCartItemSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.DownloadZipFileFailed:
-                        TempData["StatusMessage"] = "The download could not be started.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.DownloadZipFileFailed", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     default:
@@ -181,11 +184,11 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.AddImagesToCartFailure:
-                        TempData["StatusMessage"] = "The images could not be added to the shopping cart.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.AddImagesToCartFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.AddImagesToCartSuccess:
-                        TempData["StatusMessage"] = "The images are added to the shopping cart.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.AddImagesToCartSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -211,11 +214,11 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.AddImagesToCartFailure:
-                        TempData["StatusMessage"] = "The images could not be added to the shopping cart.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.AddImagesToCartFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.AddImagesToCartSuccess:
-                        TempData["StatusMessage"] = "The images are added to the shopping cart.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.AddImagesToCartSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -372,5 +375,6 @@ namespace ParTech.ImageLibrary.Website.Controllers
         }
 
         #endregion
+
     }
 }

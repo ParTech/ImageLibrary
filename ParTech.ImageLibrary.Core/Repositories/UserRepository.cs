@@ -152,6 +152,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             var editProfileModel = new EditProfileModel
             {
+                ProfileId = profile.ProfileID,
                 CompanyName = profile.CompanyName,
                 LanguageId = profile.LanguageID,
                 SalutationId = profile.SalutationID,

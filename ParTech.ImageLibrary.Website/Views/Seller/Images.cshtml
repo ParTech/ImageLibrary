@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerImagesModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerImagesModel
 @{
-    ViewBag.Title = "Your images";
+    ViewBag.Title = DbRes.T("Seller.Images.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Seller.Images.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -13,7 +14,7 @@
     @if (!Model.ListImages.Any())
     {
         <span>
-            No images available.
+            @DbRes.T("Seller.Images.NoImagesAvailable", "Resources")
         </span>
     }
     else
@@ -34,19 +35,19 @@
 </section>
 
 <section class="uploadform">
-    <h2>Upload images</h2>
+    <h2>@DbRes.T("Seller.Images.UploadImagesForm.Title", "Resources")</h2>
 
     @using (Html.BeginForm("UploadImage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", id = "upload" }))
     {
         <div class="question">
-            @Html.LabelFor(m => m.Product, "Link them to this product")
-            @Html.DropDownList("product", new SelectList(Model.ListProducts, "ProductID", "Name"), "-- make a choice --")
+            @Html.LabelFor(m => m.Product, @DbRes.T("Seller.Images.UploadImagesForm.LinkThemToThisProductLabel", "Resources"))
+            @Html.DropDownList("product", new SelectList(Model.ListProducts, "ProductID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
         </div>		
 
         <div class="drop">
-            Drop Files Here
+            @DbRes.T("Seller.Images.UploadImagesForm.Intro", "Resources")
 
-            <a>Browse</a>
+            <a>@DbRes.T("General.Browse", "Resources")</a>
             <input type="file" name="upl" multiple />
         </div>
         

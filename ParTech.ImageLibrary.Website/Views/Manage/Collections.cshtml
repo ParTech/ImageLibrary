@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageCollectionModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageCollectionModel
 @{
-    ViewBag.Title = "Collections";
+    ViewBag.Title = DbRes.T("Manage.Collections.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Collections.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -14,7 +15,7 @@
     @if (!Model.ListCollections.Any())
     {
         <span>
-            No Collections available.
+            @DbRes.T("Manage.Collections.NoCollectionsAvailable", "Resources")
         </span>
     }
 
@@ -23,7 +24,8 @@
     @foreach (var collection in Model.ListCollections)
     {
         <li>
-            <strong>@collection.Name</strong> @Html.AuthorizedActionLink("Edit", "Collections", "Manage", new { message = string.Empty, collectionid = collection.CollectionID }, null )<br />
+            <strong>@collection.Name</strong> 
+            @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Collections", "Manage", new { message = string.Empty, collectionid = collection.CollectionID }, null )<br />
         </li>
     }
 
@@ -43,7 +45,7 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.CollectionModel.Name)
-                    @Html.TextBoxFor(m => m.CollectionModel.Name)
+                    @Html.TextBoxFor(m => m.CollectionModel.Name, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.CollectionModel.Name)
                 </li>
             </ol>
@@ -52,7 +54,7 @@
         
             @if (Model.CollectionModel.CollectionID > 0)
             {
-                @Html.ActionLink("Cancel", "Collections", "Manage")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "Collections", "Manage")
             }
         </fieldset>
     }

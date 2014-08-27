@@ -1,11 +1,12 @@
 ﻿@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageGenderModel
 @{
-    ViewBag.Title = "Genders";
+    ViewBag.Title = DbRes.T("Manage.Genders.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Genders.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,7 +16,7 @@
     @if (!Model.ListGenders.Any())
     {
         <span>
-            No genders available.
+            @DbRes.T("Manage.Genders.NoGendersAvailable", "Resources")
         </span>
     }
 
@@ -24,7 +25,8 @@
     @foreach (var gender in Model.ListGenders)
     {
         <li>
-            <strong>@LanguageString.GetStringForCurrentLanguage(gender.Name)</strong> @Html.AuthorizedActionLink("Edit", "Genders", "Manage", new { message = string.Empty, Genderid = gender.GenderID }, null )<br />
+            <strong>@LanguageString.GetStringForCurrentLanguage(gender.Name)</strong> 
+            @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Genders", "Manage", new { message = string.Empty, Genderid = gender.GenderID }, null )<br />
         </li>
     }
 
@@ -44,7 +46,7 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.GenderModel.Name)
-                    @Html.TextBoxFor(m => m.GenderModel.Name)
+                    @Html.TextBoxFor(m => m.GenderModel.Name, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.GenderModel.Name)
                 </li>
             </ol>
@@ -53,7 +55,7 @@
         
             @if (Model.GenderModel.GenderID > 0)
             {
-                @Html.ActionLink("Cancel", "Genders", "Manage")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "Genders", "Manage")
             }
         </fieldset>
     }

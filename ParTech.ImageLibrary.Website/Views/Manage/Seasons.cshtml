@@ -1,11 +1,12 @@
 ﻿@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageSeasonModel
 @{
-    ViewBag.Title = "Seasons";
+    ViewBag.Title = DbRes.T("Manage.Seasons.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Seasons.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,7 +16,7 @@
     @if (!Model.ListSeasons.Any())
     {
         <span>
-            No seasons available.
+            @DbRes.T("Manage.Seasons.NoSeasonsAvailable", "Resources")
         </span>
     }
 
@@ -24,7 +25,8 @@
     @foreach (var season in Model.ListSeasons)
     {
         <li>
-            <strong>@LanguageString.GetStringForCurrentLanguage(season.Name)</strong> @Html.AuthorizedActionLink("Edit", "Seasons", "Manage", new { message = string.Empty, Seasonid = season.SeasonID }, null )<br />
+            <strong>@LanguageString.GetStringForCurrentLanguage(season.Name)</strong> 
+            @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Seasons", "Manage", new { message = string.Empty, Seasonid = season.SeasonID }, null )<br />
         </li>
     }
 
@@ -44,7 +46,7 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.SeasonModel.Name)
-                    @Html.TextBoxFor(m => m.SeasonModel.Name)
+                    @Html.TextBoxFor(m => m.SeasonModel.Name, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.SeasonModel.Name)
                 </li>
             </ol>
@@ -53,7 +55,7 @@
         
             @if (Model.SeasonModel.SeasonID > 0)
             {
-                @Html.ActionLink("Cancel", "Seasons", "Manage")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "Seasons", "Manage")
             }
         </fieldset>
     }

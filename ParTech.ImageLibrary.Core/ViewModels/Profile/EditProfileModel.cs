@@ -10,46 +10,47 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         public int ProfileId { get; set; }
 
         [Required]
-        [Display(Name = "Company name")]
+        [Display()]
         public string CompanyName { get; set; }
 
         [Required]
-        [Display(Name = "Language")]
+        [Display()]
         public int LanguageId { get; set; }
 
         [Required]
-        [Display(Name = "Salutation")]
+        [Display()]
         public int SalutationId { get; set; }
 
         [Required]
-        [Display(Name = "First name")]
+        [Display()]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name = "Last name")]
+        [Display()]
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email")]
+        [EmailAddress()]
+        [Display()]
         public string Email { get; set; }
 
+        [Display()]
         public string Telephone { get; set; }
 
         [Required]
-        [Display(Name = "Address")]
+        [Display()]
         public string Address { get; set; }
 
         [Required]
-        [Display(Name = "Postal code")]
+        [Display()]
         public string PostalCode { get; set; }
 
         [Required]
-        [Display(Name = "City")]
+        [Display()]
         public string City { get; set; }
 
         [Required]
-        [Display(Name = "Country")]
+        [Display()]
         public int CountryId { get; set; }
        
         public bool MainAccount { get; set; }

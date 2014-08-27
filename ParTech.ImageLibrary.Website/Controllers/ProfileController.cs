@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.Profile;
 using ParTech.ImageLibrary.Core.Workers;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Website.Controllers
 {
@@ -33,19 +34,19 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.EditAccountFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The account could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditAccountFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.EditAccountSuccess:
-                        TempData["StatusMessage"] = "The account was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.EditAccountSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     case MessageIdEnum.NewAccountFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The account could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewAccountFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.NewAccountSuccess:
-                        TempData["StatusMessage"] = "The account was added.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.NewAccountSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:
@@ -63,17 +64,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             if (userProfileid == null || userProfileid == 0)
             {
-                ViewBag.FormHeader = "Add a new account";
-                ViewBag.Legend = "New account";
-                ViewBag.ButtonText = "Add account";
+                ViewBag.FormHeader = DbRes.T("ProfileController.AddProfileForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ProfileController.AddProfileForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ProfileController.AddProfileForm.BtnSubmit", "Resources");
 
                 aam.UserProfileModel = new UserProfileModel();
             }
             else
             {
-                ViewBag.FormHeader = "Edit an account.";
-                ViewBag.Legend = "Edit account";
-                ViewBag.ButtonText = "Save account";
+                ViewBag.FormHeader = DbRes.T("ProfileController.EditProfileForm.Header", "Resources");
+                ViewBag.Legend = DbRes.T("ProfileController.EditProfileForm.Legend", "Resources");
+                ViewBag.ButtonText = DbRes.T("ProfileController.EditProfileForm.BtnSubmit", "Resources");
 
                 aam.UserProfileModel = _userRepository.GetUserProfileAndMapToUserProfileModel(userProfileid);
             }
@@ -92,11 +93,11 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 switch ((MessageIdEnum)TempData["Message"])
                 {
                     case MessageIdEnum.SaveProfileFailure:
-                        TempData["StatusMessage"] = "Something went wrong. The profile could not be saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.SaveProfileFailure", "Resources");
                         TempData["StatusMessageClass"] = "message-error";
                         break;
                     case MessageIdEnum.SaveProfileSuccess:
-                        TempData["StatusMessage"] = "The profile was saved.";
+                        TempData["StatusMessage"] = DbRes.T("Messages.SaveProfileSuccess", "Resources");
                         TempData["StatusMessageClass"] = "message-success";
                         break;
                     default:

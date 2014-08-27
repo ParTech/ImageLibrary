@@ -1,10 +1,11 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerCollectionsModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerCollectionsModel
 @{
-    ViewBag.Title = "Collections";
+    ViewBag.Title = DbRes.T("Byer.Collections.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Byer.Collections.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,7 +16,7 @@
     @if (!Model.ListCollections.Any())
     {
         <span>
-            No collections available.
+            @DbRes.T("Byer.Collections.NoCollectionsAvailable", "Resources")
         </span>
     }
     else
@@ -26,7 +27,7 @@
         {
             <li>
                 <strong>@Html.AuthorizedActionLinkOrText(@collection.Name, "ShowCollection", "Byer", new { collectionid = collection.CollectionID }, null)</strong><br />
-                <span>No of products: @collection.Products.Count</span>
+                <span>@DbRes.T("General.NoOfProducts", "Resources"): @collection.Products.Count</span>
             </li>
         }
 

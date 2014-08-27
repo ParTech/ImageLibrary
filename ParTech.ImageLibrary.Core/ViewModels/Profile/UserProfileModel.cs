@@ -7,25 +7,25 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display()]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [MaxLength(255, ErrorMessage = "The maximum length of the email address field is 255 characters.")]
-        [EmailAddress(ErrorMessage = "The email address is not valid!")]
-        [Display(Name = "Email address")]
+        [MaxLength(255)]
+        [EmailAddress()]
+        [Display()]
         public string UserEmail { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display()]
         public string Password { get; set; }
 
         [Required]
-        [StringLength(255, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [Display(Name = "User name")]
+        [StringLength(255, MinimumLength = 6)]
+        [Display()]
         public string UserName { get; set; }
 
         [Required]

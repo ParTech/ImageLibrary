@@ -1,42 +1,42 @@
 ﻿@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Account.RegisterModel
 @{
-    ViewBag.Title = DbRes.T("Register.MetaTitle", "Resources");
+    ViewBag.Title = DbRes.T("Account.Register.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@DbRes.T("Register.PageTitle", "Resources")</h1>
+    <h1>@DbRes.T("Account.Register.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="form">
-    <h2>@DbRes.T("Register.PageSubtitle", "Resources")</h2>
+    <h2>@DbRes.T("Account.Register.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
 
         <fieldset>
-            <legend>@DbRes.T("Register.RegistrationFormLegend", "Resources")</legend>
-            <h3>@DbRes.T("Register.LoginInformation", "Resources")</h3>
+            <legend>@DbRes.T("Account.Register.RegistrationForm.Legend", "Resources")</legend>
+            <h3>@DbRes.T("Account.Register.LoginInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Password, new { @class = "required" } )
-                    @Html.PasswordFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Password)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.ConfirmPassword, new { @class = "required" } )
-                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.ConfirmPassword)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.UserEmail, new { @class = "required" } )
                     @Html.TextBoxFor(m => m.UserEmail)
-                    @Html.ValidationMessageFor(m => m.UserEmail)
+                    @Html.ValidationMessageFor(m => m.UserEmail, new { maxlength = 255 })
                 </li>
                 <li>
                     @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
@@ -46,16 +46,16 @@
                 </li>
             </ol>
             
-            <h3>@DbRes.T("Register.CompanyInformation", "Resources")</h3>
+            <h3>@DbRes.T("Account.Register.CompanyInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.CompanyName)
+                    @Html.TextBoxFor(m => m.CompanyName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.CompanyName)
                 </li>
             </ol>
 
-            <h3>@DbRes.T("Register.ContactInformation", "Resources")</h3>
+            <h3>@DbRes.T("Account.Register.ContactInformation", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.LanguageId, new { @class = "required" } )
@@ -68,41 +68,41 @@
                     @Html.ValidationMessageFor(m => m.SalutationId)
                 </li>            <li>
                     @Html.LabelFor(m => m.FirstName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.FirstName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.LastName, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.LastName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Email)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Telephone)
-                    @Html.TextBoxFor(m => m.Telephone)
+                    @Html.TextBoxFor(m => m.Telephone, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.Telephone)
                 </li>
             </ol>
 
-            <h3>@DbRes.T("Register.BillingAddress", "Resources")</h3>
+            <h3>@DbRes.T("Account.Register.BillingAddress", "Resources")</h3>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.Address, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.Address)
+                    @Html.TextBoxFor(m => m.Address, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Address)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.PostalCode, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.PostalCode)
+                    @Html.TextBoxFor(m => m.PostalCode, new { maxlength = 50 })
                     @Html.ValidationMessageFor(m => m.PostalCode)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.City, new { @class = "required" })
-                    @Html.TextBoxFor(m => m.City)
+                    @Html.TextBoxFor(m => m.City, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.City)
                 </li>
                 <li>
@@ -111,7 +111,7 @@
                     @Html.ValidationMessageFor(m => m.CountryId)
                 </li>
             </ol>
-            <input type="submit" value="@DbRes.T("Register.BtnSubmit", "Resources")" />
+            <input type="submit" value="@DbRes.T("Account.Register.BtnSubmit", "Resources")" />
         </fieldset>
     }
 </section>

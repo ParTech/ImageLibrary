@@ -1,36 +1,36 @@
 ﻿@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Account.RecoverModel
 @{
-    ViewBag.Title = DbRes.T("Recover.MetaTitle", "Resources");
+    ViewBag.Title = DbRes.T("Account.Recover.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@DbRes.T("Recover.PageTitle", "Resources")</h1>
+    <h1>@DbRes.T("Account.Recover.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
 
 <section class="form">
-    <h2>@DbRes.T("Recover.PageSubtitle", "Resources")</h2>
+    <h2>@DbRes.T("Account.Recover.PageSubtitle", "Resources")</h2>
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary()
 
         <fieldset>
-            <legend>@DbRes.T("Recover.RecoverFormLegend", "Resources")</legend>
+            <legend>@DbRes.T("Account.Recover.RecoverForm.Legend", "Resources")</legend>
             <ol>
                 <li>
                     @Html.LabelFor(m => m.UserName)
-                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserName)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.Email)
                 </li>
             </ol>
-            <input type="submit" value="@DbRes.T("Recover.BtnSubmit", "Resources")" />
+            <input type="submit" value="@DbRes.T("Account.Recover.BtnSubmit", "Resources")" />
         </fieldset>
     }
 </section>

@@ -1,19 +1,20 @@
-﻿@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerImagesModel
+﻿@using Westwind.Globalization
+@model ParTech.ImageLibrary.Core.ViewModels.Byer.ByerImagesModel
 @{
-    ViewBag.Title = "Images";
+    ViewBag.Title = DbRes.T("Byer.Images.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Byer.Images.MetaTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
 
 <section class="pagebodysmall">
-    @if (!Model.ListImages.Any())
+    @if (!Model.ListByer.Images.Any())
     {
         <span>
-            No images available.
+            @DbRes.T("Byer.Images.NoImagesAvailable", "Resources")
         </span>
     }
     else

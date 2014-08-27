@@ -1,5 +1,4 @@
-﻿@using ParTech.ImageLibrary.Core.ViewModels.General
-@using Westwind.Globalization
+﻿@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Seller.SellerProductModel
 
 <hgroup class="title">
@@ -15,62 +14,57 @@
         <ol>
             <li>
                 @Html.LabelFor(m => m.Name, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.Name, new { maxlength = 255 })
+                @Html.TextBoxFor(m => m.Name)
                 @Html.ValidationMessageFor(m => m.Name)
             </li>
             <li>
                 @Html.LabelFor(m => m.Edi, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.Edi, new { maxlength = 50 })
+                @Html.TextBoxFor(m => m.Edi)
                 @Html.ValidationMessageFor(m => m.Edi)
             </li>
             <li>
                 @Html.LabelFor(m => m.Sku, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.Sku, new { maxlength = 50 })
+                @Html.TextBoxFor(m => m.Sku)
                 @Html.ValidationMessageFor(m => m.Sku)
             </li>
             <li>
                 @Html.LabelFor(m => m.Year, new { @class = "required" } )
-                @Html.TextBoxFor(m => m.Year, new { maxlength = 4 })
+                @Html.TextBoxFor(m => m.Year)
                 @Html.ValidationMessageFor(m => m.Year)
             </li>
             <li>
                 @Html.LabelFor(m => m.Material)
-                @Html.TextBoxFor(m => m.Material, new { maxlength = 50 })
+                @Html.TextBoxFor(m => m.Material)
                 @Html.ValidationMessageFor(m => m.Material)
             </li>
             <li>
                 @Html.LabelFor(m => m.Size)
-                @Html.TextBoxFor(m => m.Size, new { maxlength = 50 })
+                @Html.TextBoxFor(m => m.Size)
                 @Html.ValidationMessageFor(m => m.Size)
             </li>
             <li>
                 @Html.LabelFor(m => m.BrandId, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.BrandId, new SelectList(Model.BrandItems, "BrandID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) 
-                @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageBrandsLink", "Resources"), "Brands", "Manage")
+                @Html.DropDownListFor(m => m.BrandId, new SelectList(Model.BrandItems, "BrandID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageBrandsLink", "Resources"), "Brands", "Manage")
                 @Html.ValidationMessageFor(m => m.BrandId)
             </li>
             <li>
                 @Html.LabelFor(m => m.CategoryId, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryItems, "Key", "Value"), DbRes.T("General.MakeAChoice", "Resources")) 
-                @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageCategoriesLink", "Resources"), "Categories", "Manage")
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryItems, "CategoryID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageCategoriesLink", "Resources"), "Categories", "Manage")
                 @Html.ValidationMessageFor(m => m.CategoryId)
             </li>
             <li>
                 @Html.LabelFor(m => m.CollectionId)
-                @Html.DropDownListFor(m => m.CollectionId, new SelectList(Model.CollectionItems, "CollectionID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) 
-                @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageCollectionsLink", "Resources"), "Collections", "Manage")
+                @Html.DropDownListFor(m => m.CollectionId, new SelectList(Model.CollectionItems, "CollectionID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageCollectionsLink", "Resources"), "Collections", "Manage")
                 @Html.ValidationMessageFor(m => m.CollectionId)
             </li>
             <li>
                 @Html.LabelFor(m => m.GenderId, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.GenderId, new SelectList(Model.GenderItems, "Key", "Value"), DbRes.T("General.MakeAChoice", "Resources")) 
-                @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageGendersLink", "Resources"), "Genders", "Manage")
+                @Html.DropDownListFor(m => m.GenderId, new SelectList(Model.GenderItems, "GenderID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageGendersLink", "Resources"), "Genders", "Manage")
                 @Html.ValidationMessageFor(m => m.GenderId)
             </li>
             <li>
                 @Html.LabelFor(m => m.SeasonId, new { @class = "required" } )
-                @Html.DropDownListFor(m => m.SeasonId, new SelectList(Model.SeasonItems, "Key", "Value"), DbRes.T("General.MakeAChoice", "Resources")) 
-                @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageSeasonsLink", "Resources"), "Seasons", "Manage")
+                @Html.DropDownListFor(m => m.SeasonId, new SelectList(Model.SeasonItems, "SeasonID", "Name"), DbRes.T("General.MakeAChoice", "Resources")) @Html.AuthorizedActionLink(DbRes.T("Seller.AddEditProductPartial.ManageSeasonsLink", "Resources"), "Seasons", "Manage")
                 @Html.ValidationMessageFor(m => m.SeasonId)
             </li>
         </ol>

@@ -1,17 +1,18 @@
-﻿<h2>Shopping cart</h2>
+﻿@using Westwind.Globalization
+<h2>@DbRes.T("Byer.ShoppingCart.Title", "Resources")</h2>
 <div id="shoppingcart">
-    <p>Drop images here</p>
+    <p>@DbRes.T("Byer.ShoppingCart.Subtitle", "Resources")</p>
 </div>
 <div class="cartitemscontainer">
     <div class="text">
-        <span id="noofimages">0</span> image(s) in cart
+        <span id="noofimages">0</span> @DbRes.T("Byer.ShoppingCart.ImagesInCart", "Resources")
     </div>
-    <a href='@Url.Action("DeleteCart", "Byer")' title="Delete cart" id="deletecart" class="disabled">
-        <img src="/images/trashcan-white-on-black-32.png" alt="Delete cart" />
+    <a href='@Url.Action("DeleteCart", "Byer")' title="@DbRes.T("Byer.ShoppingCart.DeleteCart", "Resources")" id="deletecart" class="disabled">
+        <img src="/images/trashcan-white-on-black-32.png" alt="@DbRes.T("Byer.ShoppingCart.DeleteCart", "Resources")" />
     </a>
     <div id="cartitems">
     </div>
-    @Html.AuthorizedActionLinkOrText("Download images", "CreateDownloadForImagesInCart", "Byer", new { } , new { id = "downloadimages", @class = "disabled" })
+    @Html.AuthorizedActionLinkOrText(@DbRes.T("Byer.ShoppingCart.DownloadImagesLink", "Resources"), "CreateDownloadForImagesInCart", "Byer", new { } , new { id = "downloadimages", @class = "disabled" })
 </div>
 <script id="cartImageTemplate" type="text/x-jquery-tmpl">
     <div class="cartimage">
@@ -22,8 +23,8 @@
             ${ProductName}<br />
             ${Resolution}; ${Type}
         </div>
-        <a href="/byer/DeleteCartItem?imageid=${ImageId}" title="Delete image from cart">
-            <img src="/images/red-cross-16.png" alt="Delete image from cart" />
+        <a href="/byer/DeleteCartItem?imageid=${ImageId}" title="@DbRes.T("Byer.ShoppingCart.DeleteImageFromCart", "Resources")">
+            <img src="/images/red-cross-16.png" alt="@DbRes.T("Byer.ShoppingCart.DeleteImageFromCart", "Resources")" />
         </a>
     </div>
 </script>

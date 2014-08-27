@@ -1,15 +1,16 @@
-﻿@{
-    ViewBag.Title = "Index management";
+﻿@using Westwind.Globalization
+@{
+    ViewBag.Title = DbRes.T("Admin.Index.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Admin.Index.PageTitle", "Resources")</h1>
 </hgroup>
 
 <section class="pagebody">
     <div id="monitors"></div>
     
-    <a id="startindexrebuild" href="#">Rebuild Index</a>
+    <a id="startindexrebuild" href="#">@DbRes.T("Admin.Index.RebuildIndexLink", "Resources")</a>
 </section>
 
 @section Scripts {

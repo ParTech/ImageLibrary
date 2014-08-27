@@ -1,11 +1,12 @@
 ﻿@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @model ParTech.ImageLibrary.Core.ViewModels.Manage.ManageCategoryModel
 @{
-    ViewBag.Title = "Categories";
+    ViewBag.Title = DbRes.T("Manage.Categories.MetaTitle", "Resources");
 }
 
 <hgroup class="title">
-    <h1>@ViewBag.Title</h1>
+    <h1>@DbRes.T("Manage.Categories.PageTitle", "Resources")</h1>
 </hgroup>
 
 @Html.Partial("_StatusMessage")
@@ -15,7 +16,7 @@
     @if (!Model.ListCategories.Any())
     {
         <span>
-            No categories available.
+            @DbRes.T("Manage.Categories.NoCategoriesAvailable", "Resources")
         </span>
     }
 
@@ -24,7 +25,8 @@
     @foreach (var category in Model.ListCategories)
     {
         <li>
-            <strong>@LanguageString.GetStringForCurrentLanguage(category.Name)</strong> @Html.AuthorizedActionLink("Edit", "Categories", "Manage", new { message = string.Empty, categoryid = category.CategoryID }, null )<br />
+            <strong>@LanguageString.GetStringForCurrentLanguage(category.Name)</strong> 
+            @Html.AuthorizedActionLink(DbRes.T("General.Edit", "Resources"), "Categories", "Manage", new { message = string.Empty, categoryid = category.CategoryID }, null )<br />
         </li>
     }
 
@@ -44,7 +46,7 @@
             <ol>
                 <li>
                     @Html.LabelFor(m => m.CategoryModel.Name)
-                    @Html.TextBoxFor(m => m.CategoryModel.Name)
+                    @Html.TextBoxFor(m => m.CategoryModel.Name, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.CategoryModel.Name)
                 </li>
             </ol>
@@ -53,7 +55,7 @@
         
             @if (Model.CategoryModel.CategoryID > 0)
             {
-                @Html.ActionLink("Cancel", "Categories", "Manage")
+                @Html.ActionLink(DbRes.T("General.Cancel", "Resources"), "Categories", "Manage")
             }
         </fieldset>
     }

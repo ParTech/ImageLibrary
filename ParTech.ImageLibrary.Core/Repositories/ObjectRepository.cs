@@ -6,6 +6,7 @@ using System.Threading;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
+using ParTech.ImageLibrary.Core.Utils;
 using ParTech.ImageLibrary.Core.ViewModels.Seller;
 using ParTech.ImageLibrary.Core.Workers;
 
@@ -32,6 +33,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
         Category GetCategory(int? categoryid);
 
         IEnumerable<Category> GetCategories();
+
+        IEnumerable<KeyValuePair<int, string>> GetCategoriesAndMapToSelectList();
 
         bool SaveCategory(Category category);
 
@@ -70,6 +73,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
         Gender GetGender(int? genderid);
 
         IEnumerable<Gender> GetGenders();
+
+        IEnumerable<KeyValuePair<int, string>> GetGendersAndMapToSelectList();
 
         bool SaveGender(Gender gender);
 
@@ -127,9 +132,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         IEnumerable<Season> GetSeasons();
 
+        IEnumerable<KeyValuePair<int, string>> GetSeasonsAndMapToSelectList();
+
         bool SaveSeason(Season season);
 
         #endregion
+
     }
 
     public class ObjectRepository : IObjectRepository
@@ -317,6 +325,30 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return categories;
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> GetCategoriesAndMapToSelectList()
+        {
+            var categoriesList = new List<KeyValuePair<int, string>>();
+
+            try
+            {
+                using (var db = new ImageDatabaseEntities())
+                {
+                    var categories = db.Categories.OrderBy(i => i.Name)
+                                                  .ToList();
+                    if (categories.Any())
+                    {
+                        categoriesList.AddRange(categories.Select(category => new KeyValuePair<int, string>(category.CategoryID, LanguageString.GetStringForCurrentLanguage(category.Name))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetCategoriesAndMapToSelectList - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return categoriesList;
         }
 
         public bool SaveCategory(Category category)
@@ -661,6 +693,30 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return genders;
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> GetGendersAndMapToSelectList()
+        {
+            var gendersList = new List<KeyValuePair<int, string>>();
+
+            try
+            {
+                using (var db = new ImageDatabaseEntities())
+                {
+                    var genders = db.Genders.OrderBy(i => i.Name)
+                                            .ToList();
+                    if (genders.Any())
+                    {
+                        gendersList.AddRange(genders.Select(gender => new KeyValuePair<int, string>(gender.GenderID, LanguageString.GetStringForCurrentLanguage(gender.Name))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetGendersAndMapToSelectList - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return gendersList;
         }
 
         public bool SaveGender(Gender gender)
@@ -1216,6 +1272,29 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return seasons;
         }
 
+        public IEnumerable<KeyValuePair<int, string>> GetSeasonsAndMapToSelectList()
+        {
+            var seasonsList = new List<KeyValuePair<int, string>>();
+
+            try
+            {
+                using (var db = new ImageDatabaseEntities())
+                {
+                    var seasons = db.Seasons.OrderBy(i => i.Name)
+                                            .ToList();
+                    if (seasons.Any())
+                    {
+                        seasonsList.AddRange(seasons.Select(season => new KeyValuePair<int, string>(season.SeasonID, LanguageString.GetStringForCurrentLanguage(season.Name))));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetSeasonsAndMapToSelectList - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return seasonsList;
+        }
         public bool SaveSeason(Season season)
         {
             var saveSucceeded = false;
