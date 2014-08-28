@@ -32,16 +32,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Colors">
-      <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Color">
-        <MappingFragment StoreEntitySet="Colors">
-          <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="created" ColumnName="created" />
-          <ScalarProperty Name="updated" ColumnName="updated" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Countries">
       <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Country">
         <MappingFragment StoreEntitySet="Countries">
@@ -229,14 +219,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="Products_Colors" TypeName="ParTech.ImageLibrary.Core.Models.Products_Colors" StoreEntitySet="Products_Colors">
-      <EndProperty Name="Colors">
-        <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-      </EndProperty>
-      <EndProperty Name="Products">
-        <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
       <EndProperty Name="webpages_Roles">
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />

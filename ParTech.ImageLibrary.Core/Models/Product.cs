@@ -18,7 +18,6 @@ namespace ParTech.ImageLibrary.Core.Models
         {
             this.Images = new HashSet<Image>();
             this.OrderLines = new HashSet<OrderLine>();
-            this.Colors = new HashSet<Color>();
         }
     
         public int ProductID { get; set; }
@@ -45,6 +44,5 @@ namespace ParTech.ImageLibrary.Core.Models
         public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual Season Season { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<Color> Colors { get; set; }
     }
 }

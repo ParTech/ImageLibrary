@@ -13,10 +13,10 @@ namespace ParTech.ImageLibrary.Core.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ImageDatabaseEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public ImageDatabaseEntities()
-            : base("name=ImageDatabaseEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -28,7 +28,6 @@ namespace ParTech.ImageLibrary.Core.Models
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Collection> Collections { get; set; }
-        public DbSet<Color> Colors { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Image> Images { get; set; }

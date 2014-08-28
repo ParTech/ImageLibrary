@@ -122,9 +122,6 @@
     <Compile Include="Models\Collection.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Color.cs">
-      <DependentUpon>ImageLibrary.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Country.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>

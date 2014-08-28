@@ -4,12 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ParTech.ImageLibrary.Core.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ParTech.ImageLibrary.Core.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ParTechImageLibraryCoreModelsStoreContainer">
           <EntitySet Name="Brand" EntityType="ParTech.ImageLibrary.Core.Models.Store.Brand" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="ParTech.ImageLibrary.Core.Models.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Store.Collections" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Colors" EntityType="ParTech.ImageLibrary.Core.Models.Store.Colors" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Countries" EntityType="ParTech.ImageLibrary.Core.Models.Store.Countries" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Gender" EntityType="ParTech.ImageLibrary.Core.Models.Store.Gender" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Images" EntityType="ParTech.ImageLibrary.Core.Models.Store.Images" store:Type="Tables" Schema="dbo" />
@@ -17,12 +16,6 @@
           <EntitySet Name="Languages" EntityType="ParTech.ImageLibrary.Core.Models.Store.Languages" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="OrderLines" EntityType="ParTech.ImageLibrary.Core.Models.Store.OrderLines" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Products" EntityType="ParTech.ImageLibrary.Core.Models.Store.Products" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Products_Colors" EntityType="ParTech.ImageLibrary.Core.Models.Store.Products_Colors" store:Type="Tables" store:Schema="dbo" store:Name="Products_Colors">
-            <DefiningQuery>SELECT 
-      [Products_Colors].[ProductID] AS [ProductID], 
-      [Products_Colors].[ColorID] AS [ColorID]
-      FROM [dbo].[Products_Colors] AS [Products_Colors]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Profile" EntityType="ParTech.ImageLibrary.Core.Models.Store.Profile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Salutations" EntityType="ParTech.ImageLibrary.Core.Models.Store.Salutations" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Seasons" EntityType="ParTech.ImageLibrary.Core.Models.Store.Seasons" store:Type="Tables" Schema="dbo" />
@@ -63,14 +56,6 @@
           <AssociationSet Name="FK_Products_Collections" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Products_Collections">
             <End Role="Collections" EntitySet="Collections" />
             <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Colors_Colors" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Products_Colors_Colors">
-            <End Role="Colors" EntitySet="Colors" />
-            <End Role="Products_Colors" EntitySet="Products_Colors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Colors_Products" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Products_Colors_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Products_Colors" EntitySet="Products_Colors" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_Gender" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Products_Gender">
             <End Role="Gender" EntitySet="Gender" />
@@ -134,15 +119,6 @@
           </Key>
           <Property Name="CollectionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
-          <Property Name="created" Type="datetime" Nullable="false" />
-          <Property Name="updated" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Colors">
-          <Key>
-            <PropertyRef Name="ColorID" />
-          </Key>
-          <Property Name="ColorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="25" />
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="updated" Type="datetime" Nullable="false" />
         </EntityType>
@@ -229,17 +205,6 @@
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="CollectionID" Type="int" />
           <Property Name="BrandID" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'ImageDatabase.dbo.Products_Colors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="Products_Colors">
-          <Key>
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="ColorID" />
-          </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="ColorID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -434,30 +399,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Colors_Colors">
-          <End Role="Colors" Type="ParTech.ImageLibrary.Core.Models.Store.Colors" Multiplicity="1" />
-          <End Role="Products_Colors" Type="ParTech.ImageLibrary.Core.Models.Store.Products_Colors" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Colors">
-              <PropertyRef Name="ColorID" />
-            </Principal>
-            <Dependent Role="Products_Colors">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Products_Colors_Products">
-          <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Store.Products" Multiplicity="1" />
-          <End Role="Products_Colors" Type="ParTech.ImageLibrary.Core.Models.Store.Products_Colors" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Products_Colors">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Products_Gender">
           <End Role="Gender" Type="ParTech.ImageLibrary.Core.Models.Store.Gender" Multiplicity="1" />
           <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Store.Products" Multiplicity="*" />
@@ -566,8 +507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ParTech.ImageLibrary.Core.Models" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -575,7 +515,6 @@
           <EntitySet Name="Brands" EntityType="ParTech.ImageLibrary.Core.Models.Brand" />
           <EntitySet Name="Categories" EntityType="ParTech.ImageLibrary.Core.Models.Category" />
           <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Collection" />
-          <EntitySet Name="Colors" EntityType="ParTech.ImageLibrary.Core.Models.Color" />
           <EntitySet Name="Countries" EntityType="ParTech.ImageLibrary.Core.Models.Country" />
           <EntitySet Name="Genders" EntityType="ParTech.ImageLibrary.Core.Models.Gender" />
           <EntitySet Name="Images" EntityType="ParTech.ImageLibrary.Core.Models.Image" />
@@ -651,10 +590,6 @@
             <End Role="webpages_Membership" EntitySet="webpages_Membership" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
-          <AssociationSet Name="Products_Colors" Association="ParTech.ImageLibrary.Core.Models.Products_Colors">
-            <End Role="Colors" EntitySet="Colors" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="webpages_UsersInRoles" Association="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -690,16 +625,6 @@
           <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Collections" FromRole="Collections" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="Color">
-          <Key>
-            <PropertyRef Name="ColorID" />
-          </Key>
-          <Property Name="ColorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
-          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Colors" ToRole="Products" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -801,7 +726,6 @@
           <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products" FromRole="Products" ToRole="OrderLines" />
           <NavigationProperty Name="Season" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons" FromRole="Products" ToRole="Seasons" />
           <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="Products" ToRole="UserProfile" />
-          <NavigationProperty Name="Colors" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Products" ToRole="Colors" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -1084,10 +1008,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Products_Colors">
-          <End Role="Colors" Type="ParTech.ImageLibrary.Core.Models.Color" Multiplicity="*" />
-          <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
-        </Association>
         <Association Name="webpages_UsersInRoles">
           <End Role="webpages_Roles" Type="ParTech.ImageLibrary.Core.Models.webpages_Roles" Multiplicity="*" />
           <End Role="UserProfile" Type="ParTech.ImageLibrary.Core.Models.UserProfile" Multiplicity="*" />
@@ -1123,16 +1043,6 @@
             <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Collection">
               <MappingFragment StoreEntitySet="Collections">
                 <ScalarProperty Name="CollectionID" ColumnName="CollectionID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="created" ColumnName="created" />
-                <ScalarProperty Name="updated" ColumnName="updated" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Colors">
-            <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Color">
-              <MappingFragment StoreEntitySet="Colors">
-                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="created" ColumnName="created" />
                 <ScalarProperty Name="updated" ColumnName="updated" />
@@ -1326,14 +1236,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Products_Colors" TypeName="ParTech.ImageLibrary.Core.Models.Products_Colors" StoreEntitySet="Products_Colors">
-            <EndProperty Name="Colors">
-              <ScalarProperty Name="ColorID" ColumnName="ColorID" />
-            </EndProperty>
-            <EndProperty Name="Products">
-              <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
             <EndProperty Name="webpages_Roles">
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />

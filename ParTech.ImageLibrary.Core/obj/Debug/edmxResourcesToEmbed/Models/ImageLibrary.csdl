@@ -4,7 +4,6 @@
     <EntitySet Name="Brands" EntityType="ParTech.ImageLibrary.Core.Models.Brand" />
     <EntitySet Name="Categories" EntityType="ParTech.ImageLibrary.Core.Models.Category" />
     <EntitySet Name="Collections" EntityType="ParTech.ImageLibrary.Core.Models.Collection" />
-    <EntitySet Name="Colors" EntityType="ParTech.ImageLibrary.Core.Models.Color" />
     <EntitySet Name="Countries" EntityType="ParTech.ImageLibrary.Core.Models.Country" />
     <EntitySet Name="Genders" EntityType="ParTech.ImageLibrary.Core.Models.Gender" />
     <EntitySet Name="Images" EntityType="ParTech.ImageLibrary.Core.Models.Image" />
@@ -80,10 +79,6 @@
       <End Role="webpages_Membership" EntitySet="webpages_Membership" />
       <End Role="UserProfile" EntitySet="UserProfiles" />
     </AssociationSet>
-    <AssociationSet Name="Products_Colors" Association="ParTech.ImageLibrary.Core.Models.Products_Colors">
-      <End Role="Colors" EntitySet="Colors" />
-      <End Role="Products" EntitySet="Products" />
-    </AssociationSet>
     <AssociationSet Name="webpages_UsersInRoles" Association="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles">
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
       <End Role="UserProfile" EntitySet="UserProfiles" />
@@ -119,16 +114,6 @@
     <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Collections" FromRole="Collections" ToRole="Products" />
-  </EntityType>
-  <EntityType Name="Color">
-    <Key>
-      <PropertyRef Name="ColorID" />
-    </Key>
-    <Property Name="ColorID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="false" />
-    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="updated" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Products" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Colors" ToRole="Products" />
   </EntityType>
   <EntityType Name="Country">
     <Key>
@@ -230,7 +215,6 @@
     <NavigationProperty Name="OrderLines" Relationship="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products" FromRole="Products" ToRole="OrderLines" />
     <NavigationProperty Name="Season" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons" FromRole="Products" ToRole="Seasons" />
     <NavigationProperty Name="UserProfile" Relationship="ParTech.ImageLibrary.Core.Models.FK_Products_Users" FromRole="Products" ToRole="UserProfile" />
-    <NavigationProperty Name="Colors" Relationship="ParTech.ImageLibrary.Core.Models.Products_Colors" FromRole="Products" ToRole="Colors" />
   </EntityType>
   <EntityType Name="Profile">
     <Key>
@@ -512,10 +496,6 @@
         <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
-  </Association>
-  <Association Name="Products_Colors">
-    <End Role="Colors" Type="ParTech.ImageLibrary.Core.Models.Color" Multiplicity="*" />
-    <End Role="Products" Type="ParTech.ImageLibrary.Core.Models.Product" Multiplicity="*" />
   </Association>
   <Association Name="webpages_UsersInRoles">
     <End Role="webpages_Roles" Type="ParTech.ImageLibrary.Core.Models.webpages_Roles" Multiplicity="*" />

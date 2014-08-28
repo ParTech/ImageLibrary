@@ -98,7 +98,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
 
                     db.Profiles.Add(tmpProfile);
@@ -124,7 +124,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 try
                 {
-                    using (var db = new ImageDatabaseEntities())
+                    using (var db = new Entities())
                     {
                         var tmpProfile = db.Profiles.Single(u => u.ProfileID == profileId);
                         if (tmpProfile != null)
@@ -175,7 +175,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.Profiles.Single(u => u.ProfileID == profile.ProfileId);
                     if (tmpProfile != null)
@@ -217,7 +217,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             try
             {
                 // Insert a new user into the database
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == userName.ToLower());
                     if (user == null)
@@ -278,7 +278,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (userId != null)
                 {
-                    using (var db = new ImageDatabaseEntities())
+                    using (var db = new Entities())
                     {
                         var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
                         if (tmpProfile != null)
@@ -318,7 +318,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.Id == userId)
                                                     .Include("Profile")
@@ -345,7 +345,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.UserName.ToLower() == userName.ToLower())
                                                     .Include("webpages_Roles")
@@ -370,7 +370,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.SingleOrDefault(u => u.UserName.ToLower() == userName.ToLower()
                                                                           && u.Email == emailAddress);
@@ -394,7 +394,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     userProfiles = db.UserProfiles.Where(p => p.ProfileID != null)
                                                   .Include("Profile")
@@ -419,7 +419,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 if (profileId != null)
                 {
-                    using (var db = new ImageDatabaseEntities())
+                    using (var db = new Entities())
                     {
                         if (includeMainAccount)
                         {
@@ -455,7 +455,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.Single(u => u.Id == profile.Id);
                     if (tmpProfile != null)
@@ -482,7 +482,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.Id == profile.Id)
                                                     .Include("webpages_Roles")
@@ -525,7 +525,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     var tmpProfile = db.UserProfiles.Single(u => u.Id == userId);
                     if (tmpProfile != null)
@@ -556,7 +556,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     membership = db.webpages_Membership.Single(i => i.UserId == userId);
                 }
@@ -575,7 +575,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     membership = db.webpages_Membership.Single(i => i.ConfirmationToken == confirmationToken);
                 }
@@ -594,7 +594,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                using (var db = new ImageDatabaseEntities())
+                using (var db = new Entities())
                 {
                     tokenVerified = db.webpages_Membership.Any(i => i.PasswordVerificationToken == passwordVerificationToken
                                                                     && DateTime.Now < i.PasswordVerificationTokenExpirationDate
