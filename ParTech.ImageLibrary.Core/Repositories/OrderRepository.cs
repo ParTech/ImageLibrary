@@ -13,6 +13,16 @@ namespace ParTech.ImageLibrary.Core.Repositories
 {
     public interface IOrderRepository: IRepository
     {
+        #region Invoices
+
+        Invoice GetInvoice(int invoiceId);
+
+        Invoice GetLastInvoice();
+
+        bool SaveInvoice(Invoice invoice);
+
+        #endregion
+
         #region OrderLine
 
         bool CreateOrderLinesForCartItems(UserProfile byerUserProfile, List<ShoppingCartItem> cartItems);
@@ -22,6 +32,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
         IEnumerable<OrderLine> GetOrderLines();
 
         IEnumerable<OrderLine> GetOrderLinesForByer(int? byerId);
+
+        IEnumerable<OrderLine> GetOrderLinesForByerInvoices(DateTime date);
 
         IEnumerable<OrderLine> GetOrderLinesForSeller(int? sellerId);
 
@@ -46,6 +58,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
         bool SaveCartItem(ShoppingCartItem cartItem);
 
         #endregion
+
     }
 
     public class OrderRepository : IOrderRepository
@@ -58,6 +71,92 @@ namespace ParTech.ImageLibrary.Core.Repositories
         {
             _userRepository = userRepository;
         }
+
+        #region Invoice
+
+        public Invoice GetInvoice(int invoiceId)
+        {
+            Invoice invoice = null;
+
+            try
+            {
+                if (invoiceId != null)
+                {
+                    using (var db = new Entities())
+                    {
+                        invoice = db.Invoices.SingleOrDefault(i => i.InvoiceID == invoiceId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetInvoice - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return invoice;
+        }
+
+        public Invoice GetLastInvoice()
+        {
+            Invoice invoice = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    invoice = db.Invoices.Where(i => i.Date.Year == DateTime.Now.Year)
+                                         .OrderByDescending(i => i.InvoiceNumber)
+                                         .FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetInvoice - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return invoice;
+        }
+        public bool SaveInvoice(Invoice invoice)
+        {
+            var saveSucceeded = false;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    if (invoice.InvoiceID > 0)
+                    {
+                        var tmpInvoice = db.Invoices.SingleOrDefault(i => i.InvoiceID == invoice.InvoiceID);
+                        if (tmpInvoice != null)
+                        {
+                            tmpInvoice.InvoiceID = invoice.InvoiceID;
+                            tmpInvoice.InvoiceNumber = invoice.InvoiceNumber;
+                            tmpInvoice.Date = invoice.Date;
+                            tmpInvoice.ProfileID = invoice.ProfileID;
+                            tmpInvoice.InvoiceTotal = invoice.InvoiceTotal;
+                        }
+                    }
+                    else
+                    {
+                        invoice.Date = DateTime.Now;
+
+                        db.Invoices.Add(invoice);
+                    }
+
+                    db.SaveChanges();
+                }
+
+                saveSucceeded = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("SaveInvoice - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return saveSucceeded;
+        }
+
+        #endregion
 
         #region OrderLine
 
@@ -170,6 +269,32 @@ namespace ParTech.ImageLibrary.Core.Repositories
                 {
                     Logger.ErrorFormat("GetOrderLinesForByer - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
                 }
+            }
+
+            return orderLines;
+        }
+
+        public IEnumerable<OrderLine> GetOrderLinesForByerInvoices(DateTime date)
+        {
+            var orderLines = new List<OrderLine>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    orderLines = db.OrderLines.Where(i => i.InvoiceID == null
+                                                            && i.created.Year == date.Year
+                                                            && i.created.Month == date.Month)
+                                                .Include("Image")
+                                                .Include("Invoice")
+                                                .Include("Product")
+                                                .OrderByDescending(i => i.created)
+                                                .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetOrderLinesForByerInvoice - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
             return orderLines;
@@ -436,5 +561,6 @@ namespace ParTech.ImageLibrary.Core.Repositories
         }
 
         #endregion
+
     }
 }

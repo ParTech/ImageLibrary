@@ -7,9 +7,9 @@
         {
             <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ShowUsersLink", "Resources"), "ShowUsers", "Admin")</li>
         }
-        @if (@Html.ActionIsAccessibleToUser("Index", "Admin"))
+        @if (@Html.ActionIsAccessibleToUser("Processes", "Admin"))
         {
-            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.IndexLink", "Resources"), "Index", "Admin")</li>
+            <li>@Html.ActionLink(DbRes.T("MainMenuPartial.ProcessesLink", "Resources"), "Processes", "Admin")</li>
         }
                         
         @if (@Html.ActionIsAccessibleToUser("Images", "Seller"))

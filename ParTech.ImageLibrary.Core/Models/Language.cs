@@ -14,9 +14,16 @@ namespace ParTech.ImageLibrary.Core.Models
     
     public partial class Language
     {
+        public Language()
+        {
+            this.Profiles = new HashSet<Profile>();
+        }
+    
         public int LanguageID { get; set; }
         public string Name { get; set; }
         public string IsoCode { get; set; }
         public string LocaleCode { get; set; }
+    
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }

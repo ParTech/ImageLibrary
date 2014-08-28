@@ -33,7 +33,11 @@ namespace ParTech.ImageLibrary.Core.Models
         public System.DateTime created { get; set; }
         public System.DateTime updated { get; set; }
         public int LanguageID { get; set; }
+        public int SubscriptionTypeID { get; set; }
     
         public virtual ICollection<UserProfile> UserProfiles { get; set; }
+        public virtual Language Language { get; set; }
+        public virtual SubscriptionType SubscriptionType { get; set; }
+        public virtual Invoice Invoice { get; set; }
     }
 }

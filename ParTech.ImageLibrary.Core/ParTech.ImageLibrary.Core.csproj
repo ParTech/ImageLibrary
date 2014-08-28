@@ -170,6 +170,9 @@
     <Compile Include="Models\ShoppingCartItem.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SubscriptionType.cs">
+      <DependentUpon>ImageLibrary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserProfile.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
@@ -219,6 +222,7 @@
     <Compile Include="ViewModels\Seller\SellerProductModel.cs" />
     <Compile Include="ViewModels\Seller\SellerProductsModel.cs" />
     <Compile Include="Workers\AccountsWorker.cs" />
+    <Compile Include="Workers\OrderWorker.cs" />
     <Compile Include="Workers\LuceneWorker.cs" />
     <Compile Include="Workers\ShoppingCartWorker.cs" />
   </ItemGroup>

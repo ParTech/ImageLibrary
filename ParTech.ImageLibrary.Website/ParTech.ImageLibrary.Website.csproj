@@ -330,7 +330,7 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Scripts\index-rebuild-script.js" />
+    <Content Include="Scripts\processes-script.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
@@ -400,7 +400,7 @@
     <Content Include="Views\Byer\DownloadHistory.cshtml" />
     <Content Include="Views\Byer\ShoppingCart.cshtml" />
     <Content Include="Views\Admin\ShowUsers.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Processes.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
     <Content Include="Views\General\Search.cshtml" />
     <Content Include="Views\Admin\ShowProduct.cshtml" />

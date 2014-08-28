@@ -29,23 +29,141 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         private readonly IOrderRepository _orderRepository;
 
+        private readonly IOrderWorker _orderWorker;
+
         private readonly IUserRepository _userRepository;
 
         private static IDictionary<Guid, string> tasks = new Dictionary<Guid, string>();
 
         public AdminController(IAccountsWorker accountsWorker, IImageRepository imageRepository, 
             ILuceneWorker luceneWorker, IObjectRepository objectRepository, IOrderRepository orderRepository, 
-            IUserRepository userRepository)
+            IOrderWorker orderWorker, IUserRepository userRepository)
         {
             _accountsWorker = accountsWorker;
             _imageRepository = imageRepository;
             _luceneWorker = luceneWorker;
             _objectRepository = objectRepository;
             _orderRepository = orderRepository;
+            _orderWorker = orderWorker;
             _userRepository = userRepository;
         }
 
-        #region User related action methods 
+        #region Invoice related action methods
+
+        //
+        // POST: /Admin/StartGenerateInvoices
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult StartGenerateInvoices()
+        {
+            var taskId = Guid.NewGuid();
+            tasks.Add(taskId, "1");
+
+            _luceneWorker.ClearLuceneIndex();
+
+            Task.Factory.StartNew(() => TaskGenerateInvoices(taskId));
+
+            return Json(taskId);
+        }
+
+        //
+        // POST: /Admin/ProgressGenerateInvoices
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult ProgressGenerateInvoices(Guid id)
+        {
+            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
+        }
+
+        private void TaskGenerateInvoices(Guid taskId)
+        {
+            var orderLinesThisMonth = _orderRepository.GetOrderLinesForByerInvoices(DateTime.Now).ToList();
+            var byerIdsWithOrderLines = orderLinesThisMonth.GroupBy(ol => ol.BuyerID).ToList();
+            for (var i = 0; i < byerIdsWithOrderLines.Count; i++)
+            {
+                // update task progress
+                var x = Decimal.Divide(i, orderLinesThisMonth.Count);
+                tasks[taskId] = (x * 100).ToString("f0", CultureInfo.InvariantCulture);
+
+                var step = i % 10;
+
+                _orderWorker.GenerateInvoiceForByer(byerIdsWithOrderLines[i].Key, byerIdsWithOrderLines[i].ToList());
+
+                // simulate long running operation
+                Thread.Sleep(2000);
+            }
+
+            tasks.Remove(taskId);
+        }
+
+        #endregion
+
+        #region Lucene Index action methods
+
+        //
+        // POST: /Admin/StartIndexRebuild
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult StartIndexRebuild()
+        {
+            var currentLanguage = Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName;
+            var taskId = Guid.NewGuid();
+            tasks.Add(taskId, "0");
+
+            _luceneWorker.ClearLuceneIndex();
+
+            Task.Factory.StartNew(() => TaskUpdateAllProducts(currentLanguage, taskId));
+
+            return Json(taskId);
+        }
+
+        //
+        // POST: /Admin/ProgressIndexRebuild
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult ProgressIndexRebuild(Guid id)
+        {
+            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
+        }
+
+        private void TaskUpdateAllProducts(string language, Guid taskId)
+        {
+            var allProducts = _objectRepository.GetProductsAndContext().ToList();
+            var productsInStep = new List<Product>();
+            for (var i = 0; i < allProducts.Count; i++)
+            {
+                // update task progress
+                var x = Decimal.Divide(i, allProducts.Count);
+                tasks[taskId] = (x*100).ToString("f0", CultureInfo.InvariantCulture);
+
+                var step = i%10;
+                if (step == 0)
+                {
+                    _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+
+                    productsInStep = new List<Product>();
+                }
+                else
+                {
+                    productsInStep.Add(allProducts[i]);
+                }
+            }
+
+            if (productsInStep.Any())
+            {
+                _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+            }
+
+            tasks.Remove(taskId);
+        }
+        
+        #endregion
+
+        #region User related action methods
 
         //
         // GET: /Admin/ActivateUser
@@ -61,7 +179,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 {
                     return RedirectToAction("AdditionalAccounts", "Profile");
                 }
-                
+
                 return RedirectToAction("ShowUsers", "Admin");
             }
 
@@ -85,23 +203,23 @@ namespace ParTech.ImageLibrary.Website.Controllers
             if (_userRepository.UpdateActiveFlagUserProfile(userid, false))
             {
                 TempData["Message"] = MessageIdEnum.DeactivateUserSuccess;
-                
+
                 if (returnTo == "AdditionalAccounts")
                 {
                     return RedirectToAction("AdditionalAccounts", "Profile");
                 }
-                
+
                 return RedirectToAction("ShowUsers", "Admin");
             }
 
             // If we got this far, something failed, display failure message
             TempData["Message"] = MessageIdEnum.DeactivateUserFailure;
-            
+
             if (returnTo == "AdditionalAccounts")
             {
                 return RedirectToAction("AdditionalAccounts", "Profile");
-            } 
-            
+            }
+
             return RedirectToAction("ShowUsers", "Admin");
         }
 
@@ -114,23 +232,23 @@ namespace ParTech.ImageLibrary.Website.Controllers
             if (_accountsWorker.SendRegistrationConfirmationEmail(userid))
             {
                 TempData["Message"] = MessageIdEnum.RegistrationConfirmationEmailSuccess;
-                
+
                 if (returnTo == "AdditionalAccounts")
                 {
                     return RedirectToAction("AdditionalAccounts", "Profile");
-                } 
-                
+                }
+
                 return RedirectToAction("ShowUsers", "Admin");
             }
 
             // If we got this far, something failed, display failure message
             TempData["Message"] = MessageIdEnum.RegistrationConfirmationEmailFailure;
-            
+
             if (returnTo == "AdditionalAccounts")
             {
                 return RedirectToAction("AdditionalAccounts", "Profile");
-            } 
-            
+            }
+
             return RedirectToAction("ShowUsers", "Admin");
         }
 
@@ -182,80 +300,14 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         #endregion
 
-        #region Lucene Index action methods
-
         //
-        // GET: /Admin/Index
+        // GET: /Admin/Processes
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Processes()
         {
             return View();
         }
-
-        //
-        // POST: /Admin/StartIndexRebuild
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult StartIndexRebuild()
-        {
-            var currentLanguage = Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName;
-            var taskId = Guid.NewGuid();
-            tasks.Add(taskId, "0");
-
-            _luceneWorker.ClearLuceneIndex();
-
-            Task.Factory.StartNew(() => TaskUpdateAllProducts(currentLanguage, taskId));
-
-            return Json(taskId);
-        }
-
-        //
-        // POST: /Admin/ProgressIndexRebuild
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult ProgressIndexRebuild(Guid id)
-        {
-            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
-        }
-
-        private void TaskUpdateAllProducts(string language, Guid taskId)
-        {
-            var allProducts = _objectRepository.GetProductsAndContext().ToList();
-            var productsInStep = new List<Product>();
-            for (var i = 0; i <= allProducts.Count; i++)
-            {
-                // update task progress
-                var x = Decimal.Divide(i, allProducts.Count);
-                tasks[taskId] = (x*100).ToString("f0", CultureInfo.InvariantCulture);
-
-                int step = i%10;
-                if (step == 0)
-                {
-                    _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
-
-                    productsInStep = new List<Product>();
-                }
-                else
-                {
-                    productsInStep.Add(allProducts[i - 1]);
-                }
-
-                // simulate long running operation
-                Thread.Sleep(2000);
-            }
-
-            if (productsInStep.Any())
-            {
-                _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
-            }
-
-            tasks.Remove(taskId);
-        }
-        
-        #endregion
 
         //
         // GET: /Byer/ShowProduct

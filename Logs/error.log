@@ -122,3 +122,8 @@
    at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetProductsForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 1108 
 
 
+2014-08-28 16:50:18,157 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+    at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 146 
+
+

@@ -1,0 +1,20 @@
+﻿@using Westwind.Globalization
+@{
+    ViewBag.Title = DbRes.T("Admin.Processes.MetaTitle", "Resources");
+}
+
+<hgroup class="title">
+    <h1>@DbRes.T("Admin.Processes.PageTitle", "Resources")</h1>
+</hgroup>
+
+<section class="pagebody">
+    <div id="monitors"></div>
+    
+    <a id="startgenerateinvoices" data-completed="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Completed", "Resources")" data-progress="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Progress", "Resources")" data-running="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Running", "Resources")" href="#">@DbRes.T("Admin.Processes.GenerateInvoicesLink", "Resources")</a><br/>
+    <br/>
+    <a id="startindexrebuild" data-completed="@DbRes.T("Admin.Processes.RebuildIndexLink.Completed", "Resources")" data-progress="@DbRes.T("Admin.Processes.RebuildIndexLink.Progress", "Resources")" data-running="@DbRes.T("Admin.Processes.RebuildIndexLink.Running", "Resources")" href="#">@DbRes.T("Admin.Processes.RebuildIndexLink", "Resources")</a>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryprocesses")
+}

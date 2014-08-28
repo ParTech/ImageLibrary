@@ -15,6 +15,7 @@
     <EntitySet Name="Salutations" EntityType="ParTech.ImageLibrary.Core.Models.Store.Salutations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Seasons" EntityType="ParTech.ImageLibrary.Core.Models.Store.Seasons" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ShoppingCartItems" EntityType="ParTech.ImageLibrary.Core.Models.Store.ShoppingCartItems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SubscriptionTypes" EntityType="ParTech.ImageLibrary.Core.Models.Store.SubscriptionTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserProfile" EntityType="ParTech.ImageLibrary.Core.Models.Store.UserProfile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_Membership" EntityType="ParTech.ImageLibrary.Core.Models.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_OAuthMembership" EntityType="ParTech.ImageLibrary.Core.Models.Store.webpages_OAuthMembership" store:Type="Tables" Schema="dbo" />
@@ -23,6 +24,18 @@
     <AssociationSet Name="FK_Images_Products" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Images_Products">
       <End Role="Products" EntitySet="Products" />
       <End Role="Images" EntitySet="Images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Countries" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Invoices_Countries">
+      <End Role="Countries" EntitySet="Countries" />
+      <End Role="Invoices" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Profile" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Invoices_Profile">
+      <End Role="Profile" EntitySet="Profile" />
+      <End Role="Invoices" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoices_Salutations" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Invoices_Salutations">
+      <End Role="Salutations" EntitySet="Salutations" />
+      <End Role="Invoices" EntitySet="Invoices" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderLines_Images" Association="ParTech.ImageLibrary.Core.Models.Store.FK_OrderLines_Images">
       <End Role="Images" EntitySet="Images" />
@@ -63,6 +76,14 @@
     <AssociationSet Name="FK_Products_Users" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Products_Users">
       <End Role="UserProfile" EntitySet="UserProfile" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Profile_Languages" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Profile_Languages">
+      <End Role="Languages" EntitySet="Languages" />
+      <End Role="Profile" EntitySet="Profile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Profile_SubscriptionTypes" Association="ParTech.ImageLibrary.Core.Models.Store.FK_Profile_SubscriptionTypes">
+      <End Role="SubscriptionTypes" EntitySet="SubscriptionTypes" />
+      <End Role="Profile" EntitySet="Profile" />
     </AssociationSet>
     <AssociationSet Name="fk_RoleId" Association="ParTech.ImageLibrary.Core.Models.Store.fk_RoleId">
       <End Role="webpages_Roles" EntitySet="webpages_Roles" />
@@ -152,8 +173,14 @@
     <Property Name="InvoiceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="InvoiceNumber" Type="int" Nullable="false" />
     <Property Name="Date" Type="date" Nullable="false" />
-    <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="ProfileID" Type="int" Nullable="false" />
+    <Property Name="SalutationID" Type="int" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="PostalCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="CountryID" Type="int" Nullable="false" />
     <Property Name="InvoiceTotal" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="Languages">
@@ -219,6 +246,7 @@
     <Property Name="created" Type="datetime" Nullable="false" />
     <Property Name="updated" Type="datetime" Nullable="false" />
     <Property Name="LanguageID" Type="int" Nullable="false" />
+    <Property Name="SubscriptionTypeID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Salutations">
     <Key>
@@ -245,6 +273,15 @@
     <Property Name="UserID" Type="int" Nullable="false" />
     <Property Name="ImageID" Type="int" Nullable="false" />
     <Property Name="created" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubscriptionTypes">
+    <Key>
+      <PropertyRef Name="SubscriptionTypeID" />
+    </Key>
+    <Property Name="SubscriptionTypeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
   </EntityType>
   <EntityType Name="UserProfile">
     <Key>
@@ -307,6 +344,42 @@
       </Principal>
       <Dependent Role="Images">
         <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Countries">
+    <End Role="Countries" Type="ParTech.ImageLibrary.Core.Models.Store.Countries" Multiplicity="1" />
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Countries">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="Invoices">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Profile">
+    <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="1" />
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="ProfileID" />
+      </Principal>
+      <Dependent Role="Invoices">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoices_Salutations">
+    <End Role="Salutations" Type="ParTech.ImageLibrary.Core.Models.Store.Salutations" Multiplicity="1" />
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Salutations">
+        <PropertyRef Name="SalutationID" />
+      </Principal>
+      <Dependent Role="Invoices">
+        <PropertyRef Name="SalutationID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -427,6 +500,30 @@
       </Principal>
       <Dependent Role="Products">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Profile_Languages">
+    <End Role="Languages" Type="ParTech.ImageLibrary.Core.Models.Store.Languages" Multiplicity="1" />
+    <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Languages">
+        <PropertyRef Name="LanguageID" />
+      </Principal>
+      <Dependent Role="Profile">
+        <PropertyRef Name="LanguageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Profile_SubscriptionTypes">
+    <End Role="SubscriptionTypes" Type="ParTech.ImageLibrary.Core.Models.Store.SubscriptionTypes" Multiplicity="1" />
+    <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubscriptionTypes">
+        <PropertyRef Name="SubscriptionTypeID" />
+      </Principal>
+      <Dependent Role="Profile">
+        <PropertyRef Name="SubscriptionTypeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -14,8 +14,15 @@ namespace ParTech.ImageLibrary.Core.Models
     
     public partial class Salutation
     {
+        public Salutation()
+        {
+            this.Invoices = new HashSet<Invoice>();
+        }
+    
         public int SalutationID { get; set; }
         public string Name { get; set; }
         public int LanguageID { get; set; }
+    
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

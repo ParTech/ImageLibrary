@@ -37,6 +37,10 @@ namespace ParTech.ImageLibrary.Core.Installers
                     .WithService.DefaultInterfaces()
                     .LifestyleTransient(),
                 Castle.MicroKernel.Registration.Classes.FromThisAssembly()
+                    .BasedOn<OrderWorker>()
+                    .WithService.DefaultInterfaces()
+                    .LifestyleTransient(),
+                Castle.MicroKernel.Registration.Classes.FromThisAssembly()
                     .BasedOn<ShoppingCartWorker>()
                     .WithService.DefaultInterfaces()
                     .LifestyleTransient()

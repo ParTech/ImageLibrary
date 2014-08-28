@@ -22,10 +22,19 @@ namespace ParTech.ImageLibrary.Core.Models
         public int InvoiceID { get; set; }
         public int InvoiceNumber { get; set; }
         public System.DateTime Date { get; set; }
-        public int UserID { get; set; }
         public int ProfileID { get; set; }
         public decimal InvoiceTotal { get; set; }
+        public int SalutationID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public int CountryID { get; set; }
     
         public virtual ICollection<OrderLine> OrderLines { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual Profile Profile { get; set; }
+        public virtual Salutation Salutation { get; set; }
     }
 }

@@ -12,11 +12,18 @@ namespace ParTech.ImageLibrary.Core.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class SubscriptionType
     {
-        public int CountryID { get; set; }
-        public string Name { get; set; }
+        public SubscriptionType()
+        {
+            this.Profiles = new HashSet<Profile>();
+        }
     
-        public virtual Invoice Invoice { get; set; }
+        public int SubscriptionTypeID { get; set; }
+        public string Name { get; set; }
+        public int Type { get; set; }
+        public decimal Price { get; set; }
+    
+        public virtual ICollection<Profile> Profiles { get; set; }
     }
 }
