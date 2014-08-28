@@ -10,47 +10,47 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         public int ProfileId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string CompanyName { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int LanguageId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int SalutationId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string FirstName { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string Email { get; set; }
 
-        [Display()]
+        [Display]
         public string Telephone { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string Address { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string PostalCode { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string City { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int CountryId { get; set; }
        
         public bool MainAccount { get; set; }

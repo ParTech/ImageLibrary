@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Threading;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Utils;
+using ParTech.ImageLibrary.Core.ViewModels.Manage;
 using ParTech.ImageLibrary.Core.ViewModels.Seller;
 using ParTech.ImageLibrary.Core.Workers;
 
@@ -32,11 +36,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Category GetCategory(int? categoryid);
 
+        CategoryModel GetCategoryAndMapToCategoryModel(int? categoryid);
+
         IEnumerable<Category> GetCategories();
 
         IEnumerable<KeyValuePair<int, string>> GetCategoriesAndMapToSelectList();
 
-        bool SaveCategory(Category category);
+        bool SaveCategory(CategoryModel category);
 
         #endregion
 
@@ -72,11 +78,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Gender GetGender(int? genderid);
 
+        GenderModel GetGenderAndMapToCategoryModel(int? genderid);
+
         IEnumerable<Gender> GetGenders();
 
         IEnumerable<KeyValuePair<int, string>> GetGendersAndMapToSelectList();
 
-        bool SaveGender(Gender gender);
+        bool SaveGender(GenderModel gender);
 
         #endregion
 
@@ -130,11 +138,13 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Season GetSeason(int? seasonid);
 
+        SeasonModel GetSeasonAndMapToCategoryModel(int? seasonid);
+
         IEnumerable<Season> GetSeasons();
 
         IEnumerable<KeyValuePair<int, string>> GetSeasonsAndMapToSelectList();
 
-        bool SaveSeason(Season season);
+        bool SaveSeason(SeasonModel season);
 
         #endregion
 
@@ -308,6 +318,40 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return category;
         }
 
+        public CategoryModel GetCategoryAndMapToCategoryModel(int? categoryid)
+        {
+            CategoryModel categoryModel = null;
+
+            try
+            {
+                if (categoryid != null)
+                {
+                    using (var db = new ImageDatabaseEntities())
+                    {
+                        var category = db.Categories.SingleOrDefault(i => i.CategoryID == categoryid);
+                        if (category != null)
+                        {
+                            var stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(category.Name));
+                            var serializer = new DataContractJsonSerializer(typeof(MultiLingualListModel));
+                            var jsonResult = (MultiLingualListModel)serializer.ReadObject(stream);
+
+                            categoryModel = new CategoryModel
+                            {
+                                CategoryID = category.CategoryID,
+                                Name = jsonResult
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetCategoryAndMapToCategoryModel - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return categoryModel;
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             var categories = new List<Category>();
@@ -351,7 +395,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return categoriesList;
         }
 
-        public bool SaveCategory(Category category)
+        public bool SaveCategory(CategoryModel categoryModel)
         {
             var saveSucceeded = false;
 
@@ -359,12 +403,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new ImageDatabaseEntities())
                 {
-                    if (category.CategoryID > 0)
+                    if (categoryModel.CategoryID > 0)
                     {
-                        var tmpCategory = db.Categories.SingleOrDefault(i => i.CategoryID == category.CategoryID);
+                        var tmpCategory = db.Categories.SingleOrDefault(i => i.CategoryID == categoryModel.CategoryID);
                         if (tmpCategory != null)
                         {
-                            tmpCategory.Name = category.Name;
+                            tmpCategory.Name = SerializeMultiLingualListModelToJson(categoryModel.Name);
                             tmpCategory.updated = DateTime.Now;
 
                             UpdateProductsInIndex(tmpCategory.Products);
@@ -372,8 +416,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
                     }
                     else
                     {
-                        category.updated = DateTime.Now;
-                        category.created = DateTime.Now;
+                        var category = new Category
+                        {
+                            Name = SerializeMultiLingualListModelToJson(categoryModel.Name),
+                            updated = DateTime.Now,
+                            created = DateTime.Now
+                        };
 
                         db.Categories.Add(category);
                     }
@@ -390,7 +438,6 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return saveSucceeded;
         }
-
 
         #endregion
 
@@ -675,6 +722,40 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return gender;
         }
 
+        public GenderModel GetGenderAndMapToCategoryModel(int? genderid)
+        {
+            GenderModel genderModel = null;
+
+            try
+            {
+                if (genderid != null)
+                {
+                    using (var db = new ImageDatabaseEntities())
+                    {
+                        var gender = db.Genders.SingleOrDefault(i => i.GenderID == genderid);
+                        if (gender != null)
+                        {
+                            var stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(gender.Name));
+                            var serializer = new DataContractJsonSerializer(typeof(MultiLingualListModel));
+                            var jsonResult = (MultiLingualListModel)serializer.ReadObject(stream);
+
+                            genderModel = new GenderModel
+                            {
+                                GenderID = gender.GenderID,
+                                Name = jsonResult
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetGenderAndMapToCategoryModel - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return genderModel;
+        }
+
         public IEnumerable<Gender> GetGenders()
         {
             var genders = new List<Gender>();
@@ -719,7 +800,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return gendersList;
         }
 
-        public bool SaveGender(Gender gender)
+        public bool SaveGender(GenderModel genderModel)
         {
             var saveSucceeded = false;
 
@@ -727,19 +808,23 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new ImageDatabaseEntities())
                 {
-                    if (gender.GenderID > 0)
+                    if (genderModel.GenderID > 0)
                     {
-                        var tmpGender = db.Genders.SingleOrDefault(i => i.GenderID == gender.GenderID);
+                        var tmpGender = db.Genders.SingleOrDefault(i => i.GenderID == genderModel.GenderID);
                         if (tmpGender != null)
                         {
-                            tmpGender.Name = gender.Name;
+                            tmpGender.Name = SerializeMultiLingualListModelToJson(genderModel.Name);
                             tmpGender.updated = DateTime.Now;
                         }
                     }
                     else
                     {
-                        gender.updated = DateTime.Now;
-                        gender.created = DateTime.Now;
+                        var gender = new Gender
+                        {
+                            Name = SerializeMultiLingualListModelToJson(genderModel.Name),
+                            updated = DateTime.Now,
+                            created = DateTime.Now
+                        };
 
                         db.Genders.Add(gender);
                     }
@@ -1253,6 +1338,39 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return season;
         }
 
+        public SeasonModel GetSeasonAndMapToCategoryModel(int? seasonid)
+        {
+            SeasonModel seasonModel = null;
+
+            try
+            {
+                if (seasonid != null)
+                {
+                    using (var db = new ImageDatabaseEntities())
+                    {
+                        var season = db.Seasons.SingleOrDefault(i => i.SeasonID == seasonid);
+                        if (season != null)
+                        {
+                            var stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(season.Name));
+                            var serializer = new DataContractJsonSerializer(typeof(MultiLingualListModel));
+                            var jsonResult = (MultiLingualListModel)serializer.ReadObject(stream);
+
+                            seasonModel = new SeasonModel
+                            {
+                                SeasonID = season.SeasonID,
+                                Name = jsonResult
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetSeasonAndMapToCategoryModel - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return seasonModel;
+        }
         public IEnumerable<Season> GetSeasons()
         {
             var seasons = new List<Season>();
@@ -1295,7 +1413,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return seasonsList;
         }
-        public bool SaveSeason(Season season)
+
+        public bool SaveSeason(SeasonModel seasonModel)
         {
             var saveSucceeded = false;
 
@@ -1303,12 +1422,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new ImageDatabaseEntities())
                 {
-                    if (season.SeasonID > 0)
+                    if (seasonModel.SeasonID > 0)
                     {
-                        var tmpSeason = db.Seasons.SingleOrDefault(i => i.SeasonID == season.SeasonID);
+                        var tmpSeason = db.Seasons.SingleOrDefault(i => i.SeasonID == seasonModel.SeasonID);
                         if (tmpSeason != null)
                         {
-                            tmpSeason.Name = season.Name;
+                            tmpSeason.Name = SerializeMultiLingualListModelToJson(seasonModel.Name);
                             tmpSeason.updated = DateTime.Now;
 
                             UpdateProductsInIndex(tmpSeason.Products);
@@ -1316,8 +1435,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
                     }
                     else
                     {
-                        season.updated = DateTime.Now;
-                        season.created = DateTime.Now;
+                        var season = new Season
+                        {
+                            Name = SerializeMultiLingualListModelToJson(seasonModel.Name),
+                            updated = DateTime.Now,
+                            created = DateTime.Now
+                        };
 
                         db.Seasons.Add(season);
                     }
@@ -1336,6 +1459,15 @@ namespace ParTech.ImageLibrary.Core.Repositories
         }
 
         #endregion
+
+        private static string SerializeMultiLingualListModelToJson(MultiLingualListModel model)
+        {
+            var serializer = new DataContractJsonSerializer(typeof (MultiLingualListModel));
+            var stream = new MemoryStream();
+            serializer.WriteObject(stream, model);
+
+            return Encoding.Default.GetString((stream.ToArray()));
+        }
 
         private void UpdateProductsInIndex(IEnumerable<Product> products)
         {

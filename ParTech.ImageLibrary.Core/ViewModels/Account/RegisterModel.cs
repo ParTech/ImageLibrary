@@ -8,74 +8,74 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
     public class RegisterModel
     {
         [Required]
-        [Display()]
+        [Display]
         public AccountTypeEnum AccountType { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display()]
+        [Display]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [MaxLength(255)]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string UserEmail { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display()]
+        [Display]
         public string Password { get; set; }
 
         [Required]
         [StringLength(255, MinimumLength = 6)]
-        [Display()]
+        [Display]
         public string UserName { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string CompanyName { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int LanguageId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int SalutationId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string FirstName { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string Email { get; set; }
 
-        [Display()]
+        [Display]
         public string Telephone { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string Address { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string PostalCode { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string City { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int CountryId { get; set; }
 
         public IEnumerable<Country> CountryItems { get; set; }

@@ -5,15 +5,15 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
     public class LoginModel
     {
         [Required]
-        [Display()]
+        [Display]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display()]
+        [Display]
         public string Password { get; set; }
 
-        [Display()]
+        [Display]
         public bool RememberMe { get; set; }
     }
 }

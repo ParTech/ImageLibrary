@@ -156,6 +156,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             var mbm = new ManageCategoryModel
             {
+                Languages = _objectRepository.GetLanguages(),
                 ListCategories = _objectRepository.GetCategories()
             };
 
@@ -165,7 +166,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.AddCategoryForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.AddCategoryForm.BtnSubmit", "Resources");
 
-                mbm.CategoryModel = new Category();
+                mbm.CategoryModel = new CategoryModel(mbm.Languages);
             }
             else
             {
@@ -173,7 +174,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.EditCategoryForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.EditCategoryForm.BtnSubmit", "Resources");
 
-                mbm.CategoryModel = _objectRepository.GetCategory(categoryid);
+                mbm.CategoryModel = _objectRepository.GetCategoryAndMapToCategoryModel(categoryid);
             }
 
             return View(mbm);
@@ -185,7 +186,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public ActionResult SaveCategory(Category categoryModel)
+        public ActionResult SaveCategory(CategoryModel categoryModel)
         {
             var successMessage = MessageIdEnum.NewCategorySuccess;
             var failureMessage = MessageIdEnum.NewCategoryFailure;
@@ -341,6 +342,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             var mbm = new ManageGenderModel
             {
+                Languages = _objectRepository.GetLanguages(),
                 ListGenders = _objectRepository.GetGenders()
             };
 
@@ -350,7 +352,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.AddGenderForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.AddGenderForm.BtnSubmit", "Resources");
 
-                mbm.GenderModel = new Gender();
+                mbm.GenderModel = new GenderModel(mbm.Languages);
             }
             else
             {
@@ -358,7 +360,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.EditGenderForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.EditGenderForm.BtnSubmit", "Resources");
 
-                mbm.GenderModel = _objectRepository.GetGender(genderid);
+                mbm.GenderModel = _objectRepository.GetGenderAndMapToCategoryModel(genderid);
             }
 
             return View(mbm);
@@ -370,7 +372,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public ActionResult SaveGender(Gender genderModel)
+        public ActionResult SaveGender(GenderModel genderModel)
         {
             var successMessage = MessageIdEnum.NewGenderSuccess;
             var failureMessage = MessageIdEnum.NewGenderFailure;
@@ -433,6 +435,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
             var mbm = new ManageSeasonModel
             {
+                Languages = _objectRepository.GetLanguages(),
                 ListSeasons = _objectRepository.GetSeasons()
             };
 
@@ -442,7 +445,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.AddSeasonForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.AddSeasonForm.BtnSubmit", "Resources");
 
-                mbm.SeasonModel = new Season();
+                mbm.SeasonModel = new SeasonModel(mbm.Languages);
             }
             else
             {
@@ -450,7 +453,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 ViewBag.Legend = DbRes.T("ManageController.EditSeasonForm.Legend", "Resources");
                 ViewBag.ButtonText = DbRes.T("ManageController.EditSeasonForm.BtnSubmit", "Resources");
 
-                mbm.SeasonModel = _objectRepository.GetSeason(seasonid);
+                mbm.SeasonModel = _objectRepository.GetSeasonAndMapToCategoryModel(seasonid);
             }
 
             return View(mbm);
@@ -462,7 +465,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Seller")]
-        public ActionResult SaveSeason(Season seasonModel)
+        public ActionResult SaveSeason(SeasonModel seasonModel)
         {
             var successMessage = MessageIdEnum.NewSeasonSuccess;
             var failureMessage = MessageIdEnum.NewSeasonFailure;
@@ -488,5 +491,6 @@ namespace ParTech.ImageLibrary.Website.Controllers
         }
 
         #endregion
+
     }
 }

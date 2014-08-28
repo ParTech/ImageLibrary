@@ -10,8 +10,8 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
 
         [Required]
         [DataType(DataType.EmailAddress)]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string Email { get; set; }
     }
 }

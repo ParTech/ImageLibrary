@@ -81,7 +81,7 @@ function ShowNewResourceDisplay(clearFields)
     }
 
 }
-function ShowRenameResourceDisplay() {
+function ShowRenameResourceDisplay {
     panelRename.show();
     
     var ResourceId = lstResourceIds.val();
@@ -91,7 +91,7 @@ function ShowRenameResourceDisplay() {
     $("#txtResourceToRename").val(ResourceId);
     $("#txtRenamedResource").val(ResourceId);    
 }
-function ShowTranslationDisplay() {
+function ShowTranslationDisplay {
 
     var Ctl1 = $("#txtValue");
     var Ctl2 = $("#txtTranslationInputText");
@@ -118,7 +118,7 @@ function ShowTranslationDisplay() {
     if (pos.left == 0 && pos.top == 0)
         panelTranslate.centerInClient();
 }
-function ShowResourceSetRenameDisplay()
+function ShowResourceSetRenameDisplay
 {
     var OldResourceSet = $("#lstResourceSet").val();
     if (OldResourceSet == null || OldResourceSet == "")
@@ -128,7 +128,7 @@ function ShowResourceSetRenameDisplay()
     
     panelRenameResourceSet.show().centerInClient();
 }
-function HideResourceSetRenameDisplay()
+function HideResourceSetRenameDisplay
 {
       panelRenameResourceSet.hide(); 
 }
@@ -454,7 +454,7 @@ function UseTranslation(Service)
     if (Ctl.val() == Lang)
     {
         CtlValue.val(Text);
-        HideTranslationDisplay();
+        HideTranslationDisplay;
         return;
     }
     
@@ -465,14 +465,14 @@ function UseTranslation(Service)
         {
            Ctl.val(Lang);
            CtlValue.val(Text);
-           HideTranslationDisplay();
+           HideTranslationDisplay;
            return;
         }
     }   
     
     ShowMessage(ResC("NoMatchingLanguage") );
 }
-function HideTranslationDisplay()
+function HideTranslationDisplay
 {
     panelTranslate.hide();
 }

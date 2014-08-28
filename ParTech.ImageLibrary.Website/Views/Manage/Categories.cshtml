@@ -44,11 +44,35 @@
         <fieldset>
             <legend>@ViewBag.Legend</legend>
             <ol>
-                <li>
-                    @Html.LabelFor(m => m.CategoryModel.Name)
-                    @Html.TextBoxFor(m => m.CategoryModel.Name, new { maxlength = 255 })
-                    @Html.ValidationMessageFor(m => m.CategoryModel.Name)
-                </li>
+                @{
+                    var i = 0;
+                    foreach (var language in Model.Languages)
+                    {
+                        <li>
+                            @Html.Hidden("CategoryModel.Name.Values[" + i + "].Code", language.IsoCode)
+                        
+                            @{
+                                var nameInLanguage = Model.CategoryModel.Name.Values.SingleOrDefault(nameValue => nameValue.Code == language.IsoCode);
+                                if (nameInLanguage != null)
+                                {
+                                    @Html.Label("CategoryModel.Name.Values[" + i + "].Value", string.Format("{0} [{1}]", DbRes.T("General.Name", "Resources"), language.IsoCode))
+                                    @Html.TextBox("CategoryModel.Name.Values[" + i + "].Value", nameInLanguage.Value, new { maxlength = 255, @data_val_required = DbRes.T("MultiLingualListItemModel.Name.RequiredAttribute", "Resources"), @data_val = "true" })
+                                    @Html.ValidationMessage("CategoryModel.Name.Values[" + i + "].Value")
+
+                                }
+                                else
+                                {
+                                    @Html.Label("CategoryModel.Name.Values[" + i + "].Value", string.Format("{0} [{1}]", DbRes.T("General.Name", "Resources"), language.IsoCode))
+                                    @Html.TextBox("CategoryModel.Name.Values[" + i + "].Value", string.Empty, new { maxlength = 255, @data_val_required = DbRes.T("MultiLingualListItemModel.Name.RequiredAttribute", "Resources"), @data_val = "true" })
+                                    @Html.ValidationMessage("CategoryModel.Name.Values[" + i + "].Value")
+                                }
+                        
+                                i++;
+                            }
+                        </li>
+                    }
+                }
+
             </ol>
             @Html.HiddenFor(m => m.CategoryModel.CategoryID)
             <input type="submit" value="@ViewBag.ButtonText" />

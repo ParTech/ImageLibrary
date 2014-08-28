@@ -11,25 +11,25 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Seller
         public int ProductId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string Name { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string Edi { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public string Sku { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int Year { get; set; }
 
-        [Display()]
+        [Display]
         public string Material { get; set; }
 
-        [Display()]
+        [Display]
         public string Size { get; set; }
 
         public DateTime Created { get; set; }
@@ -40,22 +40,22 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Seller
         public int UserId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int SeasonId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int GenderId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int CategoryId { get; set; }
 
-        [Display()]
+        [Display]
         public int CollectionId { get; set; }
 
         [Required]
-        [Display()]
+        [Display]
         public int BrandId { get; set; }
 
         public IEnumerable<Brand> BrandItems { get; set; }

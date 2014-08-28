@@ -5,12 +5,12 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
     public class RecoverModel
     {
         [Required]
-        [Display()]
+        [Display]
         public string UserName { get; set; }
 
         [Required]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string Email { get; set; }
     }
 }

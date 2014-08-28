@@ -205,11 +205,16 @@
     <Compile Include="ViewModels\Byer\ByerImagesModel.cs" />
     <Compile Include="ViewModels\General\ChangeLanguageModel.cs" />
     <Compile Include="ViewModels\General\SearchModel.cs" />
+    <Compile Include="ViewModels\Manage\CategoryModel.cs" />
+    <Compile Include="ViewModels\Manage\SeasonModel.cs" />
+    <Compile Include="ViewModels\Manage\GenderModel.cs" />
     <Compile Include="ViewModels\Manage\ManageBrandModel.cs" />
     <Compile Include="ViewModels\Manage\ManageCategoryModel.cs" />
     <Compile Include="ViewModels\Manage\ManageCollectionModel.cs" />
     <Compile Include="ViewModels\Manage\ManageGenderModel.cs" />
     <Compile Include="ViewModels\Manage\ManageSeasonModel.cs" />
+    <Compile Include="ViewModels\Manage\MultiLingualListModel.cs" />
+    <Compile Include="ViewModels\Manage\MutliLingualListItemModel.cs" />
     <Compile Include="ViewModels\Profile\AdditionalAccountsModel.cs" />
     <Compile Include="ViewModels\Profile\EditProfileModel.cs" />
     <Compile Include="ViewModels\Profile\UserProfileModel.cs" />

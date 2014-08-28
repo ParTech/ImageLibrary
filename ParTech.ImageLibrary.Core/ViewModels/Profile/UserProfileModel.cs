@@ -7,25 +7,25 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display()]
+        [Display]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
         [MaxLength(255)]
-        [EmailAddress()]
-        [Display()]
+        [EmailAddress]
+        [Display]
         public string UserEmail { get; set; }
 
         [Required]
         [StringLength(100, MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display()]
+        [Display]
         public string Password { get; set; }
 
         [Required]
         [StringLength(255, MinimumLength = 6)]
-        [Display()]
+        [Display]
         public string UserName { get; set; }
 
         [Required]

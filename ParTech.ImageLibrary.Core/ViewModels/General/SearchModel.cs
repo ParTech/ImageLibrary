@@ -9,11 +9,11 @@ namespace ParTech.ImageLibrary.Core.ViewModels.General
     public class SearchModel
     {
         [Required]
-        [Display(Name = "Field name")]
+        [Display]
         public string FieldName { get; set; }
 
         [Required]
-        [Display(Name = "Search string")]
+        [Display]
         public string SearchString { get; set; }
 
         public List<Product> FoundProducts { get; set; }
