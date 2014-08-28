@@ -6,14 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Westwind.Globalization;
 using System.Globalization;
-using Westwind.Web.Controls;
 using System.Collections.Generic;
 using System.IO;
 
 using Westwind.Web;
 using Westwind.Utilities;
 using System.Web;
-using System.Configuration;
 
 namespace Westwind.GlobalizationWeb
 {
@@ -33,6 +31,15 @@ namespace Westwind.GlobalizationWeb
         {
             base.OnInit(e);
 
+            if (!User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/", true);
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                Response.Redirect("/", true);
+            }
 
             // *** On callbacks we don't need to populate any data since they are
             // *** raw method calls. Callback routes to parser from here
