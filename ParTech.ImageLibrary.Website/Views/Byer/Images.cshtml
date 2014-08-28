@@ -11,7 +11,7 @@
 @Html.Partial("_StatusMessage")
 
 <section class="pagebodysmall">
-    @if (!Model.ListByer.Images.Any())
+    @if (!Model.ListImages.Any())
     {
         <span>
             @DbRes.T("Byer.Images.NoImagesAvailable", "Resources")

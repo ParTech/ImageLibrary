@@ -26,7 +26,12 @@
         {
             <li>
                 <strong>@Html.AuthorizedActionLinkOrText(@brand.Name, "ShowBrand", "Byer", new { brandid = brand.BrandID }, null)</strong><br />
-                <span>@brand.Description</span><br />
+                
+                @if (!string.IsNullOrEmpty(brand.Description))
+                {
+                    <span>@brand.Description</span><br />
+                }
+
                 <span>@DbRes.T("General.NoOfProducts", "Resources"): @brand.Products.Count</span>
             </li>
         }
