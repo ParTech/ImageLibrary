@@ -39,12 +39,12 @@
 
     @using (Html.BeginForm("UploadImage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", id = "upload" }))
     {
-        <div class="question">
+        <div id="question">
             @Html.LabelFor(m => m.Product, @DbRes.T("Seller.Images.UploadImagesForm.LinkThemToThisProductLabel", "Resources"))
             @Html.DropDownList("product", new SelectList(Model.ListProducts, "ProductID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
         </div>		
 
-        <div class="drop">
+        <div id="drop">
             @DbRes.T("Seller.Images.UploadImagesForm.Intro", "Resources")
 
             <a>@DbRes.T("General.Browse", "Resources")</a>
