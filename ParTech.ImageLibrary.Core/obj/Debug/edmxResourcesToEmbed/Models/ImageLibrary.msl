@@ -66,17 +66,17 @@
     <EntitySetMapping Name="Invoices">
       <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Invoice">
         <MappingFragment StoreEntitySet="Invoices">
-          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="SalutationID" ColumnName="SalutationID" />
           <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
           <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="SalutationID" ColumnName="SalutationID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
           <ScalarProperty Name="InvoiceTotal" ColumnName="InvoiceTotal" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -88,6 +88,17 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="IsoCode" ColumnName="IsoCode" />
           <ScalarProperty Name="LocaleCode" ColumnName="LocaleCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoggedEvents">
+      <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.LoggedEvent">
+        <MappingFragment StoreEntitySet="LoggedEvents">
+          <ScalarProperty Name="LoggedEventID" ColumnName="LoggedEventID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
+          <ScalarProperty Name="DateEnded" ColumnName="DateEnded" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -132,7 +143,6 @@
     <EntitySetMapping Name="Profiles">
       <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.Profile">
         <MappingFragment StoreEntitySet="Profile">
-          <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
           <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
           <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
           <ScalarProperty Name="SalutationID" ColumnName="SalutationID" />
@@ -147,6 +157,7 @@
           <ScalarProperty Name="created" ColumnName="created" />
           <ScalarProperty Name="updated" ColumnName="updated" />
           <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+          <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -176,6 +187,16 @@
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="ImageID" ColumnName="ImageID" />
           <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubscriptionTypes">
+      <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.SubscriptionType">
+        <MappingFragment StoreEntitySet="SubscriptionTypes">
+          <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -234,15 +255,5 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="SubscriptionTypes">
-      <EntityTypeMapping TypeName="ParTech.ImageLibrary.Core.Models.SubscriptionType">
-        <MappingFragment StoreEntitySet="SubscriptionTypes">
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

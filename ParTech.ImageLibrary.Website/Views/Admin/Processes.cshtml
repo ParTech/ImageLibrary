@@ -1,4 +1,5 @@
 ﻿@using Westwind.Globalization
+@model IEnumerable<ParTech.ImageLibrary.Core.Models.LoggedEvent>
 @{
     ViewBag.Title = DbRes.T("Admin.Processes.MetaTitle", "Resources");
 }
@@ -10,9 +11,57 @@
 <section class="pagebody">
     <div id="monitors"></div>
     
-    <a id="startgenerateinvoices" data-completed="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Completed", "Resources")" data-progress="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Progress", "Resources")" data-running="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Running", "Resources")" href="#">@DbRes.T("Admin.Processes.GenerateInvoicesLink", "Resources")</a><br/>
+    <a id="startgenerateinvoices" data-completed="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Completed", "Resources")" 
+       data-progress="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Progress", "Resources")" 
+       data-running="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Running", "Resources")" 
+       data-started="@DbRes.T("Admin.Processes.GenerateInvoicesLink.Started", "Resources")" 
+       href="#">@DbRes.T("Admin.Processes.GenerateInvoicesLink", "Resources")</a><br/>
     <br/>
-    <a id="startindexrebuild" data-completed="@DbRes.T("Admin.Processes.RebuildIndexLink.Completed", "Resources")" data-progress="@DbRes.T("Admin.Processes.RebuildIndexLink.Progress", "Resources")" data-running="@DbRes.T("Admin.Processes.RebuildIndexLink.Running", "Resources")" href="#">@DbRes.T("Admin.Processes.RebuildIndexLink", "Resources")</a>
+    <a id="startindexrebuild" data-completed="@DbRes.T("Admin.Processes.RebuildIndexLink.Completed", "Resources")" 
+       data-progress="@DbRes.T("Admin.Processes.RebuildIndexLink.Progress", "Resources")" 
+       data-running="@DbRes.T("Admin.Processes.RebuildIndexLink.Running", "Resources")" 
+       data-started="@DbRes.T("Admin.Processes.RebuildIndexLink.Started", "Resources")" 
+       href="#">@DbRes.T("Admin.Processes.RebuildIndexLink", "Resources")</a><br/>
+    <br/>
+
+    <hgroup class="title">
+        <h2>@DbRes.T("Admin.Processes.ListSubTitle", "Resources")</h2>
+    </hgroup>
+
+    @if (!Model.Any())
+    {
+        <span>
+            @DbRes.T("Admin.Processes.NoLoggedEventsAvailable", "Resources")
+        </span>
+    }
+    else
+    {
+        <table>
+            <tr>
+                <th>@DbRes.T("General.DateStarted", "Resources")</th>
+                <th>@DbRes.T("General.DateEnded", "Resources")</th>
+                <th>@DbRes.T("General.Name", "Resources")</th>
+                <th>@DbRes.T("General.Details", "Resources")</th>
+            </tr>
+
+            @foreach (var loggedEvent in Model)
+            {
+                <tr>
+                    <td>@loggedEvent.DateStarted.ToString("dd-MM-yyyy HH:mm:ss")</td>
+                    <td>@if (loggedEvent.DateEnded != null)
+                        {
+                            var dateEndedString = ((DateTime) loggedEvent.DateEnded).ToString("dd-MM-yyyy HH:mm:ss");
+                            
+                            @: @dateEndedString
+                        }
+                    </td>
+                    <td>@loggedEvent.Name</td>
+                    <td>@loggedEvent.Details</td>
+                </tr>
+            }
+
+        </table>
+    }
 </section>
 
 @section Scripts {

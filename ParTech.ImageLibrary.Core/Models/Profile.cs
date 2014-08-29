@@ -16,6 +16,7 @@ namespace ParTech.ImageLibrary.Core.Models
     {
         public Profile()
         {
+            this.Invoices = new HashSet<Invoice>();
             this.UserProfiles = new HashSet<UserProfile>();
         }
     
@@ -35,9 +36,9 @@ namespace ParTech.ImageLibrary.Core.Models
         public int LanguageID { get; set; }
         public int SubscriptionTypeID { get; set; }
     
-        public virtual ICollection<UserProfile> UserProfiles { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual Language Language { get; set; }
         public virtual SubscriptionType SubscriptionType { get; set; }
-        public virtual Invoice Invoice { get; set; }
+        public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

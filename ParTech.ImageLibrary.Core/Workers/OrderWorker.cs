@@ -10,7 +10,7 @@ namespace ParTech.ImageLibrary.Core.Workers
 {
     public interface IOrderWorker : IWorker
     {
-        bool GenerateInvoiceForByer(int byerId, List<OrderLine> orderLines);
+        Invoice GenerateInvoiceForByer(int byerId, List<OrderLine> orderLines);
     }
 
     public class OrderWorker : IOrderWorker
@@ -27,19 +27,18 @@ namespace ParTech.ImageLibrary.Core.Workers
             _userRepository = userRepository;
         }
 
-        public bool GenerateInvoiceForByer(int byerId, List<OrderLine> orderLines)
+        public Invoice GenerateInvoiceForByer(int byerId, List<OrderLine> orderLines)
         {
-            var generationSucceeded = false;
+            Invoice newInvoice = null;
 
             try
             {
                 var byerProfile = _userRepository.GetProfile(byerId);
                 if (byerProfile != null)
                 {
-                    var newInvoice = new Invoice
+                    var invoiceToSave = new Invoice
                     {
                         InvoiceNumber = GenerateInvoiceNumber(),
-                        Date = DateTime.Now,
                         ProfileID = byerProfile.ProfileID,
                         SalutationID = byerProfile.SalutationID,
                         FirstName = byerProfile.FirstName,
@@ -51,7 +50,14 @@ namespace ParTech.ImageLibrary.Core.Workers
                         InvoiceTotal = orderLines.Sum(ol => ol.Price)
                     };
 
-                    generationSucceeded = _orderRepository.SaveInvoice(newInvoice);
+                    // save invoice to database and update the associated orderlines
+                    invoiceToSave = _orderRepository.SaveInvoice(invoiceToSave);
+                    if (invoiceToSave != null
+                        && _orderRepository.AddInvoiceIdToOrderLines(invoiceToSave.InvoiceID, orderLines))
+                    {
+                        // reload invoice to retrieve all data of the created invoice
+                        newInvoice = _orderRepository.GetInvoiceAndContext(invoiceToSave.InvoiceID);
+                    }
                 }
             }
             catch (Exception ex)
@@ -59,12 +65,12 @@ namespace ParTech.ImageLibrary.Core.Workers
                 Logger.ErrorFormat("GenerateInvoiceForByer - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
-            return generationSucceeded;
+            return newInvoice;
         }
 
         private int GenerateInvoiceNumber()
         {
-            var newInvoiceNumber = 0;
+            var newInvoiceNumber = 1;
 
             var lastInvoice = _orderRepository.GetLastInvoice();
             if (lastInvoice != null)

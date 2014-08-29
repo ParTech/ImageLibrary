@@ -102,6 +102,16 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         #endregion
 
+        #region LoggedEvents
+
+        LoggedEvent GetLoggedEvent(int loggedEventId);
+
+        IEnumerable<LoggedEvent> GetLoggedEvents();
+
+        LoggedEvent SaveLoggedEvent(LoggedEvent loggedEvent);
+
+        #endregion
+
         #region Product
 
         Product GetProduct(int? productid);
@@ -965,6 +975,94 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return saveSucceeded;
+        }
+
+        #endregion
+
+        #region LoggedEvents
+
+        public LoggedEvent GetLoggedEvent(int loggedEventId)
+        {
+            LoggedEvent loggedEvent = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    if (loggedEventId > 0)
+                    {
+                        var tmpLoggedEvent = db.LoggedEvents.SingleOrDefault(i => i.LoggedEventID == loggedEventId);
+                        if (tmpLoggedEvent != null)
+                        {
+                            loggedEvent = tmpLoggedEvent;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetLoggedEvent - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return loggedEvent;
+        }
+
+        public IEnumerable<LoggedEvent> GetLoggedEvents()
+        {
+            var loggedEvents = new List<LoggedEvent>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    loggedEvents = db.LoggedEvents.OrderByDescending(i => i.DateStarted)
+                                                  .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetLoggedEvents - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return loggedEvents;
+        }
+        public LoggedEvent SaveLoggedEvent(LoggedEvent loggedEvent)
+        {
+            LoggedEvent savedEvent = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    if (loggedEvent.LoggedEventID > 0)
+                    {
+                        var tmpLoggedEvent = db.LoggedEvents.SingleOrDefault(i => i.LoggedEventID == loggedEvent.LoggedEventID);
+                        if (tmpLoggedEvent != null)
+                        {
+                            tmpLoggedEvent.DateEnded = loggedEvent.DateEnded;
+                            tmpLoggedEvent.DateStarted = loggedEvent.DateStarted;
+                            tmpLoggedEvent.Name = loggedEvent.Name;
+                            tmpLoggedEvent.Details = loggedEvent.Details;
+
+                            savedEvent = tmpLoggedEvent;
+                        }
+                    }
+                    else
+                    {
+                        db.LoggedEvents.Add(loggedEvent);
+
+                        savedEvent = loggedEvent;
+                    }
+
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("SaveLoggedEvent - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return savedEvent;
         }
 
         #endregion

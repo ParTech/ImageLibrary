@@ -33,16 +33,17 @@ namespace ParTech.ImageLibrary.Core.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<LoggedEvent> LoggedEvents { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Salutation> Salutations { get; set; }
         public DbSet<Season> Seasons { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
     }
 }

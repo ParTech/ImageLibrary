@@ -12,16 +12,12 @@ namespace ParTech.ImageLibrary.Core.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class LoggedEvent
     {
-        public Country()
-        {
-            this.Invoices = new HashSet<Invoice>();
-        }
-    
-        public int CountryID { get; set; }
+        public int LoggedEventID { get; set; }
         public string Name { get; set; }
-    
-        public virtual ICollection<Invoice> Invoices { get; set; }
+        public System.DateTime DateStarted { get; set; }
+        public Nullable<System.DateTime> DateEnded { get; set; }
+        public string Details { get; set; }
     }
 }

@@ -9,6 +9,7 @@
     <EntitySet Name="Images" EntityType="ParTech.ImageLibrary.Core.Models.Store.Images" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Invoices" EntityType="ParTech.ImageLibrary.Core.Models.Store.Invoices" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Languages" EntityType="ParTech.ImageLibrary.Core.Models.Store.Languages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LoggedEvents" EntityType="ParTech.ImageLibrary.Core.Models.Store.LoggedEvents" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OrderLines" EntityType="ParTech.ImageLibrary.Core.Models.Store.OrderLines" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Products" EntityType="ParTech.ImageLibrary.Core.Models.Store.Products" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Profile" EntityType="ParTech.ImageLibrary.Core.Models.Store.Profile" store:Type="Tables" Schema="dbo" />
@@ -172,7 +173,7 @@
     </Key>
     <Property Name="InvoiceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="InvoiceNumber" Type="int" Nullable="false" />
-    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="ProfileID" Type="int" Nullable="false" />
     <Property Name="SalutationID" Type="int" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
@@ -191,6 +192,16 @@
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="IsoCode" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="LocaleCode" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoggedEvents">
+    <Key>
+      <PropertyRef Name="LoggedEventID" />
+    </Key>
+    <Property Name="LoggedEventID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="DateStarted" Type="datetime" Nullable="false" />
+    <Property Name="DateEnded" Type="datetime" />
+    <Property Name="Details" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="OrderLines">
     <Key>
@@ -349,25 +360,25 @@
   </Association>
   <Association Name="FK_Invoices_Countries">
     <End Role="Countries" Type="ParTech.ImageLibrary.Core.Models.Store.Countries" Multiplicity="1" />
-    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="0..1" />
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Countries">
         <PropertyRef Name="CountryID" />
       </Principal>
       <Dependent Role="Invoices">
-        <PropertyRef Name="InvoiceID" />
+        <PropertyRef Name="CountryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Invoices_Profile">
     <End Role="Profile" Type="ParTech.ImageLibrary.Core.Models.Store.Profile" Multiplicity="1" />
-    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="0..1" />
+    <End Role="Invoices" Type="ParTech.ImageLibrary.Core.Models.Store.Invoices" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Profile">
         <PropertyRef Name="ProfileID" />
       </Principal>
       <Dependent Role="Invoices">
-        <PropertyRef Name="InvoiceID" />
+        <PropertyRef Name="ProfileID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

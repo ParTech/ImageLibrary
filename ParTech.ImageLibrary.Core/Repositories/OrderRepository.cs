@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Castle.Core.Logging;
@@ -17,13 +18,17 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Invoice GetInvoice(int invoiceId);
 
+        Invoice GetInvoiceAndContext(int invoiceId);
+
         Invoice GetLastInvoice();
 
-        bool SaveInvoice(Invoice invoice);
+        Invoice SaveInvoice(Invoice invoice);
 
         #endregion
 
         #region OrderLine
+
+        bool AddInvoiceIdToOrderLines(int invoiceId, List<OrderLine> orderLines);
 
         bool CreateOrderLinesForCartItems(UserProfile byerUserProfile, List<ShoppingCartItem> cartItems);
 
@@ -80,7 +85,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             try
             {
-                if (invoiceId != null)
+                if (invoiceId > 0)
                 {
                     using (var db = new Entities())
                     {
@@ -96,6 +101,31 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return invoice;
         }
 
+        public Invoice GetInvoiceAndContext(int invoiceId)
+        {
+            Invoice invoice = null;
+
+            try
+            {
+                if (invoiceId > 0)
+                {
+                    using (var db = new Entities())
+                    {
+                        invoice = db.Invoices.Where(i => i.InvoiceID == invoiceId)
+                                             .Include("OrderLines")
+                                             .Include("Profile")
+                                             .Include("Salutations")
+                                             .FirstOrDefault();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetInvoiceAndContext - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return invoice;
+        }
         public Invoice GetLastInvoice()
         {
             Invoice invoice = null;
@@ -104,8 +134,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
             {
                 using (var db = new Entities())
                 {
-                    invoice = db.Invoices.Where(i => i.Date.Year == DateTime.Now.Year)
-                                         .OrderByDescending(i => i.InvoiceNumber)
+                    invoice = db.Invoices.OrderByDescending(i => i.InvoiceNumber)
                                          .FirstOrDefault();
                 }
             }
@@ -116,9 +145,9 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return invoice;
         }
-        public bool SaveInvoice(Invoice invoice)
+        public Invoice SaveInvoice(Invoice invoice)
         {
-            var saveSucceeded = false;
+            Invoice invoiceToReturn = null;
 
             try
             {
@@ -134,6 +163,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                             tmpInvoice.Date = invoice.Date;
                             tmpInvoice.ProfileID = invoice.ProfileID;
                             tmpInvoice.InvoiceTotal = invoice.InvoiceTotal;
+
+                            invoiceToReturn = tmpInvoice;
                         }
                     }
                     else
@@ -141,24 +172,65 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         invoice.Date = DateTime.Now;
 
                         db.Invoices.Add(invoice);
+
+                        invoiceToReturn = invoice;
                     }
 
                     db.SaveChanges();
                 }
-
-                saveSucceeded = true;
             }
             catch (Exception ex)
             {
                 Logger.ErrorFormat("SaveInvoice - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
             }
 
-            return saveSucceeded;
+            return invoiceToReturn;
         }
 
         #endregion
 
         #region OrderLine
+
+        public bool AddInvoiceIdToOrderLines(int invoiceId, List<OrderLine> orderLines)
+        {
+            var saveSucceeded = false;
+
+            if (invoiceId > 0 && orderLines.Any())
+            {
+                try
+                {
+                    using (var db = new Entities())
+                    {
+                        var orderLineIdsToProcess = string.Concat(",", 
+                            string.Join(",", orderLines.Select(ol => ol.OrderlineID.ToString(CultureInfo.InvariantCulture)).ToArray()), 
+                            ",");
+                        
+                        // retrieve the orderlines that should be added to the invoice
+                        var orderLinesToProcess = db.OrderLines.Where(ol => orderLineIdsToProcess.Contains(string.Concat(",", ol.OrderlineID, ",")))
+                                                               .ToList();
+                        if (orderLinesToProcess.Any())
+                        {
+                            // add the invoiceid to the orderlines
+                            orderLinesToProcess = orderLinesToProcess.Select(ol =>
+                            {
+                                ol.InvoiceID = invoiceId;
+                                return ol;
+                            }).ToList();
+                        }
+
+                        db.SaveChanges();
+                    }
+
+                    saveSucceeded = true;
+                }
+                catch (Exception ex)
+                {
+                    Logger.ErrorFormat("AddInvoiceIdToOrderLines - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+                }
+            }
+
+            return saveSucceeded;
+        }
 
         public bool CreateOrderLinesForCartItems(UserProfile byerUserProfile, List<ShoppingCartItem> cartItems)
         {

@@ -1,129 +1,114 @@
-2014-08-28 09:21:44,020 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetCategoryAndMapToCategoryModel - error [There was an error deserializing the object of type ParTech.ImageLibrary.Core.ViewModels.Manage.MultiLingualListModel. Data at the root level is invalid. Line 1, position 1.] - - 
-    at System.Runtime.Serialization.XmlObjectSerializer.ReadObjectHandleExceptions(XmlReaderDelegator reader, Boolean verifyObjectName, DataContractResolver dataContractResolver)
-   at System.Runtime.Serialization.Json.DataContractJsonSerializer.ReadObject(XmlReader reader)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetCategoryAndMapToCategoryModel(Nullable`1 categoryid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 333 
-
-
-2014-08-28 09:23:32,045 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetCategoryAndMapToCategoryModel - error [There was an error deserializing the object of type ParTech.ImageLibrary.Core.ViewModels.Manage.MultiLingualListModel. Data at the root level is invalid. Line 1, position 1.] - - 
-    at System.Runtime.Serialization.XmlObjectSerializer.ReadObjectHandleExceptions(XmlReaderDelegator reader, Boolean verifyObjectName, DataContractResolver dataContractResolver)
-   at System.Runtime.Serialization.Json.DataContractJsonSerializer.ReadObject(XmlReader reader)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetCategoryAndMapToCategoryModel(Nullable`1 categoryid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 333 
-
-
-2014-08-28 09:24:53,800 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetCategoryAndMapToCategoryModel - error [There was an error deserializing the object of type ParTech.ImageLibrary.Core.ViewModels.Manage.MultiLingualListModel. Data at the root level is invalid. Line 1, position 1.] - - 
-    at System.Runtime.Serialization.XmlObjectSerializer.ReadObjectHandleExceptions(XmlReaderDelegator reader, Boolean verifyObjectName, DataContractResolver dataContractResolver)
-   at System.Runtime.Serialization.Json.DataContractJsonSerializer.ReadObject(XmlReader reader)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetCategoryAndMapToCategoryModel(Nullable`1 categoryid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 333 
-
-
-2014-08-28 09:26:44,775 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetCategoryAndMapToCategoryModel - error [There was an error deserializing the object of type ParTech.ImageLibrary.Core.ViewModels.Manage.MultiLingualListModel. Data at the root level is invalid. Line 1, position 1.] - - 
-    at System.Runtime.Serialization.XmlObjectSerializer.ReadObjectHandleExceptions(XmlReaderDelegator reader, Boolean verifyObjectName, DataContractResolver dataContractResolver)
-   at System.Runtime.Serialization.Json.DataContractJsonSerializer.ReadObject(XmlReader reader)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetCategoryAndMapToCategoryModel(Nullable`1 categoryid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 333 
-
-
-2014-08-28 09:28:09,024 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetCategoryAndMapToCategoryModel - error [There was an error deserializing the object of type ParTech.ImageLibrary.Core.ViewModels.Manage.MultiLingualListModel. Data at the root level is invalid. Line 1, position 1.] - - 
-    at System.Runtime.Serialization.XmlObjectSerializer.ReadObjectHandleExceptions(XmlReaderDelegator reader, Boolean verifyObjectName, DataContractResolver dataContractResolver)
-   at System.Runtime.Serialization.Json.DataContractJsonSerializer.ReadObject(XmlReader reader)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetCategoryAndMapToCategoryModel(Nullable`1 categoryid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 333 
-
-
-2014-08-28 13:43:37,373 ERROR ParTech.ImageLibrary.Core.Repositories.ImageRepository - dada1967 - GetImagesForUser - error [No connection string named 'Entities' could be found in the application config file.] - 
-    at System.Data.Entity.Internal.LazyInternalConnection.get_ConnectionHasModel()
-   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
-   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
-   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
-   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
-   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
-   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
-   at ParTech.ImageLibrary.Core.Repositories.ImageRepository.GetImagesForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ImageRepository.cs:line 102 
-
-
-2014-08-28 13:43:37,401 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetProductsForUser - error [No connection string named 'Entities' could be found in the application config file.] - - 
-    at System.Data.Entity.Internal.LazyInternalConnection.get_ConnectionHasModel()
-   at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
-   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
-   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
-   at System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
-   at System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
-   at System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetProductsForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 1108 
-
-
-2014-08-28 13:44:08,813 ERROR ParTech.ImageLibrary.Core.Repositories.ImageRepository - dada1967 - GetImagesForUser - error [An error occurred while preparing the command definition. See the inner exception for details.] - 
-    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition..ctor(DbProviderFactory storeProviderFactory, DbCommandTree commandTree, DbInterceptionContext interceptionContext, IDbDependencyResolver resolver, BridgeDataReaderFactory bridgeDataReaderFactory, ColumnMapFactory columnMapFactory)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.CreateCommandDefinition(ObjectContext context, DbQueryCommandTree tree)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
-   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
-   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
-   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
-   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
-   at ParTech.ImageLibrary.Core.Repositories.ImageRepository.GetImagesForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ImageRepository.cs:line 102 
-
-
-2014-08-28 13:44:08,845 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetProductsForUser - error [An error occurred while preparing the command definition. See the inner exception for details.] - - 
-    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition..ctor(DbProviderFactory storeProviderFactory, DbCommandTree commandTree, DbInterceptionContext interceptionContext, IDbDependencyResolver resolver, BridgeDataReaderFactory bridgeDataReaderFactory, ColumnMapFactory columnMapFactory)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.CreateCommandDefinition(ObjectContext context, DbQueryCommandTree tree)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
-   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
-   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
-   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
-   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetProductsForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 1108 
-
-
-2014-08-28 13:45:54,673 ERROR ParTech.ImageLibrary.Core.Repositories.ImageRepository - dada1967 - GetImagesForUser - error [An error occurred while preparing the command definition. See the inner exception for details.] - 
-    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition..ctor(DbProviderFactory storeProviderFactory, DbCommandTree commandTree, DbInterceptionContext interceptionContext, IDbDependencyResolver resolver, BridgeDataReaderFactory bridgeDataReaderFactory, ColumnMapFactory columnMapFactory)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.CreateCommandDefinition(ObjectContext context, DbQueryCommandTree tree)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
-   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
-   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
-   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
-   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
-   at ParTech.ImageLibrary.Core.Repositories.ImageRepository.GetImagesForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ImageRepository.cs:line 102 
-
-
-2014-08-28 13:45:55,112 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - dada1967 - GetProductsForUser - error [An error occurred while preparing the command definition. See the inner exception for details.] - - 
-    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition..ctor(DbProviderFactory storeProviderFactory, DbCommandTree commandTree, DbInterceptionContext interceptionContext, IDbDependencyResolver resolver, BridgeDataReaderFactory bridgeDataReaderFactory, ColumnMapFactory columnMapFactory)
-   at System.Data.Entity.Core.EntityClient.Internal.EntityProviderServices.CreateDbCommandDefinition(DbProviderManifest providerManifest, DbCommandTree commandTree, DbInterceptionContext interceptionContext)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.CreateCommandDefinition(ObjectContext context, DbQueryCommandTree tree)
-   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
-   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
-   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
-   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
-   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
-   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetProductsForUser(Int32 userid) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 1108 
-
-
-2014-08-28 16:50:18,157 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+2014-08-29 08:56:02,603 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
     at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
    at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 146 
+
+
+2014-08-29 08:58:30,418 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+    at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 146 
+
+
+2014-08-29 09:35:34,391 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+    at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 153 
+
+
+2014-08-29 09:40:54,482 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+    at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 153 
+
+
+2014-08-29 09:44:38,198 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - SaveInvoice - error [An error occurred while updating the entries. See the inner exception for details.] - - 
+    at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.SaveInvoice(Invoice invoice) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 153 
+
+
+2014-08-29 11:12:27,602 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - partech - GetLoggedEvent - error [Non-static method requires a target.] - - 
+    at System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   at System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at System.Linq.Queryable.SingleOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetLoggedEvent(Int32 loggedEventId) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 992 
+
+
+2014-08-29 11:16:45,615 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - partech - GetLoggedEvent - error [Non-static method requires a target.] - - 
+    at System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   at System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at System.Linq.Queryable.SingleOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetLoggedEvent(Int32 loggedEventId) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 992 
+
+
+2014-08-29 11:19:16,622 ERROR ParTech.ImageLibrary.Core.Repositories.ObjectRepository - partech - GetLoggedEvent - error [Non-static method requires a target.] - - 
+    at System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   at System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   at System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Linq.Enumerable.SingleOrDefault[TSource](IEnumerable`1 source)
+   at System.Linq.Queryable.SingleOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at ParTech.ImageLibrary.Core.Repositories.ObjectRepository.GetLoggedEvent(Int32 loggedEventId) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\ObjectRepository.cs:line 992 
+
+
+2014-08-29 11:27:53,811 ERROR ParTech.ImageLibrary.Core.Repositories.OrderRepository - partech - GetInvoiceAndContext - error [A specified Include path is not valid. The EntityType 'ParTech.ImageLibrary.Core.Models.Invoice' does not declare a navigation property with the name 'Salutations'.] - - 
+    at System.Data.Entity.Core.Objects.Internal.ObjectFullSpanRewriter.ConvertSpanPath(SpanPathInfo parentInfo, List`1 navPropNames, Int32 pos)
+   at System.Data.Entity.Core.Objects.Internal.ObjectFullSpanRewriter..ctor(DbCommandTree tree, DbExpression toRewrite, Span span, AliasGenerator aliasGenerator)
+   at System.Data.Entity.Core.Objects.Internal.ObjectSpanRewriter.TryRewrite(DbQueryCommandTree tree, Span span, MergeOption mergeOption, AliasGenerator aliasGenerator, DbExpression& newQuery, SpanIndex& spanInfo)
+   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlanFactory.Prepare(ObjectContext context, DbQueryCommandTree tree, Type elementType, MergeOption mergeOption, Boolean streaming, Span span, IEnumerable`1 compiledQueryParameters, AliasGenerator aliasGenerator)
+   at System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source)
+   at ParTech.ImageLibrary.Core.Repositories.OrderRepository.GetInvoiceAndContext(Int32 invoiceId) in d:\Intern\ImageLibrary\ParTech.ImageLibrary.Core\Repositories\OrderRepository.cs:line 114 
 
 

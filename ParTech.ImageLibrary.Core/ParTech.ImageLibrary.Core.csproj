@@ -152,6 +152,9 @@
     <Compile Include="Models\Language.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoggedEvent.cs">
+      <DependentUpon>ImageLibrary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\OrderLine.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
@@ -192,6 +195,7 @@
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Utils\LanguageString.cs" />
+    <Compile Include="Utils\LoggingEvents.cs" />
     <Compile Include="ViewModels\Account\ExternalLogin.cs" />
     <Compile Include="ViewModels\Account\LocalAccountModel.cs" />
     <Compile Include="ViewModels\Account\LocalPasswordModel.cs" />

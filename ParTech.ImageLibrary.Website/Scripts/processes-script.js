@@ -2,6 +2,7 @@ $(function () {
     var completedText;
     var progressText;
     var runningText;
+    var startedText;
 
     function updateMonitor(taskId, progress, status) {
         $("#" + taskId).html(progress + ": " + status);
@@ -11,6 +12,7 @@ $(function () {
         completedText = $(this).attr("data-completed");
         progressText = $(this).attr("data-progress");
         runningText = $(this).attr("data-running");
+        startedText = $(this).attr("data-started");
         e.preventDefault();
         if ($(this).hasClass('disabled')) {
             alert(runningText);
@@ -20,7 +22,7 @@ $(function () {
 
                 // Init monitors
                 $("#monitors").html($("<p id='" + taskId + "'/>"));
-                updateMonitor(taskId, "Started");
+                updateMonitor(taskId, progressText, startedText);
                 $("#startgenerateinvoices").addClass("disabled");
 
                 // Periodically update monitors
@@ -29,7 +31,7 @@ $(function () {
                         if (progress >= 100) {
                             updateMonitor(taskId, progressText, completedText);
                             clearInterval(intervalId);
-                            $("#startgenerateinvoices").removeClass("disabled");
+                            location.reload();
                         } else {
                             updateMonitor(taskId, progressText, progress + "%");
                         }
@@ -43,6 +45,7 @@ $(function () {
         completedText = $(this).attr("data-completed");
         progressText = $(this).attr("data-progress");
         runningText = $(this).attr("data-running");
+        startedText = $(this).attr("data-started");
         e.preventDefault();
         if ($(this).hasClass('disabled')) {
             alert(runningText);
@@ -52,7 +55,7 @@ $(function () {
 
                 // Init monitors
                 $("#monitors").html($("<p id='" + taskId + "'/>"));
-                updateMonitor(taskId, "Started");
+                updateMonitor(taskId, progressText, startedText);
                 $("#startindexrebuild").addClass("disabled");
 
                 // Periodically update monitors
@@ -61,7 +64,7 @@ $(function () {
                         if (progress >= 100) {
                             updateMonitor(taskId, progressText, completedText);
                             clearInterval(intervalId);
-                            $("#startindexrebuild").removeClass("disabled");
+                            location.reload();
                         } else {
                             updateMonitor(taskId, progressText, progress + "%");
                         }

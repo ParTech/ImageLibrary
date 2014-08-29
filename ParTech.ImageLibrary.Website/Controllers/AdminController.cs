@@ -10,6 +10,7 @@ using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Enums;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
+using ParTech.ImageLibrary.Core.Utils;
 using ParTech.ImageLibrary.Core.Workers;
 using Westwind.Globalization;
 
@@ -17,6 +18,12 @@ namespace ParTech.ImageLibrary.Website.Controllers
 {
     public class AdminController : Controller
     {
+        #region Properties
+
+        private const string IndexRebuildTaskId = "0";
+
+        private const string GenerateInvoicesTaskId = "1";
+        
         public ILogger Logger { get; set; }
 
         private readonly IAccountsWorker _accountsWorker;
@@ -33,7 +40,10 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         private readonly IUserRepository _userRepository;
 
-        private static IDictionary<Guid, string> tasks = new Dictionary<Guid, string>();
+// ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private static IDictionary<Guid, string> _tasks = new Dictionary<Guid, string>();
+
+        #endregion
 
         public AdminController(IAccountsWorker accountsWorker, IImageRepository imageRepository, 
             ILuceneWorker luceneWorker, IObjectRepository objectRepository, IOrderRepository orderRepository, 
@@ -58,9 +68,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         public ActionResult StartGenerateInvoices()
         {
             var taskId = Guid.NewGuid();
-            tasks.Add(taskId, "1");
-
-            _luceneWorker.ClearLuceneIndex();
+            _tasks.Add(taskId, GenerateInvoicesTaskId);
 
             Task.Factory.StartNew(() => TaskGenerateInvoices(taskId));
 
@@ -74,28 +82,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ProgressGenerateInvoices(Guid id)
         {
-            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
-        }
-
-        private void TaskGenerateInvoices(Guid taskId)
-        {
-            var orderLinesThisMonth = _orderRepository.GetOrderLinesForByerInvoices(DateTime.Now).ToList();
-            var byerIdsWithOrderLines = orderLinesThisMonth.GroupBy(ol => ol.BuyerID).ToList();
-            for (var i = 0; i < byerIdsWithOrderLines.Count; i++)
-            {
-                // update task progress
-                var x = Decimal.Divide(i, orderLinesThisMonth.Count);
-                tasks[taskId] = (x * 100).ToString("f0", CultureInfo.InvariantCulture);
-
-                var step = i % 10;
-
-                _orderWorker.GenerateInvoiceForByer(byerIdsWithOrderLines[i].Key, byerIdsWithOrderLines[i].ToList());
-
-                // simulate long running operation
-                Thread.Sleep(2000);
-            }
-
-            tasks.Remove(taskId);
+            return Json(_tasks.Keys.Contains(id) ? _tasks[id] : "100");
         }
 
         #endregion
@@ -111,11 +98,11 @@ namespace ParTech.ImageLibrary.Website.Controllers
         {
             var currentLanguage = Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName;
             var taskId = Guid.NewGuid();
-            tasks.Add(taskId, "0");
+            _tasks.Add(taskId, IndexRebuildTaskId);
 
             _luceneWorker.ClearLuceneIndex();
 
-            Task.Factory.StartNew(() => TaskUpdateAllProducts(currentLanguage, taskId));
+            Task.Factory.StartNew(() => TaskIndexRebuild(currentLanguage, taskId));
 
             return Json(taskId);
         }
@@ -127,38 +114,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ProgressIndexRebuild(Guid id)
         {
-            return Json(tasks.Keys.Contains(id) ? tasks[id] : "100");
-        }
-
-        private void TaskUpdateAllProducts(string language, Guid taskId)
-        {
-            var allProducts = _objectRepository.GetProductsAndContext().ToList();
-            var productsInStep = new List<Product>();
-            for (var i = 0; i < allProducts.Count; i++)
-            {
-                // update task progress
-                var x = Decimal.Divide(i, allProducts.Count);
-                tasks[taskId] = (x*100).ToString("f0", CultureInfo.InvariantCulture);
-
-                var step = i%10;
-                if (step == 0)
-                {
-                    _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
-
-                    productsInStep = new List<Product>();
-                }
-                else
-                {
-                    productsInStep.Add(allProducts[i]);
-                }
-            }
-
-            if (productsInStep.Any())
-            {
-                _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
-            }
-
-            tasks.Remove(taskId);
+            return Json(_tasks.Keys.Contains(id) ? _tasks[id] : "100");
         }
         
         #endregion
@@ -300,13 +256,17 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         #endregion
 
+        #region Misc action methods
+
         //
         // GET: /Admin/Processes
 
         [Authorize(Roles = "Admin")]
         public ActionResult Processes()
         {
-            return View();
+            var loggedEvents = _objectRepository.GetLoggedEvents();
+
+            return View(loggedEvents);
         }
 
         //
@@ -333,6 +293,81 @@ namespace ParTech.ImageLibrary.Website.Controllers
             }
 
             return null;
+        }
+
+        #endregion
+
+        private void TaskGenerateInvoices(Guid taskId)
+        {
+            var loggedEvent = LoggingEvents.LogStartEvent(_objectRepository, "Task Generate Invoices", string.Empty);
+
+            var invoicesCreated = 0;
+            var orderLinesForMonth = _orderRepository.GetOrderLinesForByerInvoices(DateTime.Now.AddMonths(-1)).ToList();
+            var byerIdsWithOrderLines = orderLinesForMonth.GroupBy(ol => ol.BuyerID).ToList();
+            for (var i = 0; i < byerIdsWithOrderLines.Count; i++)
+            {
+                // update task progress
+                var x = Decimal.Divide(i, orderLinesForMonth.Count);
+                _tasks[taskId] = (x * 100).ToString("f0", CultureInfo.InvariantCulture);
+
+                var newInvoice = _orderWorker.GenerateInvoiceForByer(byerIdsWithOrderLines[i].Key, byerIdsWithOrderLines[i].ToList());
+                if (newInvoice != null)
+                {
+                    invoicesCreated = invoicesCreated++;
+                }
+
+                // simulate long running operation
+                //Thread.Sleep(2000);
+            }
+
+            LoggingEvents.LogEndEvent(_objectRepository, 
+                                      loggedEvent.LoggedEventID,
+                                      string.Format("{0} invoices created; {1} errors",
+                                                    invoicesCreated,
+                                                    (byerIdsWithOrderLines.Count - invoicesCreated)));
+
+            _tasks.Remove(taskId);
+        }
+
+        private void TaskIndexRebuild(string language, Guid taskId)
+        {
+            var loggedEvent = LoggingEvents.LogStartEvent(_objectRepository, "Task Index Rebuild", string.Empty);
+
+            var allProducts = _objectRepository.GetProductsAndContext().ToList();
+            var productsInStep = new List<Product>();
+            for (var i = 0; i < allProducts.Count; i++)
+            {
+                // update task progress
+                var x = Decimal.Divide(i, allProducts.Count);
+                _tasks[taskId] = (x * 100).ToString("f0", CultureInfo.InvariantCulture);
+
+                var step = i % 10;
+                if (step == 0)
+                {
+                    _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+
+                    productsInStep = new List<Product>();
+                }
+                else
+                {
+                    productsInStep.Add(allProducts[i]);
+                }
+
+                // simulate long running operation
+                //Thread.Sleep(2000);
+            }
+
+            if (productsInStep.Any())
+            {
+                _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
+            }
+
+            LoggingEvents.LogEndEvent(_objectRepository,
+                                      loggedEvent.LoggedEventID,
+                                      string.Format("{0} products indexed",
+                                                    allProducts.Count));
+
+            _tasks.Remove(taskId);
         }
 
     }

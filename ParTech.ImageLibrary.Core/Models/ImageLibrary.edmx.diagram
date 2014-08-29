@@ -4,48 +4,49 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1b3c363d54604e3bae9cf20af1f24f72" Name="Diagram1">
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Brand" Width="1.5" PointX="10.125" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Category" Width="1.5" PointX="6.25" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Collection" Width="1.5" PointX="10.125" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Country" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Gender" Width="1.5" PointX="10.125" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Image" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Invoice" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Language" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.OrderLine" Width="1.5" PointX="5.625" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Product" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Profile" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Salutation" Width="1.5" PointX="2.25" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Season" Width="1.5" PointX="6.25" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" Width="1.5" PointX="12.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.UserProfile" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Membership" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_OAuthMembership" Width="1.5" PointX="4" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Roles" Width="1.5" PointX="3.5" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="bbb683494a2b4a4b9058c6179a4c2fe9" Name="Diagram1">
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Brand" Width="1.5" PointX="11.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Category" Width="1.5" PointX="11.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Collection" Width="1.5" PointX="11.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Country" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Gender" Width="1.5" PointX="11.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Image" Width="1.5" PointX="15.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Invoice" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Language" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.LoggedEvent" Width="1.5" PointX="8.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.OrderLine" Width="1.5" PointX="10.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Product" Width="1.5" PointX="13.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Profile" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Salutation" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Season" Width="1.5" PointX="11.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.ShoppingCartItem" Width="1.5" PointX="18" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.SubscriptionType" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.UserProfile" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Membership" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Roles" Width="1.5" PointX="6" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Brand" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Collections" ManuallyRouted="false" />
+        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Countries" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Gender" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Images_Products" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Images" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_Images" ManuallyRouted="false" />
+        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Profile" ManuallyRouted="false" />
+        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Salutations" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Invoices" ManuallyRouted="false" />
+        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Profile_Languages" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_Products" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_OrderLines_UserProfile" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Seasons" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Profile_SubscriptionTypes" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_UserProfile_Profile" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_ShoppingCartItems_UserProfile" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_UserProfile_webpages_Membership" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.webpages_UsersInRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.SubscriptionType" Width="1.5" PointX="0.75" PointY="11" />
-        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Profile_Languages" />
-        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Profile_SubscriptionTypes" />
-        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Countries" />
-        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Profile" />
-        <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Invoices_Salutations" />
-        </Diagram>
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
