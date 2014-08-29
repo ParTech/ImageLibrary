@@ -96,7 +96,8 @@ namespace ParTech.ImageLibrary.Website.Controllers
             {
                 CountryItems = _objectRepository.GetCountries(),
                 LanguageItems = _objectRepository.GetLanguages(),
-                SalutationItems = _objectRepository.GetSalutations()
+                SalutationItems = _objectRepository.GetSalutations(),
+                SubscriptionTypeItems = _objectRepository.GetSubscriptionTypes()
             };
 
             return View(registerModel);
@@ -126,6 +127,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
             model.CountryItems = _objectRepository.GetCountries();
             model.LanguageItems = _objectRepository.GetLanguages();
             model.SalutationItems = _objectRepository.GetSalutations();
+            model.SubscriptionTypeItems = _objectRepository.GetSubscriptionTypes();
 
             return View(model);
         }

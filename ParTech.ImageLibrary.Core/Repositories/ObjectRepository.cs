@@ -158,6 +158,12 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         #endregion
 
+        #region SubscriptionTypes
+
+        IEnumerable<SubscriptionType> GetSubscriptionTypes();
+
+        #endregion
+
     }
 
     public class ObjectRepository : IObjectRepository
@@ -1469,6 +1475,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return seasonModel;
         }
+
         public IEnumerable<Season> GetSeasons()
         {
             var seasons = new List<Season>();
@@ -1554,6 +1561,29 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return saveSucceeded;
+        }
+
+        #endregion
+
+        #region SubscriptionTypes
+
+        public IEnumerable<SubscriptionType> GetSubscriptionTypes()
+        {
+            var subscriptionTypes = new List<SubscriptionType>();
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    subscriptionTypes = db.SubscriptionTypes.OrderBy(i => i.Name).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetSubscriptionTypes - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return subscriptionTypes;
         }
 
         #endregion

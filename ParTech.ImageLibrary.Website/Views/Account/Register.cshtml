@@ -38,16 +38,21 @@
                     @Html.TextBoxFor(m => m.UserEmail, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.UserEmail)
                 </li>
+            </ol>
+            
+            <h3>@DbRes.T("Account.Register.CompanyInformation", "Resources")</h3>
+            <ol>
                 <li>
                     @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
                     @Html.RadioButtonFor(m => m.AccountType, 0) @DbRes.T("General.Byer", "Resources")<br />
                     @Html.RadioButtonFor(m => m.AccountType, 1) @DbRes.T("General.Seller", "Resources")<br />
                     @Html.ValidationMessageFor(m => m.AccountType)
                 </li>
-            </ol>
-            
-            <h3>@DbRes.T("Account.Register.CompanyInformation", "Resources")</h3>
-            <ol>
+                <li>
+                    @Html.LabelFor(m => m.SubscriptionTypeId, new { @class = "required" } )
+                    @Html.DropDownListFor(m => m.SubscriptionTypeId, new SelectList(Model.SubscriptionTypeItems, "SubscriptionTypeID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
+                    @Html.ValidationMessageFor(m => m.SubscriptionTypeId)
+                </li>  
                 <li>
                     @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
                     @Html.TextBoxFor(m => m.CompanyName, new { maxlength = 255 })

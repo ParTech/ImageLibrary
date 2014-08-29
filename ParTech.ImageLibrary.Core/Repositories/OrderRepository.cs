@@ -256,7 +256,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                                     ProductID = cartItem.Image.ProductID,
                                     ProductName = cartItem.Image.Product.Name,
                                     updated = DateTime.Now,
-                                    created = DateTime.Now
+                                    created = DateTime.Now,
+                                    Price = DeterminePriceForDownload(byerUserProfile.Profile.SubscriptionType)
                                 };
 
                                 db.OrderLines.Add(orderLine);
@@ -634,5 +635,15 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         #endregion
 
+        private decimal DeterminePriceForDownload(SubscriptionType subscriptionType)
+        {
+            switch (subscriptionType.Type)
+            {
+                case 0:
+                    return subscriptionType.Price;
+                default:
+                    return 0;
+            }
+        }
     }
 }

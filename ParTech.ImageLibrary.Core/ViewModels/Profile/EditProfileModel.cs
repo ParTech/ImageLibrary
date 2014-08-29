@@ -52,6 +52,10 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         [Required]
         [Display]
         public int CountryId { get; set; }
+
+        [Required]
+        [Display]
+        public int SubscriptionTypeId { get; set; }
        
         public bool MainAccount { get; set; }
 
@@ -60,5 +64,7 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Profile
         public IEnumerable<Language> LanguageItems { get; set; }
 
         public IEnumerable<Salutation> SalutationItems { get; set; }
+
+        public IEnumerable<SubscriptionType> SubscriptionTypeItems { get; set; }
     }
 }

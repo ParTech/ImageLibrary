@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Castle.Core.Logging;
-using log4net.Util;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.ViewModels.Account;
@@ -43,6 +42,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
         UserProfile GetUserProfileAndContextById(int userId);
 
         UserProfile GetUserProfileByName(string userName);
+
+        UserProfile GetUserProfileAndContextByName(string userName);
 
         UserProfile GetUserProfileByNameAndEmail(string userName, string emailAddress);
 
@@ -163,7 +164,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
                 Address = profile.Address,
                 PostalCode = profile.PostalCode,
                 City = profile.City,
-                CountryId = profile.CountryID
+                CountryId = profile.CountryID,
+                SubscriptionTypeId = profile.SubscriptionTypeID
             };
 
             return editProfileModel;
@@ -312,6 +314,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
             return userProfileModel;
         }
+
         public UserProfile GetUserProfileAndContextById(int userId)
         {
             UserProfile outProfile = null;
@@ -322,6 +325,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
                 {
                     var tmpProfile = db.UserProfiles.Where(u => u.Id == userId)
                                                     .Include("Profile")
+                                                    .Include("Profile.SubscriptionType")
                                                     .Include("webpages_Membership")
                                                     .Include("webpages_Roles")
                                                     .Single();
@@ -364,6 +368,33 @@ namespace ParTech.ImageLibrary.Core.Repositories
             return outProfile;
         }
 
+        public UserProfile GetUserProfileAndContextByName(string userName)
+        {
+            UserProfile outProfile = null;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var tmpProfile = db.UserProfiles.Where(u => u.UserName.ToLower() == userName.ToLower())
+                                                    .Include("Profile")
+                                                    .Include("Profile.SubscriptionType")
+                                                    .Include("webpages_Membership")
+                                                    .Include("webpages_Roles")
+                                                    .Single();
+                    if (tmpProfile != null)
+                    {
+                        outProfile = tmpProfile;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("GetUserProfileAndContextByName - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return outProfile;
+        }
         public UserProfile GetUserProfileByNameAndEmail(string userName, string emailAddress)
         {
             UserProfile outProfile = null;

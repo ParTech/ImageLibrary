@@ -112,6 +112,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
             editProfileModel.CountryItems = _objectRepository.GetCountries();
             editProfileModel.LanguageItems = _objectRepository.GetLanguages();
             editProfileModel.SalutationItems = _objectRepository.GetSalutations();
+            editProfileModel.SubscriptionTypeItems = _objectRepository.GetSubscriptionTypes();
             editProfileModel.MainAccount = userProfile.MainAccount;
 
             return View(editProfileModel);

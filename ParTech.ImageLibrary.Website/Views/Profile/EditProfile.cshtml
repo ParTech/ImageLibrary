@@ -26,6 +26,11 @@
             <h3>@DbRes.T("Profile.EditProfile.CompanyInformation", "Resources")</h3>
             <ol>
                 <li>
+                    @Html.LabelFor(m => m.SubscriptionTypeId, new { @class = "required" } )
+                    @Html.DropDownListFor(m => m.SubscriptionTypeId, new SelectList(Model.SubscriptionTypeItems, "SubscriptionTypeID", "Name"), DbRes.T("General.MakeAChoice", "Resources"))
+                    @Html.ValidationMessageFor(m => m.SubscriptionTypeId)
+                </li> 
+                <li>
                     @Html.LabelFor(m => m.CompanyName, new { @class = "required" } )
                     @Html.TextBoxFor(m => m.CompanyName, new { maxlength = 255 })
                     @Html.ValidationMessageFor(m => m.CompanyName)

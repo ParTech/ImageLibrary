@@ -181,7 +181,7 @@ namespace ParTech.ImageLibrary.Core.Workers
             {
                 try
                 {
-                    var userProfile = _userRepository.GetUserProfileByName(HttpContext.Current.User.Identity.Name);
+                    var userProfile = _userRepository.GetUserProfileAndContextByName(HttpContext.Current.User.Identity.Name);
                     var cartItems = _orderRepository.GetCartItemsForUser(userProfile.Id);
                     if (cartItems.Any() && _orderRepository.CreateOrderLinesForCartItems(userProfile, cartItems))
                     {

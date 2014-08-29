@@ -78,10 +78,16 @@ namespace ParTech.ImageLibrary.Core.ViewModels.Account
         [Display]
         public int CountryId { get; set; }
 
+        [Required]
+        [Display]
+        public int SubscriptionTypeId { get; set; }
+
         public IEnumerable<Country> CountryItems { get; set; }
 
         public IEnumerable<Language> LanguageItems { get; set; }
 
         public IEnumerable<Salutation> SalutationItems { get; set; }
+
+        public IEnumerable<SubscriptionType> SubscriptionTypeItems { get; set; }
     }
 }
