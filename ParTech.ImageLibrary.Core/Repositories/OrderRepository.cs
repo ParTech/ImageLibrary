@@ -114,7 +114,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
                         invoice = db.Invoices.Where(i => i.InvoiceID == invoiceId)
                                              .Include("OrderLines")
                                              .Include("Profile")
-                                             .Include("Salutations")
+                                             .Include("Salutation")
                                              .FirstOrDefault();
                     }
                 }
@@ -163,6 +163,14 @@ namespace ParTech.ImageLibrary.Core.Repositories
                             tmpInvoice.Date = invoice.Date;
                             tmpInvoice.ProfileID = invoice.ProfileID;
                             tmpInvoice.InvoiceTotal = invoice.InvoiceTotal;
+                            tmpInvoice.CompanyName = invoice.CompanyName;
+                            tmpInvoice.SalutationID = invoice.SalutationID;
+                            tmpInvoice.FirstName = invoice.FirstName;
+                            tmpInvoice.LastName = invoice.LastName;
+                            tmpInvoice.Address = invoice.Address;
+                            tmpInvoice.PostalCode = invoice.PostalCode;
+                            tmpInvoice.City = invoice.City;
+                            tmpInvoice.CountryID = invoice.CountryID;
 
                             invoiceToReturn = tmpInvoice;
                         }

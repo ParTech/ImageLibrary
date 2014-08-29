@@ -1,4 +1,5 @@
 ﻿@using ParTech.ImageLibrary.Core.Repositories
+@using ParTech.ImageLibrary.Core.Utils
 @using Westwind.Globalization
 @model List<ParTech.ImageLibrary.Core.Models.OrderLine>
 @{
@@ -64,7 +65,8 @@
                 <td>
                     @if (download.Invoice != null)
                     {
-                        @download.Invoice.InvoiceNumber
+                        @Html.ActionLink(InvoiceUtilities.GetInvoiceNumberForDisplay(download.Invoice.Date, download.Invoice.InvoiceNumber),
+                            "ShowInvoice", "Byer", new { invoiceid = download.Invoice.InvoiceID }, new { target = "_blank", title = @DbRes.T("Byer.DownloadHistory.InvoiceLink.Title", "Resources") })
                     }
                     else
                     {

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Enums;
+using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.ViewModels.Byer;
 using System;
@@ -171,7 +172,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
 
         #endregion
 
-        #region ShowBrand, ShowCollection, ShowProduct, ShowSmallThumbnail and ShowThumbnail methods
+        #region ShowBrand, ShowCollection, ShowInvoice (2x), ShowProduct, ShowSmallThumbnail and ShowThumbnail methods
 
         //
         // GET: /Byer/ShowBrand
@@ -233,6 +234,25 @@ namespace ParTech.ImageLibrary.Website.Controllers
             return View(collectionModel);
         }
 
+        //
+        // GET: /Byer/ShowInvoice
+
+        [Authorize(Roles = "Byer")]
+        public ActionResult ShowInvoice(int invoiceid = 0)
+        {
+            var invoiceModel = _orderRepository.GetInvoiceAndContext(invoiceid);
+
+            return View(invoiceModel);
+        }
+
+        //
+        // GET: /Byer/ShowInvoice
+
+        [Authorize(Roles = "Byer")]
+        public ActionResult ShowInvoice(Invoice invoiceModel)
+        {
+            return View(invoiceModel);
+        }
         //
         // GET: /Byer/ShowProduct
 

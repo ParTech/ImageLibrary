@@ -194,8 +194,10 @@
     <Compile Include="Repositories\ObjectRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Utils\InvoiceUtilities.cs" />
     <Compile Include="Utils\LanguageString.cs" />
     <Compile Include="Utils\LoggingEvents.cs" />
+    <Compile Include="Utils\ViewRenderer.cs" />
     <Compile Include="ViewModels\Account\ExternalLogin.cs" />
     <Compile Include="ViewModels\Account\LocalAccountModel.cs" />
     <Compile Include="ViewModels\Account\LocalPasswordModel.cs" />

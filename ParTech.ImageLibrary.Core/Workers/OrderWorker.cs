@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using Castle.Core.Logging;
 using ParTech.ImageLibrary.Core.Interfaces;
 using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
+using ParTech.ImageLibrary.Core.Utils;
+using Postal;
 
 namespace ParTech.ImageLibrary.Core.Workers
 {
     public interface IOrderWorker : IWorker
     {
         Invoice GenerateInvoiceForByer(int byerId, List<OrderLine> orderLines);
+
+        bool SendInvoiceEmail(Invoice newInvoice, ControllerContext controllerContext);
     }
 
     public class OrderWorker : IOrderWorker
@@ -40,6 +45,7 @@ namespace ParTech.ImageLibrary.Core.Workers
                     {
                         InvoiceNumber = GenerateInvoiceNumber(),
                         ProfileID = byerProfile.ProfileID,
+                        CompanyName = byerProfile.CompanyName,
                         SalutationID = byerProfile.SalutationID,
                         FirstName = byerProfile.FirstName,
                         LastName = byerProfile.LastName,
@@ -66,6 +72,30 @@ namespace ParTech.ImageLibrary.Core.Workers
             }
 
             return newInvoice;
+        }
+
+        public bool SendInvoiceEmail(Invoice newInvoice, ControllerContext controllerContext)
+        {
+            var emailSent = false;
+
+            try
+            {
+                var invoiceContent = ViewRenderer.RenderPartialView("~/views/byer/showinvoice.cshtml", newInvoice, controllerContext);
+
+                dynamic email = new Email("ByerInvoice");
+                email.To = newInvoice.Profile.Email;
+                email.FirstName = newInvoice.Profile.FirstName;
+                email.InvoiceContent = invoiceContent;
+                email.Send();
+
+                emailSent = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("SendInvoiceEmail - error [{0}] - - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return emailSent;
         }
 
         private int GenerateInvoiceNumber()

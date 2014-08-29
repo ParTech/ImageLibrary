@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bbb683494a2b4a4b9058c6179a4c2fe9" Name="Diagram1">
+      <Diagram DiagramId="06ae7927039c47e2a2eb388e3272674a" Name="Diagram1">
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Brand" Width="1.5" PointX="11.25" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Category" Width="1.5" PointX="11.25" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Collection" Width="1.5" PointX="11.25" PointY="16.125" IsExpanded="true" />
@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Image" Width="1.5" PointX="15.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Invoice" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Language" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.LoggedEvent" Width="1.5" PointX="8.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.LoggedEvent" Width="1.5" PointX="8.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.OrderLine" Width="1.5" PointX="10.5" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Product" Width="1.5" PointX="13.5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.Profile" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
@@ -23,7 +23,7 @@
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.SubscriptionType" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.UserProfile" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Membership" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ParTech.ImageLibrary.Core.Models.webpages_Roles" Width="1.5" PointX="6" PointY="10.875" IsExpanded="true" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Brand" ManuallyRouted="false" />
         <AssociationConnector Association="ParTech.ImageLibrary.Core.Models.FK_Products_Category" ManuallyRouted="false" />

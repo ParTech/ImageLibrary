@@ -70,6 +70,7 @@
           <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
           <ScalarProperty Name="SalutationID" ColumnName="SalutationID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />

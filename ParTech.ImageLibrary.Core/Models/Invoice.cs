@@ -23,6 +23,7 @@ namespace ParTech.ImageLibrary.Core.Models
         public int InvoiceNumber { get; set; }
         public System.DateTime Date { get; set; }
         public int ProfileID { get; set; }
+        public string CompanyName { get; set; }
         public int SalutationID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

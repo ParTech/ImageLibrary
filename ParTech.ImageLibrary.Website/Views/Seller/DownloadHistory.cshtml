@@ -29,7 +29,7 @@
                 <th>@DbRes.T("General.By", "Resources")</th>
                 <th>@DbRes.T("General.Details", "Resources")</th>
                 <th>@DbRes.T("General.Price", "Resources")</th>
-                <th>@DbRes.T("General.InvoiceNumber", "Resources")</th>
+                <th>@DbRes.T("General.Invoiced", "Resources")</th>
             </tr>
 
         @foreach (var download in Model)
@@ -61,11 +61,11 @@
                 <td>
                     @if (download.Invoice != null)
                     {
-                        @download.Invoice.InvoiceNumber
+                        @DbRes.T("General.Yes", "Resources")
                     }
                     else
                     {
-                        @: -
+                        @DbRes.T("General.No", "Resources")
                     }
                 </td>
             </tr>

@@ -1,0 +1,78 @@
+﻿@using ParTech.ImageLibrary.Core.Models
+@using ParTech.ImageLibrary.Core.Repositories
+@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
+@model Invoice
+@{
+    Layout = null;
+    
+    var userRepository = new UserRepository();
+}
+
+<table border="2">
+    <tr>
+        <td colspan="5">
+            @DbRes.T("General.InvoiceDate", "Resources"): @Model.Date.ToString("dd MMMM yyyy")<br/>
+            @DbRes.T("General.InvoiceNumber", "Resources"): @InvoiceUtilities.GetInvoiceNumberForDisplay(Model.Date, Model.InvoiceNumber)<br/>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3">
+            <strong>@DbRes.T("General.To", "Resources"):</strong><br/>
+            @Model.Salutation.Name @Model.FirstName @Model.LastName<br/>
+            @Model.Address<br/>
+            @Model.PostalCode  @Model.City<br/>
+        </td>
+        <td colspan="2">
+            <strong>@DbRes.T("General.From", "Resources"):</strong><br/>
+            Image Library<br/>
+            Adres 1<br/>
+            1234 AA  BREDA<br/>
+        </td>
+    </tr>
+
+    <tr>
+        <th>@DbRes.T("General.DownloadedOn", "Resources")</th>
+        <th>@DbRes.T("General.By", "Resources")</th>
+        <th>@DbRes.T("General.Seller", "Resources")</th>
+        <th>@DbRes.T("General.Details", "Resources")</th>
+        <th>@DbRes.T("General.Price", "Resources")</th>
+    </tr>
+    
+    @foreach (var orderLine in Model.OrderLines)
+    {
+        var sellerProfile = userRepository.GetProfile(orderLine.SellerID);
+        var byerUserProfile = userRepository.GetUserProfileById(orderLine.UserID);
+        
+        <tr>
+            <td>
+                @orderLine.created.ToString("g")
+            </td>
+            <td>
+                @byerUserProfile.UserName
+            </td>
+            <td>
+                @sellerProfile.CompanyName
+            </td>
+            <td>
+                @DbRes.T("General.Product", "Resources"): @orderLine.ProductName<br />
+                @*@DbRes.T("General.Resolution", "Resources"): @download.Image.Resolution<br />
+                @DbRes.T("General.Type", "Resources"): @download.Image.ImageFormat.Replace("image/", string.Empty)*@
+            </td>
+            <td>
+                @orderLine.Price.ToString("C")
+            </td>
+        </tr>
+    }
+    
+    <tr>
+        <th colspan="4">
+            @DbRes.T("General.Total", "Resources")
+        </th>
+        <th>
+            @Model.InvoiceTotal.ToString("C")
+        </th>
+    </tr>
+
+</table>

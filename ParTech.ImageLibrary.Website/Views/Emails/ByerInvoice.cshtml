@@ -1,0 +1,21 @@
+﻿@using Westwind.Globalization
+@{
+    Layout = null;
+}
+
+Content-Type: text/html; charset=utf-8
+To: @ViewBag.To
+From: no-reply@partechit.nl
+Subject: @DbRes.T("Emails.ByerInvoice.Subject", "Resources")
+
+<html>
+    <body>
+        <p>@DbRes.T("General.Hello", "Resources") @ViewBag.FirstName,</p>
+        <p>
+            @DbRes.T("Emails.RecoverPassword.Paragraph1", "Resources")
+        </p>
+
+        @Html.Raw(ViewBag.InvoiceContent)
+    </body>
+
+</html>

@@ -313,7 +313,10 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 var newInvoice = _orderWorker.GenerateInvoiceForByer(byerIdsWithOrderLines[i].Key, byerIdsWithOrderLines[i].ToList());
                 if (newInvoice != null)
                 {
-                    invoicesCreated = invoicesCreated++;
+                    if (_orderWorker.SendInvoiceEmail(newInvoice, ControllerContext))
+                    {
+                        invoicesCreated = invoicesCreated++;
+                    }
                 }
 
                 // simulate long running operation
