@@ -35,8 +35,8 @@
                 </li>
                 <li>
                     @Html.LabelFor(m => m.UserEmail, new { @class = "required" } )
-                    @Html.TextBoxFor(m => m.UserEmail)
-                    @Html.ValidationMessageFor(m => m.UserEmail, new { maxlength = 255 })
+                    @Html.TextBoxFor(m => m.UserEmail, new { maxlength = 255 })
+                    @Html.ValidationMessageFor(m => m.UserEmail)
                 </li>
                 <li>
                     @Html.LabelFor(m => m.AccountType, new { @class = "required" } )
