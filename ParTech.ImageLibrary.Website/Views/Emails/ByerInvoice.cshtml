@@ -1,21 +1,86 @@
-﻿@using Westwind.Globalization
+﻿@using ParTech.ImageLibrary.Core.Models
+@using ParTech.ImageLibrary.Core.Repositories
+@using ParTech.ImageLibrary.Core.Utils
+@using Westwind.Globalization
 @{
     Layout = null;
+
+    var userRepository = new UserRepository();
 }
 
 Content-Type: text/html; charset=utf-8
 To: @ViewBag.To
 From: no-reply@partechit.nl
-Subject: @DbRes.T("Emails.ByerInvoice.Subject", "Resources")
+Subject: @Model.Subject
 
 <html>
     <body>
-        <p>@DbRes.T("General.Hello", "Resources") @ViewBag.FirstName,</p>
-        <p>
-            @DbRes.T("Emails.RecoverPassword.Paragraph1", "Resources")
-        </p>
+        <table border="2">
+            <tr>
+                <td colspan="5">
+                    @DbRes.T("General.InvoiceDate", "Resources"): @Model.Date<br />
+                    @DbRes.T("General.InvoiceNumber", "Resources"): @Model.InvoiceNumber<br />
+                </td>
+            </tr>
 
-        @Html.Raw(ViewBag.InvoiceContent)
-    </body>
+            <tr>
+                <td colspan="3">
+                    <strong>@DbRes.T("General.To", "Resources"):</strong><br />
+                    @ViewBag.Salutation.Name @ViewBag.FirstName @ViewBag.LastName<br />
+                    @ViewBag.Address<br />
+                    @ViewBag.PostalCode  @ViewBag.City<br />
+                </td>
+                <td colspan="2">
+                    <strong>@DbRes.T("General.From", "Resources"):</strong><br />
+                    Image Library<br />
+                    Adres 1<br />
+                    1234 AA  BREDA<br />
+                </td>
+            </tr>
+
+            <tr>
+                <th>@DbRes.T("General.DownloadedOn", "Resources")</th>
+                <th>@DbRes.T("General.By", "Resources")</th>
+                <th>@DbRes.T("General.Seller", "Resources")</th>
+                <th>@DbRes.T("General.Details", "Resources")</th>
+                <th>@DbRes.T("General.Price", "Resources")</th>
+            </tr>
+
+            @foreach (var orderLine in ViewBag.OrderLines)
+            {
+                var sellerProfile = userRepository.GetProfile(orderLine.SellerID);
+                var byerUserProfile = userRepository.GetUserProfileById(orderLine.UserID);
+
+                <tr>
+                    <td>
+                        @orderLine.created.ToString("g")
+                    </td>
+                    <td>
+                        @byerUserProfile.UserName
+                    </td>
+                    <td>
+                        @sellerProfile.CompanyName
+                    </td>
+                    <td>
+                        @DbRes.T("General.Product", "Resources"): @orderLine.ProductName<br />
+                        @*@DbRes.T("General.Resolution", "Resources"): @download.Image.Resolution<br />
+                        @DbRes.T("General.Type", "Resources"): @download.Image.ImageFormat.Replace("image/", string.Empty)*@
+                    </td>
+                    <td>
+                        &euro;@orderLine.Price.ToString("C")
+                    </td>
+                </tr>
+            }
+
+            <tr>
+                <th colspan="4">
+                    @DbRes.T("General.Total", "Resources")
+                </th>
+                <th>
+                    @ViewBag.InvoiceTotal
+                </th>
+            </tr>
+        </table>
+</body>
 
 </html>

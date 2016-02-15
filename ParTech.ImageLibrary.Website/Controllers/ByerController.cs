@@ -246,14 +246,6 @@ namespace ParTech.ImageLibrary.Website.Controllers
         }
 
         //
-        // GET: /Byer/ShowInvoice
-
-        [Authorize(Roles = "Byer")]
-        public ActionResult ShowInvoice(Invoice invoiceModel)
-        {
-            return View(invoiceModel);
-        }
-        //
         // GET: /Byer/ShowProduct
 
         [Authorize(Roles = "Byer")]

@@ -8,6 +8,7 @@ using ParTech.ImageLibrary.Core.Models;
 using ParTech.ImageLibrary.Core.Repositories;
 using ParTech.ImageLibrary.Core.Utils;
 using Postal;
+using Westwind.Globalization;
 
 namespace ParTech.ImageLibrary.Core.Workers
 {
@@ -80,15 +81,28 @@ namespace ParTech.ImageLibrary.Core.Workers
 
             try
             {
-                var invoiceContent = ViewRenderer.RenderPartialView("~/views/byer/showinvoice.cshtml", newInvoice, controllerContext);
-
                 dynamic email = new Email("ByerInvoice");
                 email.To = newInvoice.Profile.Email;
-                email.FirstName = newInvoice.Profile.FirstName;
-                email.InvoiceContent = invoiceContent;
+                email.Subject = string.Format(DbRes.T("Emails.ByerInvoice.Subject", "Resources"), DateTime.Now.ToString("MMMM yyyy"));
+                email.InvoiceNumber = @InvoiceUtilities.GetInvoiceNumberForDisplay(newInvoice.Date, newInvoice.InvoiceNumber);
+                email.Date = newInvoice.Date.ToString("dd MMMM yyyy");
+                email.CompanyName = newInvoice.CompanyName;
+                email.FirstName= newInvoice.FirstName;
+                email.LastName= newInvoice.LastName;
+                email.Address= newInvoice.Address;
+                email.PostalCode= newInvoice.PostalCode;
+                email.City= newInvoice.City;
+                email.InvoiceTotal= newInvoice.InvoiceTotal.ToString("C");
+
+                email.Country = newInvoice.Country;
+                email.Salutation = newInvoice.Salutation;
+                email.OrderLines = @InvoiceUtilities.GetOrderLinesForDisplay(newInvoice.OrderLines);
+
                 email.Send();
 
                 emailSent = true;
+
+                _orderRepository.UpdateInvoiceSent(newInvoice.InvoiceID, true);
             }
             catch (Exception ex)
             {

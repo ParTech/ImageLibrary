@@ -152,6 +152,9 @@
     <Compile Include="Models\Language.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Localization.cs">
+      <DependentUpon>ImageLibrary.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\LoggedEvent.cs">
       <DependentUpon>ImageLibrary.tt</DependentUpon>
     </Compile>
@@ -210,6 +213,7 @@
     <Compile Include="ViewModels\Byer\ByerCollectionsModel.cs" />
     <Compile Include="ViewModels\Byer\ByerImagesModel.cs" />
     <Compile Include="ViewModels\General\ChangeLanguageModel.cs" />
+    <Compile Include="ViewModels\General\DisplayOrderLine.cs" />
     <Compile Include="ViewModels\General\SearchModel.cs" />
     <Compile Include="ViewModels\Manage\CategoryModel.cs" />
     <Compile Include="ViewModels\Manage\SeasonModel.cs" />
@@ -238,22 +242,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ImageLibrary.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\ImageLibrary.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ImageLibrary.edmx</DependentUpon>
-      <LastGenOutput>ImageLibrary.Context.cs</LastGenOutput>
-    </None>
     <None Include="Models\ImageLibrary.edmx.diagram">
       <DependentUpon>ImageLibrary.edmx</DependentUpon>
     </None>
-    <None Include="Models\ImageLibrary.tt">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\ImageLibrary.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ImageLibrary.edmx</DependentUpon>
+      <LastGenOutput>ImageLibrary.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ImageLibrary.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ImageLibrary.edmx</DependentUpon>
       <LastGenOutput>ImageLibrary.cs</LastGenOutput>
-    </None>
-    <None Include="packages.config" />
+    </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

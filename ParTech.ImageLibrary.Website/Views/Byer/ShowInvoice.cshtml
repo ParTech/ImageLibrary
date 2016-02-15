@@ -47,7 +47,7 @@
         
         <tr>
             <td>
-                @orderLine.created.ToString("g")
+                @orderLine.created
             </td>
             <td>
                 @byerUserProfile.UserName
@@ -61,7 +61,7 @@
                 @DbRes.T("General.Type", "Resources"): @download.Image.ImageFormat.Replace("image/", string.Empty)*@
             </td>
             <td>
-                @orderLine.Price.ToString("C")
+                @orderLine.Price
             </td>
         </tr>
     }

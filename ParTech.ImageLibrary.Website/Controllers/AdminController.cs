@@ -344,15 +344,23 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 var x = Decimal.Divide(i, allProducts.Count);
                 _tasks[taskId] = (x * 100).ToString("f0", CultureInfo.InvariantCulture);
 
+                // update the index in steps of 10 products
                 var step = i % 10;
-                if (step == 0)
+                if (i > 0 && step == 0)
                 {
+                    // the end of a step is achieved so we need to process the
+                    // work list and restart it
+
+                    productsInStep.Add(allProducts[i]);
+
                     _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);
 
                     productsInStep = new List<Product>();
                 }
                 else
                 {
+                    // add product to step work list
+
                     productsInStep.Add(allProducts[i]);
                 }
 
@@ -360,6 +368,7 @@ namespace ParTech.ImageLibrary.Website.Controllers
                 //Thread.Sleep(2000);
             }
 
+            // check that the last work list is executed
             if (productsInStep.Any())
             {
                 _luceneWorker.AddUpdateLuceneIndex(language, productsInStep);

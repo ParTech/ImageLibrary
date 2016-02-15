@@ -24,6 +24,8 @@ namespace ParTech.ImageLibrary.Core.Repositories
 
         Invoice SaveInvoice(Invoice invoice);
 
+        bool UpdateInvoiceSent(int invoiceId, bool newInvoiceSent);
+
         #endregion
 
         #region OrderLine
@@ -113,6 +115,7 @@ namespace ParTech.ImageLibrary.Core.Repositories
                     {
                         invoice = db.Invoices.Where(i => i.InvoiceID == invoiceId)
                                              .Include("OrderLines")
+                                             .Include("Country")
                                              .Include("Profile")
                                              .Include("Salutation")
                                              .FirstOrDefault();
@@ -193,6 +196,32 @@ namespace ParTech.ImageLibrary.Core.Repositories
             }
 
             return invoiceToReturn;
+        }
+        public bool UpdateInvoiceSent(int invoiceId, bool newInvoiceSent)
+        {
+            var saveSucceeded = false;
+
+            try
+            {
+                using (var db = new Entities())
+                {
+                    var tmpInvoice = db.Invoices.Single(u => u.InvoiceID == invoiceId);
+                    if (tmpInvoice != null)
+                    {
+                        tmpInvoice.InvoiceSent = newInvoiceSent;
+
+                        db.SaveChanges();
+                    }
+                }
+
+                saveSucceeded = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorFormat("UpdateInvoiceSent - error [{0}] - \r\n {1} \r\n\r\n", ex.Message, ex.StackTrace);
+            }
+
+            return saveSucceeded;
         }
 
         #endregion
